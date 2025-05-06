@@ -63,7 +63,7 @@ prepare_repos() {
     src/config/ci/get-ocp-repo.sh src/config/ocp.repo
 }
 
-# Do a cosa build & cosa build-extensions only.
+# Do a cosa build only.
 # This is called both as part of the build phase and test phase in Prow thus we
 # can not do any kola testing in this function.
 # We do not build the QEMU image here as we don't need it in the pure container
@@ -74,10 +74,6 @@ cosa_build() {
     cosa fetch
     # Only build the ostree image by default
     cosa build ostree
-}
-
-cosa_build_extensions() {
-    cosa buildextend-extensions-container
 }
 
 # Build QEMU image and run all kola tests
@@ -245,21 +241,19 @@ main() {
         # this is called by cosa's CI
         "rhcos-cosa-prow-pr-ci")
             setup_user
-            cosa_init "ocp-rhel-9.6"
+            cosa_init "rhel-9.6"
             cosa_build
-            cosa_build_extensions
-            kola_test_qemu
+            kola_test_qemu --tag '!openshift'
             ;;
         "rhcos-9-build-test-qemu")
             setup_user
-            cosa_init "ocp-rhel-9.6"
+            cosa_init "rhel-9.6"
             cosa_build
-            cosa_build_extensions
-            kola_test_qemu
+            kola_test_qemu --tag '!openshift'
             ;;
         "rhcos-9-build-test-metal")
             setup_user
-            cosa_init "ocp-rhel-9.6"
+            cosa_init "rhel-9.6"
             cosa_build
             kola_test_metal
             ;;

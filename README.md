@@ -3,9 +3,9 @@
 This repository is the "config" repository used to build RHEL CoreOS and CentOS
 Stream CoreOS using [coreos-assembler].
 
-There was a previous git repository inside the Red Hat firewall that was never
-published. The history of that repository is entangled with various private
-things and is omitted. This repository is now canonical.
+The main output is a bootable container image containing _only RHEL/CentOS
+Stream content_ (i.e., no OpenShift components). This container image is then
+used as the base image to build the [OpenShift node image].
 
 ## Variants
 
@@ -13,15 +13,10 @@ To support building both a RHEL-based and a CentOS Stream-based CoreOS, the
 coreos-assembler concept of [variants] is used. The following variants are
 supported:
 
-- `rhel-9.6`: RHEL 9.6-based CoreOS; without OpenShift components.
-- `ocp-rhel-9.6`: RHEL 9.6-based CoreOS; including OpenShift components.
-- `c9s`/`c10s`: CentOS Stream-based CoreOS, without OKD components.
-- `rhel-10.1`: RHEL 10.1-based CoreOS; without OpenShift components.
+- RHEL-based variants: `rhel-9.6`, `rhel-10.1`
+- CentOS Stream-based variants: `c9s`, `c10s`
 
-In the future, the `ocp-*` variants will be removed. Instead, OpenShift
-components will be layered by deriving from the `rhel-9.X`/`rhel-10.X`/`c9s`/`c10s` images.
-
-The default variant is `ocp-rhel-9.6`.
+The default variant is `rhel-9.6`.
 
 ## Reporting issues
 
@@ -34,7 +29,7 @@ work related to RHEL CoreOS.
 
 ## Frequently Asked Questions
 
-A lot of common questions are answered in the [FAQ](docs/faq.md).
+A lot of common questions are answered in the [FAQ].
 
 ## Building and developing CentOS Stream CoreOS
 
@@ -44,10 +39,8 @@ See the [SCOS development doc](docs/development-scos.md).
 
 See the [RHCOS development doc](docs/development-rhcos.md).
 
-## CI Configuration
-
-See [OpenShift CI notes](docs/openshift-ci-notes.md) for more information.
-
 [coreos-assembler]: https://github.com/coreos/coreos-assembler/
+[OpenShift node image]: https://github.com/openshift/os
 [OKD issue tracker]: https://github.com/openshift/okd/issues
 [variants]: https://github.com/coreos/coreos-assembler/blob/065cd2d20e379642cc3a69e498d20708e2243b21/src/cmd-init#L45-L48
+[FAQ]: https://github.com/openshift/os/blob/master/docs/faq.md
