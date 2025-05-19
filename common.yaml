@@ -7,6 +7,7 @@ include:
   - fedora-coreos-config/manifests/networking-tools.yaml
   - fedora-coreos-config/manifests/user-experience.yaml
   - fedora-coreos-config/manifests/coreos-bootc-minimal-plus.yaml
+  - fedora-coreos-config/manifests/shared-el.yaml
   # RHCOS owned packages
   - packages-rhcos.yaml
 
@@ -27,21 +28,13 @@ ostree-layers:
   - overlay/30lvmdevices
 
 conditional-include:
-  # Packages specific to el9
+  # Configuration specific to el9
   - if: osversion == "centos-9"
     include:
-      - fedora-coreos-config/manifests/shared-el9.yaml
       - manifest-el9-shared.yaml
   - if: osversion == "rhel-9.6"
     include:
-      - fedora-coreos-config/manifests/shared-el9.yaml
       - manifest-el9-shared.yaml
-  - if: osversion == "centos-10"
-    include:
-      - fedora-coreos-config/manifests/shared-el10.yaml
-  - if: osversion == "rhel-10.1"
-    include:
-      - fedora-coreos-config/manifests/shared-el10.yaml
 
 documentation: false
 
