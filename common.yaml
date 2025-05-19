@@ -39,6 +39,9 @@ conditional-include:
   - if: osversion == "centos-10"
     include:
       - fedora-coreos-config/manifests/shared-el10.yaml
+  - if: osversion == "rhel-10.1"
+    include:
+      - fedora-coreos-config/manifests/shared-el10.yaml
 
 documentation: false
 
