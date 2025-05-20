@@ -3,16 +3,13 @@
 # RPMs) and list the NEVRs we need in the `packages` section. When not needed comment
 # out the sections below.
 conditional-include:
-  - if:
-    - osversion == "centos-9"
-    - basearch == "s390x"
-    include:
-      repos:
-        - c9s-baseos-mirror
-        - c9s-appstream-mirror
-      packages:
-        # https://github.com/openshift/os/issues/1731
-        - s390utils-base-2.33.1-2.el9
+##- if: osversion == "centos-9"
+##  include:
+##    repos:
+##      - c9s-baseos-mirror
+##      - c9s-appstream-mirror
+##    packages:
+##      - foo-1.2
   - if:
     - osversion == "rhel-9.6"
     - basearch == "s390x"
