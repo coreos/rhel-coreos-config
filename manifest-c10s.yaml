@@ -12,7 +12,6 @@ variables:
 # Include manifests common to all RHEL and CentOS Stream versions
 include:
   - common.yaml
-  - overrides-c10s.yaml
 
 repos:
   - c10s-baseos

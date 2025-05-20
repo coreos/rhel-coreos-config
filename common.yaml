@@ -10,6 +10,7 @@ include:
   - fedora-coreos-config/manifests/shared-el.yaml
   # RHCOS owned packages
   - packages-rhcos.yaml
+  - packages-overrides.yaml
 
 # Layers common to all versions of RHCOS and SCOS
 ostree-layers:

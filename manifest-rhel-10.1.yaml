@@ -12,7 +12,6 @@ variables:
 # Include manifests common to all RHEL and CentOS Stream versions
 include:
   - common.yaml
-  - overrides-rhel-10.1.yaml
 
 # XXX get rhel 10.1 repos in prow
 repos:
