@@ -3,8 +3,17 @@
 # we need in the `packages` section. When not needed. Empty or comment out this
 # file (except this comment).
 
+#packages:
+
 repos:
  - c10s-baseos-mirror
  - c10s-appstream-mirror
+ - c10s-kernel-6.12.0-71
 
-#packages:
+packages-ppc64le:
+ # https://github.com/openshift/os/issues/1818
+ - kernel-6.12.0-71.el10
+ - kernel-core-6.12.0-71.el10
+ - kernel-modules-6.12.0-71.el10
+ - kernel-modules-core-6.12.0-71.el10
+ - kernel-modules-extra-6.12.0-71.el10

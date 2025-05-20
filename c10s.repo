@@ -73,3 +73,13 @@ gpgcheck=1
 repo_gpgcheck=0
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud
+
+# https://github.com/openshift/os/issues/1818
+# This is a temporary repo serving some subpackages of kernel-6.12.0-71.el10
+# This needs to be removed once https://gitlab.com/qemu-project/qemu/-/issues/2966 is fixed.
+[c10s-kernel-6.12.0-71]
+name=CentOS Stream 10 - kernel-6.12.0-71.el10
+baseurl=https://jcapitao.fedorapeople.org/c10s-kernel-6.12.0-71/
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
