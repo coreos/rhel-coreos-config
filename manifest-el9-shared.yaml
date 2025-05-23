@@ -20,15 +20,3 @@ remove-from-packages:
 # [1]:https://issues.redhat.com/browse/RHEL-73904
 ostree-layers:
   - overlay/25rhcos-azure-udev
-
-postprocess:
-  - |
-    #!/usr/bin/bash
-    set -xeuo pipefail
-    # Set composefs to `maybe` for now because older bootimages
-    # could be starting with an OSTree that's not new enough.
-    # https://github.com/openshift/os/issues/1678
-    if [ -f /usr/lib/ostree/prepare-root.conf ]; then
-      grep -q 'enabled = true' /usr/lib/ostree/prepare-root.conf
-      sed -i -e 's,enabled = true,enabled = maybe,' /usr/lib/ostree/prepare-root.conf
-    fi
