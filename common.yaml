@@ -1,6 +1,5 @@
 # We inherit from Fedora CoreOS' base configuration
 include:
-  - fedora-coreos-config/manifests/kernel.yaml
   - fedora-coreos-config/manifests/system-configuration.yaml
   - fedora-coreos-config/manifests/ignition-and-ostree.yaml
   - fedora-coreos-config/manifests/file-transfer.yaml
@@ -11,6 +10,11 @@ include:
   # RHCOS owned packages
   - packages-rhcos.yaml
   - packages-overrides.yaml
+
+variables:
+  # upper manifests can override this when deriving from minimal-plus instead of
+  # doing a base compose
+  deriving: false
 
 # Layers common to all versions of RHCOS and SCOS
 ostree-layers:
@@ -181,6 +185,15 @@ postprocess:
     # but we have containers that expect it to be mounted so for now let's continue
     # generating it.
     ln -sr /usr/share/zoneinfo/UTC /etc/localtime
+
+  # sudo prefers its config files to be mode 440, and some security scanners
+  # complain if /etc/sudoers.d files are world-readable.
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1981979
+  # This is added by the 05core overlay listed above.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    chmod 440 /etc/sudoers.d/coreos-sudo-group
 
 remove-files:
   # We don't ship man(1) or info(1)
