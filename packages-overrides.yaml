@@ -25,7 +25,7 @@ conditional-include:
       packages:
         # https://github.com/coreos/rhel-coreos-config/issues/21
         - kernel-6.12.0-89.el10
-##- if: osversion == "rhel-10.1"
-##  include:
-##    packages:
-##      - foo-1.2
+  - if: osversion == "rhel-10.1"
+    include:
+      packages:
+        - kernel-6.12.0-89.el10
