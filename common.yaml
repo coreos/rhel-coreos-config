@@ -343,10 +343,6 @@ packages-s390x:
 remove-from-packages:
   - - filesystem
     - "/usr/share/backgrounds"
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1762509
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1727058
-  - - initscripts
-    - "/"
   # Remove the systemd unit; we only want the binary to be used
   # by MCD or kubelet.  See above.
   - - conntrack-tools
