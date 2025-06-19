@@ -204,6 +204,12 @@ postprocess:
         grep sudo /usr/lib/group >> /etc/group
     fi
 
+  # Remove the systemd unit; we only want the binary to be used
+  # by MCD or kubelet.  See below.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm /usr/lib/systemd/system/conntrackd.service
 
   # Delete documentation.
   - |
@@ -343,7 +349,3 @@ packages-s390x:
 remove-from-packages:
   - - filesystem
     - "/usr/share/backgrounds"
-  # Remove the systemd unit; we only want the binary to be used
-  # by MCD or kubelet.  See above.
-  - - conntrack-tools
-    - /usr/lib/systemd/system
