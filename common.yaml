@@ -195,6 +195,14 @@ postprocess:
     set -xeuo pipefail
     chmod 440 /etc/sudoers.d/coreos-sudo-group
 
+  # Add the sudo group to /etc/group in container-native flow.
+  # We can nuke `etc-group-members` once this is the only supported path.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    if [ -f /run/.containerenv ]; then
+        grep sudo /usr/lib/group >> /etc/group
+    fi
 
 
   # Delete documentation.
@@ -211,11 +219,12 @@ postprocess:
     # Nuke broken alternatives links
     rm -f /etc/alternatives/*-man
 
+# Add the sudo group to /etc/group
+# This is re-implemented below for the container-native flow. Nuke this once
+# that's the only path we support.
 etc-group-members:
-  - wheel
   - sudo
-  - systemd-journal
-  - adm
+
 ignore-removed-users:
   - root
 ignore-removed-groups:
