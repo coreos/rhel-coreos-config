@@ -47,6 +47,13 @@ documentation: false
 recommends: true
 
 postprocess:
+  # See comment in `macros.rhcos`.
+  - |
+    #!/usr/bin/bash
+    set -xeuo pipefail
+    rm /usr/lib/rpm/macros.d/macros.rhcos
+    rm /usr/lib/sysusers.d/10-rhcos-static.conf
+
   # Set composefs to `maybe` for now because older bootimages
   # could be starting with an OSTree that's not new enough.
   # https://github.com/openshift/os/issues/1678
