@@ -195,12 +195,21 @@ postprocess:
     set -xeuo pipefail
     chmod 440 /etc/sudoers.d/coreos-sudo-group
 
-remove-files:
-  # We don't ship man(1) or info(1)
-  - usr/share/info
-  - usr/share/man
-  # Drop text docs too
-  - usr/share/doc
+
+
+  # Delete documentation.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+
+    # We don't ship man(1) or info(1)
+    rm -rf /usr/share/info
+    rm -rf /usr/share/man
+    # Drop text docs too
+    rm -rf /usr/share/doc
+
+    # Nuke broken alternatives links
+    rm -f /etc/alternatives/*-man
 
 etc-group-members:
   - wheel
