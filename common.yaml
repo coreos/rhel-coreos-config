@@ -269,8 +269,7 @@ packages:
  - bootupd
  # Containers
  - container-selinux
- # Needed for newer rpm-ostree
- - "'skopeo >= 2:1.7.0'"
+ - skopeo
  # Networking
  - nfs-utils
  - dnsmasq
