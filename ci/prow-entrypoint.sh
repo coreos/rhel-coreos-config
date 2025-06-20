@@ -246,22 +246,16 @@ main() {
             kola_test_qemu --tag '!openshift'
             ;;
         "rhcos-9-build-test-qemu")
-            # temporarily disabled due to
-            # https://github.com/coreos/rhel-coreos-config/issues/26
-            exit 0
-            # setup_user
-            # cosa_init "rhel-9.6"
-            # cosa_build
-            # kola_test_qemu --tag '!openshift'
+            setup_user
+            cosa_init "rhel-9.6"
+            cosa_build
+            kola_test_qemu --tag '!openshift'
             ;;
         "rhcos-9-build-test-metal")
-            # temporarily disabled due to
-            # https://github.com/coreos/rhel-coreos-config/issues/26
-            exit 0
-            # setup_user
-            # cosa_init "rhel-9.6"
-            # cosa_build
-            # kola_test_metal
+            setup_user
+            cosa_init "rhel-9.6"
+            cosa_build
+            kola_test_metal
             ;;
         "rhcos-9next-build-test-qemu")
             exit 0
