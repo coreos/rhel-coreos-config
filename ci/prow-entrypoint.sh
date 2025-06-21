@@ -79,7 +79,7 @@ cosa_build() {
 # Build QEMU image and run all kola tests
 kola_test_qemu() {
     cosa osbuild qemu
-    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet "$@"
+    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet
 }
 
 # Build metal, metal4k & live images and run kola tests
@@ -243,25 +243,19 @@ main() {
             setup_user
             cosa_init "rhel-9.6"
             cosa_build
-            kola_test_qemu --tag '!openshift'
+            kola_test_qemu
             ;;
         "rhcos-9-build-test-qemu")
-            # temporarily disabled due to
-            # https://github.com/coreos/rhel-coreos-config/issues/26
-            exit 0
-            # setup_user
-            # cosa_init "rhel-9.6"
-            # cosa_build
-            # kola_test_qemu --tag '!openshift'
+            setup_user
+            cosa_init "rhel-9.6"
+            cosa_build
+            kola_test_qemu
             ;;
         "rhcos-9-build-test-metal")
-            # temporarily disabled due to
-            # https://github.com/coreos/rhel-coreos-config/issues/26
-            exit 0
-            # setup_user
-            # cosa_init "rhel-9.6"
-            # cosa_build
-            # kola_test_metal
+            setup_user
+            cosa_init "rhel-9.6"
+            cosa_build
+            kola_test_metal
             ;;
         "rhcos-9next-build-test-qemu")
             exit 0
@@ -273,7 +267,7 @@ main() {
             setup_user
             cosa_init "c9s"
             cosa_build
-            kola_test_qemu --tag '!openshift'
+            kola_test_qemu
             ;;
         "scos-9-build-test-metal")
             setup_user
@@ -285,7 +279,7 @@ main() {
             setup_user
             cosa_init "c10s"
             cosa_build
-            kola_test_qemu --tag '!openshift'
+            kola_test_qemu
             ;;
         "scos-10-build-test-metal")
             setup_user
@@ -297,7 +291,7 @@ main() {
             setup_user
             cosa_init "rhel-10.1"
             cosa_build
-            kola_test_qemu --tag '!openshift'
+            kola_test_qemu
             ;;
         "rhcos-10-build-test-metal")
             setup_user
