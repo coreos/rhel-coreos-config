@@ -1,3 +1,5 @@
+include: "image-default.yaml"
+
 # See https://github.com/coreos/coreos-assembler/pull/298
 size: 16
 

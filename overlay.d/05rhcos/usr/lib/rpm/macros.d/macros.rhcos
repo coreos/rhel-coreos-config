@@ -1,0 +1,13 @@
+# This is somewhat underhanded, but what's happening here is that we're
+# leveraging rpm-ostree's support for rpm's implementation of systemd-sysusers
+# support in https://github.com/coreos/rpm-ostree/pull/5334 which was
+# technically only meant to run on Fedora where that Change has already
+# happened.
+# Doing it here allows us to make 10-rhcos-static.conf have an effect _before
+# package installs_ to avoid UID/GID drift. But crucially, we then delete this
+# file in postprocessing.
+# This has no ill side-effect; the only difference is that RHEL packages that
+# ship sysusers dropins will have their users/groups created by rpm-ostree
+# running systemd-sysusers instead of the scriptlets which either do an explicit
+# `getent ... || useradd ...` or use the sysusers compat macro.
+%__systemd_sysusers /usr/bin/systemd-sysusers
