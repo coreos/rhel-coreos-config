@@ -44,7 +44,7 @@
 
 # Will fail until we have proper RHEL 10 builds of OCP packages
 - pattern: ext.config.version.rhel-major-version
-  tracker: TODO
+  tracker: https://issues.redhat.com/browse/ART-11112
   osversion:
     - centos-10
     - rhel-10.1
