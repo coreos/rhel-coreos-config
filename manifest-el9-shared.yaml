@@ -6,17 +6,18 @@ packages:
  # Reverts https://gitlab.cee.redhat.com/coreos/redhat-coreos/merge_requests/367 and add it for all arches
  - glusterfs-fuse
 
-#zram default config is in a subpackage in c10s
-# Meanwhile, remove the default config from the package
-remove-from-packages:
-  # zram-generator-0.3.2 (shipped in centOS 9) provides a default
-  # zram-generator config, we want to disable it
-  - - zram-generator
-    - "/usr/lib/systemd/zram-generator.conf"
-
 # The azure-vm-utils package provides these udev rules, but it wont be added
 # until EL10[1]. This can be dropped when moving to EL10, provided the
 # package is included at that time.
 # [1]:https://issues.redhat.com/browse/RHEL-73904
 ostree-layers:
   - overlay/25rhcos-azure-udev
+
+# zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
+# config, we want to disable it. We don't need this in el10 because the config
+# was split in a subpackage we don't pull in.
+postprocess:
+  - |
+    #!/usr/bin/bash
+    set -xeuo pipefail
+    rm /usr/lib/systemd/zram-generator.conf

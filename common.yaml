@@ -193,18 +193,42 @@ postprocess:
     set -xeuo pipefail
     chmod 440 /etc/sudoers.d/coreos-sudo-group
 
-remove-files:
-  # We don't ship man(1) or info(1)
-  - usr/share/info
-  - usr/share/man
-  # Drop text docs too
-  - usr/share/doc
+  # Add the sudo group to /etc/group in container-native flow.
+  # We can nuke `etc-group-members` once this is the only supported path.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    if [ -f /run/.containerenv ]; then
+        grep sudo /usr/lib/group >> /etc/group
+    fi
 
+  # Remove the systemd unit; we only want the binary to be used
+  # by MCD or kubelet.  See below.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm /usr/lib/systemd/system/conntrackd.service
+
+  # Delete documentation.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+
+    # We don't ship man(1) or info(1)
+    rm -rf /usr/share/info
+    rm -rf /usr/share/man
+    # Drop text docs too
+    rm -rf /usr/share/doc
+
+    # Nuke broken alternatives links
+    rm -f /etc/alternatives/*-man
+
+# Add the sudo group to /etc/group
+# This is re-implemented below for the container-native flow. Nuke this once
+# that's the only path we support.
 etc-group-members:
-  - wheel
   - sudo
-  - systemd-journal
-  - adm
+
 ignore-removed-users:
   - root
 ignore-removed-groups:
@@ -243,8 +267,7 @@ packages:
  - bootupd
  # Containers
  - container-selinux
- # Needed for newer rpm-ostree
- - "'skopeo >= 2:1.7.0'"
+ - skopeo
  # Networking
  - nfs-utils
  - dnsmasq
@@ -323,11 +346,3 @@ packages-s390x:
 remove-from-packages:
   - - filesystem
     - "/usr/share/backgrounds"
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1762509
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1727058
-  - - initscripts
-    - "/"
-  # Remove the systemd unit; we only want the binary to be used
-  # by MCD or kubelet.  See above.
-  - - conntrack-tools
-    - /usr/lib/systemd/system
