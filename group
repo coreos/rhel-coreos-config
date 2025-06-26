@@ -49,11 +49,6 @@ unbound:x:799:
 openvswitch:x:800:
 hugetlbfs:x:801:
 dockerroot:x:986:
-cockpit-ws:x:987:
-systemd-bus-proxy:x:988:
-systemd-resolve:x:989:
-systemd-network:x:990:
-systemd-timesync:x:991:
 chrony:x:992:
 sssd:x:993:
 kube:x:994:
