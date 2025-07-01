@@ -100,3 +100,12 @@
   osversion:
     - centos-9
     - centos-10
+
+- pattern: ostree.remote
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/34
+  snooze: 2025-07-05
+  osversion:
+    - centos-9
+    - centos-10
+    - rhel-9.6
+    - rhel-10.1
