@@ -229,6 +229,18 @@ postprocess:
     # Nuke broken alternatives links
     rm -f /etc/alternatives/*-man
 
+  # We apply part of the patch https://github.com/dracut-ng/dracut-ng/pull/1306 here
+  # while awaiting for the new dracut release to land.
+  # https://github.com/coreos/fedora-coreos-tracker/issues/1937
+  # We also apply part of the patch https://src.fedoraproject.org/rpms/dracut/c/3baef943aa236562228b0fc34627f08604dfbe20?branch=rawhide here.
+  # Those scripts will start to fail once dracut 107 release available in repo, signaling
+  # to remove them.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    sed -i '/^ExecStart=\/usr\/sbin\/mpathconf --enable$/,${s//ExecStart=\/usr\/sbin\/mpathconf --enable --user_friendly_names n/;b};$q1' /usr/lib/dracut/modules.d/90multipath/multipathd-configure.service
+    sed -i 's/\[\[ \$hostonly \]\] || {/\[\[ \$hostonly \]\] || mpathconf_installed || {/g' /usr/lib/dracut/modules.d/90multipath/module-setup.sh
+
 # Add the sudo group to /etc/group
 # This is re-implemented below for the container-native flow. Nuke this once
 # that's the only path we support.
