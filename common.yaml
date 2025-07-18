@@ -40,6 +40,12 @@ conditional-include:
   - if: osversion == "rhel-9.6"
     include:
       - manifest-el9-shared.yaml
+  - if: osversion == "centos-10"
+    include:
+      - manifest-el10-shared.yaml
+  - if: osversion == "rhel-10.1"
+    include:
+      - manifest-el10-shared.yaml
 
 documentation: false
 

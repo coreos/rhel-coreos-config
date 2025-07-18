@@ -1,0 +1,4 @@
+# Place here configuration that should happen on all el10* builds
+
+include:
+  - fedora-coreos-config/manifests/selinux-workaround.yaml
