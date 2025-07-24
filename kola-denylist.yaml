@@ -55,36 +55,6 @@
     - centos-10
     - rhel-10.1
 
-- pattern: multipath.day1
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: multipath.day2
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: multipath.partition
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: iso-offline-install*mpath.*
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: ext.config.shared.root-reprovision.luks.multipath
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
 - pattern: ext.config.shared.content-origins
   tracker: https://issues.redhat.com/browse/RHEL-86436
   osversion:
