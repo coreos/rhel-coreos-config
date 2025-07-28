@@ -101,3 +101,21 @@
 - pattern: ext.config.shared.multipath.resilient
   tracker: https://github.com/coreos/fedora-coreos-tracker/issues/1937
 
+- pattern: ext.config.shared.podman.rootless-systemd
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/46
+  osversion:
+    - centos-10
+    - centos-9
+
+- pattern: ext.config.shared.podman.rootless-pasta-networking
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/46
+  osversion:
+    - centos-10
+    - centos-9
+
+- pattern: ext.config.shared.podman.dns
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/46
+  osversion:
+    - centos-10
+    - centos-9
+  
