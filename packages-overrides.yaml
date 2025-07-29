@@ -26,12 +26,6 @@ conditional-include:
         # https://bugzilla.redhat.com/show_bug.cgi?id=2382662
         - shadow-utils-4.15.0-6.el10
   - if:
-    - osversion == "rhel-10.1"
-    include:
-      packages:
-        # https://bugzilla.redhat.com/show_bug.cgi?id=2382662
-        - shadow-utils-4.15.0-6.el10
-  - if:
     - osversion == "centos-9"
     include:
       repos:
