@@ -56,11 +56,20 @@ cosa_init() {
 
     # Setup source tree
     cosa init --transient --variant "${variant}" "${tmp_src}/os"
+
+    # Pull repos from an in-cluster service of the Openshift CI
+    prepare_repos "${variant}"
 }
 
 # Initialize the .repo files
 prepare_repos() {
-    src/config/ci/get-ocp-repo.sh src/config/ocp.repo
+    if [[ ${#} -ne 1 ]]; then
+        echo "This should have been called with a single 'variant' argument"
+        exit 1
+    fi
+    local -r variant="${1}"
+
+    src/config/ci/get-ocp-repo.sh src/config/ocp.repo "${variant}"
 }
 
 # Do a cosa build only.
@@ -69,7 +78,6 @@ prepare_repos() {
 # We do not build the QEMU image here as we don't need it in the pure container
 # test case.
 cosa_build() {
-    prepare_repos
     # Fetch packages
     cosa fetch
     # Only build the ostree image by default
@@ -236,7 +244,6 @@ main() {
             ;;
         "init")
             cosa_init "$2"
-            prepare_repos
             ;;
         # this is called by cosa's CI
         "rhcos-cosa-prow-pr-ci")

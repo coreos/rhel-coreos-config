@@ -13,12 +13,10 @@ variables:
 include:
   - common.yaml
 
-# XXX get rhel 10.1 repos in prow
 repos:
   - rhel-10.1-baseos
   - rhel-10.1-appstream
-  # Early kernel repo not available for now
-  # - rhel-10.1-early-kernel
+  - rhel-10.1-early-kernel
 
 automatic-version-prefix: "10.1.<date:%Y%m%d>"
 # This ensures we're semver-compatible which OpenShift wants
