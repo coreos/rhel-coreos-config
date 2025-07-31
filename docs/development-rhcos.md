@@ -23,9 +23,9 @@ and later. For older versions, see the internal documentation.
   - Note: If you encounter DNS resolution issues with COSA when on the Red Hat
     VPN, you should try adding `--net=host` to the podman invocation.
 
-- Always make sure that you are using the *latest build* of the specific
-  version of the COSA container matching with the version of RHCOS that you
-  want to build:
+- For older releases, always make sure that you are using the *latest build* of
+  the specific version of the COSA container matching with the version of RHCOS
+  that you want to build:
   ```
   # Use the latest version for the main developement branch:
   # The export command below is optional here as it is the default
@@ -67,13 +67,10 @@ and later. For older versions, see the internal documentation.
   repo which includes the RPM repo configs and optionaly the specific branch:
   ```
   # Main developement branch, default version
-  $ cosa init --yumrepos "${RHCOS_REPO}" https://github.com/openshift/os.git
+  $ cosa init --yumrepos "${RHCOS_REPO}" https://github.com/coreos/rhel-coreos-config.git
 
   # Main developement branch, selecting a specific variant
-  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-9.2 https://github.com/openshift/os.git
-
-  # Specific release branch, selecting a specific variant
-  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-9.2 --branch release-4.13 https://github.com/openshift/os.git
+  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.1 https://github.com/coreos/rhel-coreos-config.git
   ```
 
 - Fetch packages and build RHCOS ostree container and QEMU image:
@@ -87,8 +84,8 @@ and later. For older versions, see the internal documentation.
 - You can build images for platforms that are supported in COSA using the
   [`buildextend` commands][buildextend]:
   ```
-  $ cosa buildextend-aws
-  $ cosa buildextend-openstack
+  $ cosa osbuild aws
+  $ cosa osbuild openstack
   ```
 
 ## Running RHCOS locally for testing
