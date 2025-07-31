@@ -229,6 +229,14 @@ postprocess:
     # Nuke broken alternatives links
     rm -f /etc/alternatives/*-man
 
+  # Remove 001-rhel-shortnames.conf from containers-common
+  # See: https://issues.redhat.com/browse/OCPBUGS-59995
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+
+    rm -f /etc/containers/registries.conf.d/001-rhel-shortnames.conf
+
 # Add the sudo group to /etc/group
 # This is re-implemented below for the container-native flow. Nuke this once
 # that's the only path we support.
