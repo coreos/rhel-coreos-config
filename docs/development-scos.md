@@ -24,18 +24,9 @@ Fedora CoreOS].
   $ cd scos
   ```
 
-- Clone the config repo (`openshift/os`):
+- Clone the config repo (`coreos/rhel-coreos-config`):
   ```
-  $ cosa init --variant scos https://github.com/openshift/os.git
-  ```
-
-- **Temporary workaround until we have full repos for SCOS:** Add the internal
-  `rhel-9-server-ose` repo definition from RHCOS to `rhcos9.repo`:
-  ```
-  [rhel-9-server-ose]
-  enabled=1
-  gpgcheck=0
-  baseurl=http://...
+  $ cosa init --variant scos https://github.com/coreos/rhel-coreos-config.git
   ```
 
 - Fetch packages and build SCOS ostree container and QEMU image:
