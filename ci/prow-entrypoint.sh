@@ -33,17 +33,19 @@ setup_user() {
 # Setup a new build directory with COSA init, selecting the version of RHEL or
 # CentOS Stream that we want as a basis for RHCOS/SCOS.
 cosa_init() {
-    if test -d builds; then
-        echo "Already in an initialized cosa dir"
-        return
-    fi
-
     if [[ ${#} -ne 1 ]]; then
         echo "This should have been called with a single 'variant' argument"
         exit 1
     fi
     local -r variant="${1}"
     echo "Using variant: ${variant}"
+
+    if test -d builds; then
+        echo "Already in an initialized cosa dir"
+        # Pull repos from an in-cluster service of the Openshift CI
+        prepare_repos "${variant}"
+        return
+    fi
 
     # Always create a writable copy of the source repo
     tmp_src="$(mktemp -d)"
