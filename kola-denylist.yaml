@@ -101,3 +101,11 @@
 - pattern: ext.config.shared.multipath.resilient
   tracker: https://github.com/coreos/fedora-coreos-tracker/issues/1937
 
+- pattern: rhcos.network.multiple-nics
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/54
+  snooze: 2025-08-20
+  osversion:
+    - centos-9
+    - rhel-9.6
+  arches:
+    - s390x
