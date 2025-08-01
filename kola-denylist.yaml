@@ -55,49 +55,9 @@
     - centos-10
     - rhel-10.1
 
-- pattern: multipath.day1
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: multipath.day2
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: multipath.partition
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: iso-offline-install*mpath.*
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: ext.config.shared.root-reprovision.luks.multipath
-  tracker: https://issues.redhat.com/browse/RHEL-86153
-  osversion:
-    - centos-10
-    - rhel-10.1
-
-- pattern: ext.config.shared.content-origins
-  tracker: https://issues.redhat.com/browse/RHEL-86436
-  osversion:
-    - rhel-10.1
-
-- pattern: ext.config.rpm-ostree.replace-rt-kernel
-  tracker: https://github.com/coreos/fedora-coreos-tracker/issues/1923
-  arches:
-    - ppc64le
-  osversion:
-    - centos-10
-    - rhel-10.1
-
 - pattern: ext.config.shared.multipath.resilient
-  tracker: https://github.com/coreos/fedora-coreos-tracker/issues/1937
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/43
+  osversion:
+    - centos-9
+    - rhel-9.6
 

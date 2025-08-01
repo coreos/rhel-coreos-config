@@ -21,3 +21,16 @@ postprocess:
     #!/usr/bin/bash
     set -xeuo pipefail
     rm /usr/lib/systemd/zram-generator.conf
+
+  # We apply part of the patch https://github.com/dracut-ng/dracut-ng/pull/1306 here
+  # while awaiting for the new dracut release to land.
+  # https://github.com/coreos/fedora-coreos-tracker/issues/1937
+  # We also apply part of the patch https://github.com/dracut-ng/dracut-ng/pull/1259.
+  # Those scripts will start to fail once dracut 107 release available in repo, signaling
+  # to remove them.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    sed -i '/^ExecStart=\/usr\/sbin\/mpathconf --enable$/,${s//ExecStart=\/usr\/sbin\/mpathconf --enable --user_friendly_names n/;b};$q1' /usr/lib/dracut/modules.d/90multipath/multipathd-configure.service
+    sed -i '/\[\[ \$hostonly \]\] || {/,${s//\[\[ \$hostonly \]\] || mpathconf_installed || {/;b};$q1' /usr/lib/dracut/modules.d/90multipath/module-setup.sh
+
