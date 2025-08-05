@@ -11,8 +11,10 @@ internal resources.
 
 ## Build process
 
-Note that this documentation applies only to RHCOS versions starting with 4.9
-and later. For older versions, see the internal documentation.
+Note that this documentation applies only to RHCOS versions starting with 4.19
+and later. For version from 4.9 to 4.18, see the documentation from
+[openshift/os (4.18 branch)](https://github.com/openshift/os/blob/release-4.18/docs/development-rhcos.md).
+For versions older than 4.9, see the internal documentation.
 
 - Make sure you're meeting the [prerequisites].
 
@@ -23,30 +25,16 @@ and later. For older versions, see the internal documentation.
   - Note: If you encounter DNS resolution issues with COSA when on the Red Hat
     VPN, you should try adding `--net=host` to the podman invocation.
 
-- Always make sure that you are using the *latest build* of the specific
-  version of the COSA container matching with the version of RHCOS that you
-  want to build:
-  ```
-  # Use the latest version for the main developement branch:
-  # The export command below is optional here as it is the default
-  $ export COREOS_ASSEMBLER_CONTAINER=quay.io/coreos-assembler/coreos-assembler:latest
-  $ podman pull quay.io/coreos-assembler/coreos-assembler
-
-  # For branched releases:
-  $ export COREOS_ASSEMBLER_CONTAINER=quay.io/coreos-assembler/coreos-assembler:rhcos-4.10
-  $ podman pull quay.io/coreos-assembler/coreos-assembler:rhcos-4.10
-  ```
-
 - Create and use a dedicated directory:
   ```
   $ mkdir rhcos
   $ cd rhcos
   ```
-  If you're going to work on multiple versions of RHCOS, using a dedicated
-  directory for each version is recommended:
+  If you're going to work on RHCOS based on different versions of RHEL, using a
+  dedicated directory for each RHEL version is recommended:
   ```
-  $ mkdir rhcos-4.11
-  $ cd rhcos-4.11
+  $ mkdir rhcos-rhel-10.1
+  $ cd rhcos-rhel-10.1
   ```
 
 - Make sure that you have setup the latest internal Red Hat root certificates
@@ -63,17 +51,18 @@ and later. For older versions, see the internal documentation.
   $ export RHCOS_REPO="..."
   ```
 
-- Clone the config repo (`openshift/os`), passing as argument the internal Git
-  repo which includes the RPM repo configs and optionaly the specific branch:
+- Clone the config repo (`coreos/rhel-coreos-config`), passing as argument the
+  internal Git repo which includes the RPM repo configs and optionaly the
+  specific branch:
   ```
   # Main developement branch, default version
-  $ cosa init --yumrepos "${RHCOS_REPO}" https://github.com/openshift/os.git
+  $ cosa init --yumrepos "${RHCOS_REPO}" https://github.com/coreos/rhel-coreos-config.git
 
   # Main developement branch, selecting a specific variant
-  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-9.2 https://github.com/openshift/os.git
+  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.1 https://github.com/coreos/rhel-coreos-config.git
 
-  # Specific release branch, selecting a specific variant
-  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-9.2 --branch release-4.13 https://github.com/openshift/os.git
+  # Specific develepment branch, selecting a specific variant
+  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.1 --branch foobar https://github.com/coreos/rhel-coreos-config.git
   ```
 
 - Fetch packages and build RHCOS ostree container and QEMU image:
@@ -87,8 +76,8 @@ and later. For older versions, see the internal documentation.
 - You can build images for platforms that are supported in COSA using the
   [`buildextend` commands][buildextend]:
   ```
-  $ cosa buildextend-aws
-  $ cosa buildextend-openstack
+  $ cosa osbuild aws
+  $ cosa osbuild openstack
   ```
 
 ## Running RHCOS locally for testing
