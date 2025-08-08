@@ -1,0 +1,112 @@
+#!/usr/bin/python3 -u
+
+'''
+    Implements versioning for RHEL CoreOS and CentOS Stream CoreOS. Initially based
+    on the Fedora CoreOS versionary script.
+'''
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+import yaml
+
+from datetime import datetime
+
+
+def main():
+    args = parse_args()
+    if args.workdir is not None:
+        os.chdir(args.workdir)
+    assert os.path.isdir('builds'), 'Missing builds/ dir'
+
+    manifest = get_flattened_manifest()
+
+    # we'll want to move the source of truth for this somewhere else in the future but for now...
+    prefix = manifest['automatic-version-prefix']
+    placeholder = '<date:%Y%m%d>'
+    assert placeholder in prefix
+    dt = datetime.now()
+    xyz = prefix.replace(placeholder, dt.strftime('%Y%m%d'))
+    x, y, z = map(int, xyz.split('.'))
+    n = get_next_iteration(x, y, z, args.last_version)
+    dev = '.dev' if args.dev else ''
+
+    print(f'{xyz}-{n}{dev}')
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--workdir', help="path to cosa workdir")
+    parser.add_argument('--last-version', help="override last version (for testing)")
+    parser.add_argument('--dev', action='store_true', help="generate a developer version")
+    return parser.parse_args()
+
+
+def get_next_iteration(x, y, z, last_version_override):
+    try:
+        with open('builds/builds.json') as f:
+            builds = json.load(f)
+    except FileNotFoundError:
+        builds = {'builds': []}
+
+    if last_version_override is not None:
+        last_version = last_version_override
+    else:
+        if len(builds['builds']) == 0:
+            eprint("n: 0 (no previous builds)")
+            return 0
+
+        last_version = builds['builds'][0]['id']
+
+    last_version_tuple = parse_version(last_version)
+
+    if not last_version_tuple:
+        eprint(f"n: 0 (previous version {last_version} does not match scheme)")
+        return 0
+
+    if (x, y, z) != last_version_tuple[:3]:
+        eprint(f"n: 0 (previous version {last_version} x.y.z does not match)")
+        return 0
+
+    n = last_version_tuple[3] + 1
+    eprint(f"n: {n} (incremented from previous version {last_version})")
+    return n
+
+
+def get_flattened_manifest():
+    try:
+        with open('src/config.json') as f:
+            j = json.load(f)
+            variant = j["coreos-assembler.config-variant"]
+            manifest = f'src/config/manifest-{variant}.yaml'
+    except FileNotFoundError:
+        manifest = 'src/config/manifest.yaml'
+    return yaml.safe_load(
+        subprocess.check_output(['rpm-ostree', 'compose', 'tree',
+                                 '--print-only', manifest]))
+
+
+def parse_version(version):
+    # since RHCOS/SCOS follows semver, we could actually instead use a library
+    # for this, but we do actually only expect a particular subset in our case
+    m = re.match(r'^([0-9]+)\.([0-9]+)\.([0-9]{8})-([0-9]+)(\.dev)?$', version)
+    if m is None:
+        return None
+    # sanity-check date
+    try:
+        time.strptime(m.group(3), '%Y%m%d')
+    except ValueError:
+        return None
+    return tuple(map(int, m.groups()[:4]))
+
+
+def eprint(*args):
+    print(*args, file=sys.stderr)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
