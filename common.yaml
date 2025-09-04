@@ -53,23 +53,6 @@ documentation: false
 recommends: true
 
 postprocess:
-  # Set composefs to `maybe` for now because older bootimages
-  # could be starting with an OSTree that's not new enough.
-  # https://github.com/openshift/os/issues/1678
-  # This used to be in manifest-el9-shared.yaml, but because of subtle
-  # rpm-ostree include semantics, it runs too early, i.e. before `prepare-root.conf`
-  # is actually written. This will become irrelevant when we move to `podman build`.
-  # https://github.com/coreos/rhel-coreos-config/issues/12
-  - |
-    #!/usr/bin/bash
-    set -xeuo pipefail
-    source /etc/os-release
-    # always expect the file to be there, and that it turns on composefs
-    grep -Pz '\[composefs\]\nenabled = true\n' /usr/lib/ostree/prepare-root.conf
-    if [[ $VERSION_ID = 9.* ]]; then
-      sed -i -e 's,enabled = true,enabled = maybe,' /usr/lib/ostree/prepare-root.conf
-    fi
-
   # Mark the OS as of the CoreOS variant.
   # XXX: should be part of a centos/redhat-release subpackage instead
   - |
