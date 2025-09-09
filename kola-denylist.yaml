@@ -51,3 +51,7 @@
 - pattern: ext.config.shared.multipath.resilient
   tracker: https://github.com/coreos/fedora-coreos-tracker/issues/1937
 
+- pattern: ext.config.shared.kdump.crash
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/70
+  osversion:
+    - rhel-9.6

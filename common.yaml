@@ -65,9 +65,9 @@ postprocess:
     set -xeuo pipefail
     source /etc/os-release
     # always expect the file to be there, and that it turns on composefs
-    grep -Pz '\[composefs\]\nenabled = true\n' /usr/lib/ostree/prepare-root.conf
+    grep -Pz '\[composefs\]\nenabled = yes\n' /usr/lib/ostree/prepare-root.conf
     if [[ $VERSION_ID = 9.* ]]; then
-      sed -i -e 's,enabled = true,enabled = maybe,' /usr/lib/ostree/prepare-root.conf
+      sed -i -e 's,enabled = yes,enabled = maybe,' /usr/lib/ostree/prepare-root.conf
     fi
 
   # Mark the OS as of the CoreOS variant.
