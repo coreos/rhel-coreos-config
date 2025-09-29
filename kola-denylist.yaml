@@ -58,3 +58,11 @@
   tracker: https://github.com/coreos/rhel-coreos-config/issues/70
   osversion:
     - rhel-9.6
+
+# This test won't run on non-rhcos, but kola thinks SCOS is RHCOS
+# See https://github.com/coreos/coreos-assembler/pull/4334
+- pattern: luks.cex
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/76
+  osversion:
+    - centos-9
+    - centos-10
