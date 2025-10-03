@@ -30,10 +30,3 @@ packages:
  # We include the generic release package and tweak the os-release info in a
  # post-process script
  - redhat-release
- # XXX: This should be in packages-openshift.yaml only. For now,
- # it's in the base until the equivalent functionality lands in RHEL:
- # https://issues.redhat.com/browse/RHEL-82921
- # XXX: commented out in RHEL10.1 because the rhel-10.1-early-kernel
- # repo doesn't exist yet. In 9.6 this is provided by the rhel-9.6-early-kernel
- # yum repo.
- # - ose-aws-ecr-image-credential-provider
