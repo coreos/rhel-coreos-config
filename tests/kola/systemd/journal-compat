@@ -12,6 +12,26 @@ set -euo pipefail
 
 cd $(mktemp -d)
 
+registry="registry.access.redhat.com"
+type=$(podman image trust show --json | jq -r --arg reg "$registry" '.[] | select(.name == $reg) | .type')
+
+if [ "$type" == "sigstoreSigned" ]; then
+    source /etc/os-release
+    if [ "$ID" == "centos" ]; then
+        podman image trust set -t accept "$registry"
+    elif [ "$ID" == "rhel" ]; then
+        # See https://access.redhat.com/articles/3116561
+        podman image trust set -f /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release "$registry"
+        cat << EOF > /etc/containers/registries.d/${registry}.yaml
+docker:
+    ${registry}:
+        sigstore: https://access.redhat.com/webassets/docker/content/sigstore
+EOF
+    else
+        fatal "unknown $ID"
+    fi
+fi
+
 # The string Linux should match the kernel boot
 rc=0
 podman run --privileged --net=none -v /var/log:/var/log:ro --rm registry.access.redhat.com/ubi8/ubi:latest journalctl -D /var/log/journal --grep="Linux" > journal.txt 2>err.txt || rc=$?
