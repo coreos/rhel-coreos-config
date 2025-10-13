@@ -80,3 +80,11 @@
   osversion:
     - centos-9
     - centos-10
+
+# podman fails to pull ubi8 images due to missing sigstore
+# annotation
+- pattern: ext.config.systemd.journal-compat
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/85
+  osversion:
+    - rhel-10.1
+    - centos-10
