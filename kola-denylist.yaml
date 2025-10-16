@@ -54,11 +54,6 @@
     - centos-9
     - rhel-9.6
 
-- pattern: ext.config.shared.kdump.crash
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/70
-  osversion:
-    - rhel-9.6
-
 # Require a release of coreos-installer
 # https://github.com/coreos/coreos-installer/issues/1695
 - pattern: luks.cex
