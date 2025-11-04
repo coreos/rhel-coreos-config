@@ -29,3 +29,15 @@ packages:
  - centos-release-cloud-common
  - centos-release-nfv-common
  - centos-release-virt-common
+
+postprocess:
+  # We apply part of the patch https://github.com/dracut-ng/dracut-ng/pull/1306
+  # https://issues.redhat.com/browse/RHEL-87490
+  # https://github.com/coreos/fedora-coreos-tracker/issues/1937
+  # Also see: https://github.com/coreos/rhel-coreos-config/pull/90#issuecomment-3484544101
+  # The script will start to fail once backported at distgit level signaling to remove it.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    sed -i '/^ExecStart=\/usr\/sbin\/mpathconf --enable$/,${s//ExecStart=\/usr\/sbin\/mpathconf --enable --user_friendly_names n/;b};$q1' /usr/lib/dracut/modules.d/90multipath/multipathd-configure.service
+
