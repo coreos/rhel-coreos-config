@@ -48,12 +48,6 @@
     - centos-10
     - rhel-10.1
 
-- pattern: ext.config.shared.multipath.resilient
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/43
-  osversion:
-    - centos-9
-    - rhel-9.6
-
 # Require a release of coreos-installer
 # https://github.com/coreos/coreos-installer/issues/1695
 - pattern: luks.cex
