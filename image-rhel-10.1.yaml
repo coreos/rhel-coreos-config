@@ -33,4 +33,4 @@ aws-x86-boot-mode: "legacy-bios"
 
 # Enable 'erofs' by default for the rootfs in the Live ISO/PXE artifacts
 live-rootfs-fstype: "erofs"
-live-rootfs-fsoptions: "-zlzma,level=6 -Eall-fragments,fragdedupe=inode -C1048576 --quiet"
+live-rootfs-fsoptions: "-zlzma,level=6 -Efragments -C1048576 --quiet"
