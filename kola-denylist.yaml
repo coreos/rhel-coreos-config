@@ -2,31 +2,6 @@
 # coreos-assembler to automatically skip some tests. For more information,
 # see: https://github.com/coreos/coreos-assembler/pull/866.
 
-# CentOS Stream specific indefinite snooze
-- pattern: basic.uefi-secure
-  tracker: https://github.com/openshift/os/issues/1237
-  osversion:
-    - centos-9
-    - centos-10
-
-- pattern: iso-live-login.uefi-secure
-  tracker: https://github.com/openshift/os/issues/1237
-  osversion:
-    - centos-9
-    - centos-10
-
-- pattern: iso-as-disk.uefi-secure
-  tracker: https://github.com/openshift/os/issues/1237
-  osversion:
-    - centos-9
-    - centos-10
-
-- pattern: ext.config.shared.security.lockdown
-  tracker: https://github.com/openshift/os/issues/1237
-  osversion:
-    - centos-9
-    - centos-10
-
 # This test is failing only in prow, so it's skipped by prow
 # but not denylisted here so it can run on the rhcos pipeline
 #- pattern: iso-offline-install-iscsi.ibft.bios
