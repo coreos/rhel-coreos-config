@@ -54,3 +54,8 @@
   osversion:
     - rhel-10.1
 
+- pattern: ext.config.shared.boot.install-bootloader-multipath
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/99
+  osversion:
+    - rhel-10.1
+    - rhel-9.6
