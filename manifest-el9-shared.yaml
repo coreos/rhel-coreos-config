@@ -13,11 +13,22 @@ packages:
 ostree-layers:
   - overlay/25rhcos-azure-udev
 
-# zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
-# config, we want to disable it. We don't need this in el10 because the config
-# was split in a subpackage we don't pull in.
 postprocess:
+  # zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
+  # config, we want to disable it. We don't need this in el10 because the config
+  # was split in a subpackage we don't pull in.
   - |
     #!/usr/bin/bash
     set -xeuo pipefail
     rm /usr/lib/systemd/zram-generator.conf
+
+  # We added this for https://issues.redhat.com/browse/LOG-3117
+  # because something changed between rhel8 and rhel9 to not
+  # generate this by default but we had containers that expected it
+  # to exist to be mounted. We include it in RHEL 9, but the
+  # containers were fixed in [1] so we won't include it in RHEL 10.
+  # [1] https://github.com/openshift/cluster-logging-operator/pull/1675
+  - |
+    #!/usr/bin/env bash
+    set -xeo pipefail
+    ln -sr /usr/share/zoneinfo/UTC /etc/localtime

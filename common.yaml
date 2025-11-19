@@ -181,15 +181,6 @@ postprocess:
     echo '# RHCOS-only: we follow the Fedora/upstream default' >> /usr/lib/systemd/system/basic.target
     echo 'Wants=tmp.mount' >> /usr/lib/systemd/system/basic.target
 
-  - |
-    #!/usr/bin/env bash
-    set -xeo pipefail
-    # See https://issues.redhat.com/browse/LOG-3117
-    # Something changed between rhel8 and rhel9 to not generate this by default
-    # but we have containers that expect it to be mounted so for now let's continue
-    # generating it.
-    ln -sr /usr/share/zoneinfo/UTC /etc/localtime
-
   # sudo prefers its config files to be mode 440, and some security scanners
   # complain if /etc/sudoers.d files are world-readable.
   # https://bugzilla.redhat.com/show_bug.cgi?id=1981979
