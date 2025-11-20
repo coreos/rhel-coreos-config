@@ -34,3 +34,15 @@
   osversion:
     - rhel-10.1
     - rhel-9.6
+
+# Our fips test became more strict in [1] but we need an updated
+# ignition [2] in order for the test to pass. Let's just snooze
+# the test until we can get that updated Ignition.
+# [1] https://github.com/coreos/coreos-assembler/pull/4373
+# [2] https://issues.redhat.com/browse/RHEL-129425
+- pattern: fips.enable
+  tracker: https://issues.redhat.com/browse/RHEL-129425
+  snooze: 2026-01-12
+  warn: true
+  osversion:
+    - rhel-10.1
