@@ -46,3 +46,12 @@
   warn: true
   osversion:
     - rhel-10.1
+
+- pattern: ext.config.systemd.journal-compat
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/85
+  snooze: 2025-12-08
+  warn: true
+  osversion:
+    - rhel-10.1
+  arches:
+    - s390x
