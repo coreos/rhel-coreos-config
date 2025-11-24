@@ -23,6 +23,9 @@
     - centos-10
     - rhel-10.1
 
+# We fast-tracked this for rhel-9.6 but decided to wait
+# on a new release before getting the fix into rhel-10.1.
+# Denylist/snooze the test for now while waiting for the release.
 - pattern: ext.config.shared.multipath.custom-partition
   tracker: https://github.com/coreos/rhel-coreos-config/issues/93
   snooze: 2025-12-19
