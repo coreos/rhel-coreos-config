@@ -46,6 +46,8 @@
   warn: true
   osversion:
     - rhel-10.1
+    - centos-9
+    - centos-10
 
 - pattern: ext.config.systemd.journal-compat
   tracker: https://github.com/coreos/rhel-coreos-config/issues/85
