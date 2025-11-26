@@ -291,8 +291,6 @@ packages:
  # https://bugzilla.redhat.com/show_bug.cgi?id=1877905
  # https://bugzilla.redhat.com/show_bug.cgi?id=1886201
  - perl-interpreter
- # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
- - WALinuxAgent-udev
  # Provide fips-mode-setup which is needed by rhcos-fips.sh
  - crypto-policies-scripts
  # For semanage
@@ -314,6 +312,9 @@ packages-x86_64:
   - ostree-grub2
   # rdma-core cleanly covers some key bare metal use cases
   - rdma-core
+  # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
+  # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
+  - WALinuxAgent-udev
 
 packages-ppc64le:
   - irqbalance
@@ -324,6 +325,9 @@ packages-ppc64le:
 
 packages-aarch64:
   - irqbalance
+  # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
+  # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
+  - WALinuxAgent-udev
 
 packages-s390x:
   # Required genprotimg for IBM Secure Execution
