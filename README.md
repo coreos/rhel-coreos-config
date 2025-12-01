@@ -13,10 +13,10 @@ To support building both a RHEL-based and a CentOS Stream-based CoreOS, the
 coreos-assembler concept of [variants] is used. The following variants are
 supported:
 
-- RHEL-based variants: `rhel-9.6`, `rhel-10.1`
+- RHEL-based variants: `rhel-9.8`, `rhel-10.1`
 - CentOS Stream-based variants: `c9s`, `c10s`
 
-The default variant is `rhel-9.6`.
+The default variant is `rhel-9.8`.
 
 ## Reporting issues
 
