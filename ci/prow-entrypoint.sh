@@ -250,19 +250,19 @@ main() {
         # this is called by cosa's CI
         "rhcos-cosa-prow-pr-ci")
             setup_user
-            cosa_init "rhel-9.6"
+            cosa_init "rhel-9.8"
             cosa_build
             kola_test_qemu
             ;;
         "rhcos-9-build-test-qemu")
             setup_user
-            cosa_init "rhel-9.6"
+            cosa_init "rhel-9.8"
             cosa_build
             kola_test_qemu
             ;;
         "rhcos-9-build-test-metal")
             setup_user
-            cosa_init "rhel-9.6"
+            cosa_init "rhel-9.8"
             cosa_build
             kola_test_metal
             ;;
