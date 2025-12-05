@@ -29,4 +29,9 @@ mutate-os-release: "10.1"
 packages:
  # We include the generic release package and tweak the os-release info in a
  # post-process script
+
+ # Azure VM utilities for udev rules and disk management
+ # It is available only in RHEL 10.1 as of now and it replaces custom overlay udev rules
+ # https://issues.redhat.com/browse/COS-2074
+ - azure-vm-utils
  - redhat-release
