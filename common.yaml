@@ -290,6 +290,9 @@ packages:
   - 'dnf-command(versionlock)'
   # https://issues.redhat.com/browse/OCPBUGS-35247
   - subscription-manager
+  # Can be removed once OpenSSH 10.0 is included in RHEL
+  # See: https://github.com/coreos/ssh-key-dir/issues/188
+  - ssh-key-dir
 
 packages-x86_64:
   # Temporary add of open-vm-tools. Should be removed when containerized
