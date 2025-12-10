@@ -6,13 +6,6 @@ packages:
  # Reverts https://gitlab.cee.redhat.com/coreos/redhat-coreos/merge_requests/367 and add it for all arches
  - glusterfs-fuse
 
-# The azure-vm-utils package provides these udev rules, but it wont be added
-# until EL10[1]. This can be dropped when moving to EL10, provided the
-# package is included at that time.
-# [1]:https://issues.redhat.com/browse/RHEL-73904
-ostree-layers:
-  - overlay/25rhcos-azure-udev
-
 postprocess:
   # zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
   # config, we want to disable it. We don't need this in el10 because the config
