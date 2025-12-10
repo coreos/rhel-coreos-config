@@ -279,12 +279,6 @@ packages:
   - qemu-guest-agent
   # passwd was obsoleted by shadow-utils in F40+, but still needed here
   - passwd
-  # Needed for kernel-devel extension: https://bugzilla.redhat.com/show_bug.cgi?id=1885408
-  # x86_64 and s390x have these packages installed as dependencies of other packages, ppc64le does not
-  # FIXME: once the below BZs have been resolved to remove perl dependencies, this can be done in the extensions script
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1877905
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1886201
-  - perl-interpreter
   # Provide fips-mode-setup which is needed by rhcos-fips.sh
   - crypto-policies-scripts
   # For semanage

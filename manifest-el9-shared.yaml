@@ -8,6 +8,8 @@ packages:
   # Gluster - Used for Openshift e2e gluster testcases
   # Reverts https://gitlab.cee.redhat.com/coreos/redhat-coreos/merge_requests/367 and add it for all arches
   - glusterfs-fuse
+  # Kept in EL9 for backward compatibility. Dropped in EL10.
+  - perl-interpreter
 
 # The azure-vm-utils package provides these udev rules, but it wont be added
 # until EL10[1]. This can be dropped when moving to EL10, provided the

@@ -18,3 +18,31 @@ packages-x86_64:
   # recommends in EL10.
   # Will be moved to the bootc image level.
   - amd-ucode-firmware
+
+postprocess:
+  # Implement exclude-packages: in a postprocess because when building
+  # via container we don't have exclude-packages functionality.
+  #
+  # These are things we don't expect to ship on the host. We currently
+  # have recommends: false so these could only come in via hard requirement,
+  # in which case the build will fail.
+  #
+  # Copied from https://github.com/coreos/fedora-coreos-config/blob/c0abc9cd871327349951ab59994d83466e2740fe/manifests/fedora-coreos.yaml#L201-L237
+  - |
+    #!/usr/bin/env bash
+    set -x
+    # Don't fail on s390x for now as Perl gets installed via s390utils-core
+    # See: https://github.com/coreos/fedora-coreos-tracker/issues/1217
+    if [[ "$(uname -m)" != "s390x" ]]; then
+      excludes=(
+        perl
+        perl-interpreter
+      )
+      # Determine if anything that isn't allowed is actually provided.
+      actuals="$(rpm -q --whatprovides ${excludes[@]} | grep -v 'no package provides')"
+      if [ ! -z "${actuals}" ]; then
+          echo "Something is providing excluded RPM functionality!" 1>&2
+          echo "${actuals}" 1>&2
+          exit 1
+      fi
+    fi
