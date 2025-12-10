@@ -5,7 +5,7 @@ include:
   - fedora-coreos-config/manifests/file-transfer.yaml
   - fedora-coreos-config/manifests/networking-tools.yaml
   - fedora-coreos-config/manifests/user-experience.yaml
-  - fedora-coreos-config/manifests/coreos-bootc-minimal-plus.yaml
+  - fedora-coreos-config/manifests/coreos-bootc-delta.yaml
   - fedora-coreos-config/manifests/shared-el.yaml
   # RHCOS owned packages
   - packages-rhcos.yaml
@@ -40,12 +40,26 @@ conditional-include:
   - if: osversion == "rhel-9.6"
     include:
       - manifest-el9-shared.yaml
+  # Configuration specific to el10
   - if: osversion == "centos-10"
     include:
       - manifest-el10-shared.yaml
   - if: osversion == "rhel-10.1"
     include:
       - manifest-el10-shared.yaml
+  # We also pick up from fedora-bootc while not deriving until we can move
+  # to building via container (i.e. deriving=true) where the manifests will
+  # be delivered in the builder bootc container image.
+  - if: deriving == false
+    include: fedora-bootc/minimal-plus/manifest.yaml
+  # Still need `opt-usrlocal: var` and `machineid-compat: false` in the
+  # non-build-via-container workflow because rpm-ostree compose tree will
+  # fail without it. This is done in the postprocess (see coreos-bootc-delta.yaml)
+  # for build-via-container workflow.
+  - if: deriving == false
+    include:
+      opt-usrlocal: var
+      machineid-compat: false
 
 documentation: false
 
