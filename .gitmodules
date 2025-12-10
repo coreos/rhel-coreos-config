@@ -2,3 +2,7 @@
 	path = fedora-coreos-config
 	url = https://github.com/coreos/fedora-coreos-config
 	branch = testing-devel
+[submodule "fedora-bootc"]
+	path = fedora-bootc
+	url = https://gitlab.com/fedora/bootc/base-images.git
+	branch = main

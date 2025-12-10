@@ -40,12 +40,18 @@ conditional-include:
   - if: osversion == "rhel-9.6"
     include:
       - manifest-el9-shared.yaml
+  # Configuration specific to el10
   - if: osversion == "centos-10"
     include:
       - manifest-el10-shared.yaml
   - if: osversion == "rhel-10.1"
     include:
       - manifest-el10-shared.yaml
+  # We also pick up from fedora-bootc while not deriving until we can move
+  # to building via container (i.e. deriving=true) where the manifests will
+  # be delivered in the builder bootc container image.
+  - if: deriving == false
+    include: fedora-bootc/minimal-plus/manifest.yaml
 
 documentation: false
 
