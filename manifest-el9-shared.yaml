@@ -1,5 +1,8 @@
 # Place here configuration that should happen on all el9* builds
 
+# Historical RHCOS default, kept for EL9
+recommends: true
+
 packages:
   - containernetworking-plugins
   # Gluster - Used for Openshift e2e gluster testcases

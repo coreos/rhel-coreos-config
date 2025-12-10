@@ -49,9 +49,6 @@ conditional-include:
 
 documentation: false
 
-# historical default
-recommends: true
-
 postprocess:
   # Set composefs to `maybe` for now because older bootimages
   # could be starting with an OSTree that's not new enough.
