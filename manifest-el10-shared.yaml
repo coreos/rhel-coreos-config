@@ -1,8 +1,5 @@
 # Place here configuration that should happen on all el10* builds
 
-# Explicitly disable recommends starting with EL10
-recommends: false
-
 include:
   - fedora-coreos-config/manifests/selinux-workaround.yaml
 
