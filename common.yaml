@@ -244,61 +244,61 @@ exclude-packages:
 
 # A lof of packages are inherited by the manifests included at the top.
 packages:
- # Contains SCTP (https://bugzilla.redhat.com/show_bug.cgi?id=1718049)
- # and it's not really going to be worth playing the "where's my kernel module"
- # game long term.  If we ship it we support it, etc.
- - kernel-modules-extra
- # Audit
- - audit
- # Bootloader updater
- - bootupd
- # Containers
- - container-selinux
- - skopeo
- # Networking
- - nfs-utils
- - dnsmasq
- # needed for rpm-ostree today
- - polkit
- # Extra runtime
- - sssd
- # Common tools used by scripts and admins interactively
- - rsync tmux
- - nmap-ncat strace
- # Future update manager on the client-side
- - bootc
- # Editors
- - nano
- # Red Hat CA certs
- - subscription-manager-rhsm-certificates
- # Used on the bootstrap node
- - systemd-journal-remote
- # Extras
- - systemd-journal-gateway
- # Used to update PAM configuration to work with SSSD
- # https://bugzilla.redhat.com/show_bug.cgi?id=1774154
- - authselect
- # https://bugzilla.redhat.com/show_bug.cgi?id=1900759
- - qemu-guest-agent
- # passwd was obsoleted by shadow-utils in F40+, but still needed here
- - passwd
- # Needed for kernel-devel extension: https://bugzilla.redhat.com/show_bug.cgi?id=1885408
- # x86_64 and s390x have these packages installed as dependencies of other packages, ppc64le does not
- # FIXME: once the below BZs have been resolved to remove perl dependencies, this can be done in the extensions script
- # https://bugzilla.redhat.com/show_bug.cgi?id=1877905
- # https://bugzilla.redhat.com/show_bug.cgi?id=1886201
- - perl-interpreter
- # Provide fips-mode-setup which is needed by rhcos-fips.sh
- - crypto-policies-scripts
- # For semanage
- - policycoreutils-python-utils
- # https://github.com/coreos/fedora-coreos-tracker/issues/1687
- - dnf
- # This is used by rpm-ostree treefile-apply to deal with
- # https://gitlab.com/fedora/bootc/tracker/-/issues/59
- - 'dnf-command(versionlock)'
- # https://issues.redhat.com/browse/OCPBUGS-35247
- - subscription-manager
+  # Contains SCTP (https://bugzilla.redhat.com/show_bug.cgi?id=1718049)
+  # and it's not really going to be worth playing the "where's my kernel module"
+  # game long term.  If we ship it we support it, etc.
+  - kernel-modules-extra
+  # Audit
+  - audit
+  # Bootloader updater
+  - bootupd
+  # Containers
+  - container-selinux
+  - skopeo
+  # Networking
+  - nfs-utils
+  - dnsmasq
+  # needed for rpm-ostree today
+  - polkit
+  # Extra runtime
+  - sssd
+  # Common tools used by scripts and admins interactively
+  - rsync tmux
+  - nmap-ncat strace
+  # Future update manager on the client-side
+  - bootc
+  # Editors
+  - nano
+  # Red Hat CA certs
+  - subscription-manager-rhsm-certificates
+  # Used on the bootstrap node
+  - systemd-journal-remote
+  # Extras
+  - systemd-journal-gateway
+  # Used to update PAM configuration to work with SSSD
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1774154
+  - authselect
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1900759
+  - qemu-guest-agent
+  # passwd was obsoleted by shadow-utils in F40+, but still needed here
+  - passwd
+  # Needed for kernel-devel extension: https://bugzilla.redhat.com/show_bug.cgi?id=1885408
+  # x86_64 and s390x have these packages installed as dependencies of other packages, ppc64le does not
+  # FIXME: once the below BZs have been resolved to remove perl dependencies, this can be done in the extensions script
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1877905
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1886201
+  - perl-interpreter
+  # Provide fips-mode-setup which is needed by rhcos-fips.sh
+  - crypto-policies-scripts
+  # For semanage
+  - policycoreutils-python-utils
+  # https://github.com/coreos/fedora-coreos-tracker/issues/1687
+  - dnf
+  # This is used by rpm-ostree treefile-apply to deal with
+  # https://gitlab.com/fedora/bootc/tracker/-/issues/59
+  - 'dnf-command(versionlock)'
+  # https://issues.redhat.com/browse/OCPBUGS-35247
+  - subscription-manager
 
 packages-x86_64:
   # Temporary add of open-vm-tools. Should be removed when containerized
