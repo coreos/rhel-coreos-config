@@ -20,7 +20,6 @@ packages:
   - perl-NDBM_File
   - polkit-pkla-compat
   - python-unversioned-command
-  - redhat-release-eula
   - rpm-plugin-systemd-inhibit
 
 # Arch specific packages that we need to keep the same package set in EL9.
