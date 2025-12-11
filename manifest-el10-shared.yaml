@@ -15,12 +15,11 @@ packages-x86_64:
   - amd-ucode-firmware
 
 postprocess:
-  # Implement exclude-packages: in a postprocess because when building
+  # Implement el10 specific exclude-packages: in a postprocess because when building
   # via container we don't have exclude-packages functionality.
   #
-  # These are things we don't expect to ship on the host. We currently
-  # have recommends: false so these could only come in via hard requirement,
-  # in which case the build will fail.
+  # These are things we don't expect to ship on the host and want to catch
+  # if they ever sneak in.
   #
   # Copied from https://github.com/coreos/fedora-coreos-config/blob/c0abc9cd871327349951ab59994d83466e2740fe/manifests/fedora-coreos.yaml#L201-L237
   - |
