@@ -2,3 +2,41 @@
 
 include:
   - fedora-coreos-config/manifests/selinux-workaround.yaml
+
+packages:
+  # Include the default set of audit rules. Split from the audit package as a
+  # recommends in EL10.
+  - audit-rules
+
+packages-x86_64:
+  # Include AMD microcode firmwares. Split from the linux-firmware package as a
+  # recommends in EL10.
+  # Will be moved to the bootc image level.
+  - amd-ucode-firmware
+
+postprocess:
+  # Implement el10 specific exclude-packages: in a postprocess because when building
+  # via container we don't have exclude-packages functionality.
+  #
+  # These are things we don't expect to ship on the host and want to catch
+  # if they ever sneak in.
+  #
+  # Copied from https://github.com/coreos/fedora-coreos-config/blob/c0abc9cd871327349951ab59994d83466e2740fe/manifests/fedora-coreos.yaml#L201-L237
+  - |
+    #!/usr/bin/env bash
+    set -x
+    # Don't fail on s390x for now as Perl gets installed via s390utils-core
+    # See: https://github.com/coreos/fedora-coreos-tracker/issues/1217
+    if [[ "$(uname -m)" != "s390x" ]]; then
+      excludes=(
+        perl
+        perl-interpreter
+      )
+      # Determine if anything that isn't allowed is actually provided.
+      actuals="$(rpm -q --whatprovides ${excludes[@]} | grep -v 'no package provides')"
+      if [ ! -z "${actuals}" ]; then
+          echo "Something is providing excluded RPM functionality!" 1>&2
+          echo "${actuals}" 1>&2
+          exit 1
+      fi
+    fi

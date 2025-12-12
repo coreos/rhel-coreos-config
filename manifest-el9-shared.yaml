@@ -1,10 +1,40 @@
 # Place here configuration that should happen on all el9* builds
 
 packages:
- - containernetworking-plugins
- # Gluster - Used for Openshift e2e gluster testcases
- # Reverts https://gitlab.cee.redhat.com/coreos/redhat-coreos/merge_requests/367 and add it for all arches
- - glusterfs-fuse
+  - containernetworking-plugins
+  # Gluster - Used for Openshift e2e gluster testcases
+  # Reverts https://gitlab.cee.redhat.com/coreos/redhat-coreos/merge_requests/367 and add it for all arches
+  - glusterfs-fuse
+  # Kept in EL9 for backward compatibility. Dropped in EL10.
+  - perl-interpreter
+  # Packages that we need to name to keep the same package set in EL9
+  # after moving to recomends=false in el9 to support building-via-container
+  # since building via container doesn't support cancelling out recommends with
+  # `exclude-packages`.
+  # https://github.com/coreos/rhel-coreos-config/issues/119#issuecomment-3642292482
+  - adcli
+  - gawk-all-langpacks
+  - geolite2-city
+  - geolite2-country
+  - initscripts-service
+  - perl-NDBM_File
+  - polkit-pkla-compat
+  - python-unversioned-command
+  - rpm-plugin-systemd-inhibit
+
+# Arch specific packages that we need to keep the same package set in EL9.
+conditional-include:
+  # Couldn't include fwupd-plugin-flashrom above because s390x
+  # doesn't have that package.
+  - if: basearch != "s390x"
+    include:
+      packages:
+        - fwupd-plugin-flashrom
+  # For some reason libxcrypt-compat was only installed on x86_64
+  - if: basearch == "x86_64"
+    include:
+      packages:
+        - libxcrypt-compat
 
 # The azure-vm-utils package provides these udev rules, but it wont be added
 # until EL10[1]. This can be dropped when moving to EL10, provided the
