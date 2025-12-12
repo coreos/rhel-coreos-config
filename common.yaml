@@ -27,7 +27,6 @@ ostree-layers:
   - overlay/15rhcos-journald-backcompat
   - overlay/20platform-chrony
   - overlay/21dhcp-chrony
-  - overlay/25azure-udev-rules
   - overlay/30rhcos-nvme-compat-udev
   - overlay/30gcp-udev-rules
   - overlay/30lvmdevices
@@ -37,15 +36,21 @@ conditional-include:
   - if: osversion == "centos-9"
     include:
       - manifest-el9-shared.yaml
-  - if: osversion == "rhel-9.6"
+  - if: osversion == "rhel-9.8"
     include:
       - manifest-el9-shared.yaml
+  # Configuration specific to el10
   - if: osversion == "centos-10"
     include:
       - manifest-el10-shared.yaml
   - if: osversion == "rhel-10.1"
     include:
       - manifest-el10-shared.yaml
+  # We also pick up from fedora-bootc while not deriving until we can move
+  # to building via container (i.e. deriving=true) where the manifests will
+  # be delivered in the builder bootc container image.
+  - if: deriving == false
+    include: fedora-bootc/minimal-plus/manifest.yaml
 
 documentation: false
 
