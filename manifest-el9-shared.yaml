@@ -36,11 +36,14 @@ conditional-include:
       packages:
         - libxcrypt-compat
 
-# The azure-vm-utils package provides these udev rules, but it wont be added
-# until EL10[1]. This can be dropped when moving to EL10, provided the
-# package is included at that time.
-# [1]:https://issues.redhat.com/browse/RHEL-73904
 ostree-layers:
+  # Configure plugin order for NetworkManager config files. EL9 only as
+  # `ifcfg-rh` has been dropped in EL10.
+  - overlay/15rhcos-networkmanager-plugin-order
+  # The azure-vm-utils package provides these udev rules, but it wont be added
+  # until EL10[1]. This can be dropped when moving to EL10, provided the
+  # package is included at that time.
+  # [1]:https://issues.redhat.com/browse/RHEL-73904
   - overlay/25rhcos-azure-udev
 
 postprocess:
