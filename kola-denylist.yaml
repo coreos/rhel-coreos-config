@@ -12,8 +12,13 @@
 #- pattern: pxe-offline-install.rootfs-appended.bios
 #  tracker: https://github.com/openshift/os/issues/1768
 
+# We are blocked waiting for the release of s390utils 2.39.0 rpm.
+# Snoozing this test until the end of January 2026 to allow time
+# for the package update to land.
 - pattern: ostree.sync
   tracker: https://github.com/openshift/os/issues/1720
+  snooze: 2026-01-31
+  warn: true
   arches:
     - s390x
 
