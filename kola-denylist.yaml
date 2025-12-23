@@ -28,27 +28,6 @@
     - centos-10
     - rhel-10.1
 
-# We fast-tracked this for rhel-9.6 but decided to wait
-# on a new release before getting the fix into rhel-10.1.
-# Denylist/snooze the test for now while waiting for the release.
-- pattern: ext.config.shared.multipath.custom-partition
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/93
-  snooze: 2025-12-19
-  osversion:
-    - rhel-10.1
-
-# Fast-track is not available for rhel-10.1, it is available only for rhel-9.6.
-- pattern: multipath.single-disk
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/113
-  snooze: 2025-12-19
-  osversion:
-    - rhel-10.1
-
-- pattern: ext.config.shared.boot.install-bootloader-multipath
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/99
-  osversion:
-    - rhel-10.1
-
 # Our fips test became more strict in [1] but we need an updated
 # ignition [2] in order for the test to pass. Let's just snooze
 # the test until we can get that updated Ignition.
