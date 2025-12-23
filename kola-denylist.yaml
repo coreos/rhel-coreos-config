@@ -64,7 +64,7 @@
     - centos-9
     - centos-10
 
-# Secureboot in CentOS Stream 9 regressed.
+# Secureboot in CentOS Stream 10 regressed.
 # - https://github.com/coreos/rhel-coreos-config/issues/130
 # - https://issues.redhat.com/browse/RHEL-137210
 - pattern: basic.uefi-secure
@@ -72,23 +72,23 @@
   snooze: 2026-01-30
   warn: true
   osversion:
-    - centos-9
+    - centos-10
 - pattern: ext.config.shared.security.lockdown
   tracker: https://github.com/coreos/rhel-coreos-config/issues/130
   snooze: 2026-01-30
   warn: true
   osversion:
-    - centos-9
+    - centos-10
 - pattern: iso-as-disk.uefi-secure
   tracker: https://github.com/coreos/rhel-coreos-config/issues/130
   snooze: 2026-01-30
   warn: true
   osversion:
-    - centos-9
+    - centos-10
 - pattern: iso-live-login.uefi-secure
   tracker: https://github.com/coreos/rhel-coreos-config/issues/130
   snooze: 2026-01-30
   warn: true
   osversion:
-    - centos-9
+    - centos-10
 
