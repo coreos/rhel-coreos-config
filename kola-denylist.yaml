@@ -62,4 +62,5 @@
   tracker: https://issues.redhat.com/browse/RHEL-129425
   osversion:
     - centos-9
+    - centos-10
     - rhel-9.8
