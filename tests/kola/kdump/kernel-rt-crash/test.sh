@@ -90,6 +90,10 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
     # Now we can crash the kernel
     echo "Triggering sysrq"
     sync
+    # Give I/O a moment to settle after sync before crashing.
+    # We've seen this test hang forever in prow without this.
+    # https://github.com/coreos/rhel-coreos-config/issues/132
+    sleep 1
     echo 1 > /proc/sys/kernel/sysrq
     # This one will trigger kdump, which will write the kernel core, then reboot.
     echo c > /proc/sysrq-trigger
