@@ -25,7 +25,7 @@ work related to RHEL CoreOS.
 
 **Please report OKD or CentOS Stream CoreOS issues in the [OKD issue tracker].**
 
-**Please see this [FAQ entry for Red Hat support](docs/faq.md#q-where-should-i-report-issues-with-openshift-container-platform-or-red-hat-coreos).**
+**Please see this [FAQ entry for Red Hat support](https://github.com/openshift/os/blob/master/docs/faq.md#q-where-should-i-report-issues-with-openshift-container-platform-or-red-hat-coreos).**
 
 ## Frequently Asked Questions
 
