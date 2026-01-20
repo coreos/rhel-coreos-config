@@ -1,31 +1,11 @@
 include: "image-default.yaml"
 
-# See https://github.com/coreos/coreos-assembler/pull/298
-size: 16
-
 # Add the requisite OCP metadata to our container image. We can do that for
 # C10S even though we can't for RHCOS 10 as we don't do dual stream for OKD so
 # we have a single OS image in the release payload.
 # See: https://github.com/coreos/rhel-coreos-config/pull/117
 # See: https://github.com/openshift/os/issues/1047#issuecomment-3608508561
 ostree-container-inject-openshift-cvo-labels: true
-
-# vmware-secure-boot changes the EFI secure boot option.
-# set false here due to https://bugzilla.redhat.com/show_bug.cgi?id=2106055
-vmware-secure-boot: false
-
-# rhel9_64Guest requires hardware version 18 and vSphere 7.0U3
-# https://kb.vmware.com/s/article/88157
-vmware-os-type: rhel8_64Guest
-# VMware hardware versions: https://kb.vmware.com/s/article/1003746
-# Supported VMware versions: https://lifecycle.vmware.com/
-vmware-hw-version: 15
-
-# see https://github.com/coreos/coreos-assembler/pull/3607
-# Defaults for AWS
-aws-imdsv2-only: false
-aws-volume-type: "gp2"
-aws-x86-boot-mode: "legacy-bios"
 
 # Enable 'erofs' by default for the rootfs in the Live ISO/PXE artifacts
 live-rootfs-fstype: "erofs"

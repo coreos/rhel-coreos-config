@@ -1,6 +1,10 @@
 # This file contains defaults for image.yaml and historically lived in
 # coreos-assembler.
 
+# Target disk size in GB.
+# See https://github.com/coreos/coreos-assembler/pull/298
+size: 16
+
 # Additional default kernel arguments injected into disk images
 extra-kargs: []
 
@@ -10,15 +14,19 @@ ostree-format: oci-chunked-v1
 ## Whether to inject io.openshift.build.version-display-names for OpenShift CVO
 ostree-container-inject-openshift-cvo-labels: false
 
-# Set this to a target container reference, e.g. ostree-unverified-registry:quay.io/example/os:latest
-# container-imgref: ""
+# VMware OVA settings.
+## VMware hardware versions: https://kb.vmware.com/s/article/1003746
+## Supported VMware versions: https://lifecycle.vmware.com/
+vmware-hw-version: 15
+## rhel9_64Guest requires hardware version 18 and vSphere 7.0U3
+## https://kb.vmware.com/s/article/88157
+vmware-os-type: rhel8_64Guest
+## vmware-secure-boot changes the EFI secure boot option.
+## set false here due to https://bugzilla.redhat.com/show_bug.cgi?id=2106055
+vmware-secure-boot: false
 
-# Defaults for VMware OVA, matching historical behavior
-vmware-hw-version: 13
-vmware-os-type: rhel7_64Guest
-vmware-secure-boot: true
-
-# Defaults for AWS
-aws-imdsv2-only: true
-aws-volume-type: "gp3"
-aws-x86-boot-mode: "uefi-preferred"
+# AWS AMI settings
+# see https://github.com/coreos/coreos-assembler/pull/3607
+aws-imdsv2-only: false
+aws-volume-type: "gp2"
+aws-x86-boot-mode: "legacy-bios"
