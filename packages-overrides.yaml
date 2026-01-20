@@ -3,18 +3,22 @@
 # RPMs) and list the NEVRs we need in the `packages` section. When not needed comment
 # out the sections below.
 conditional-include:
+# Chronyd got updated to use a new device but the
+# kernel patch exposing that device haven't landed
+# yet.
+# https://github.com/coreos/rhel-coreos-config/issues/150
+- if: osversion == "centos-10"
+  include:
+    repos:
+      - c10s-baseos-mirror
+      - c10s-appstream-mirror
+    packages:
+      - chrony-4.8-1.el10
 ##- if: osversion == "centos-9"
 ##  include:
 ##    repos:
 ##      - c9s-baseos-mirror
 ##      - c9s-appstream-mirror
-##    packages:
-##      - foo-1.2
-##- if: osversion == "centos-10"
-##  include:
-##    repos:
-##      - c10s-baseos-mirror
-##      - c10s-appstream-mirror
 ##    packages:
 ##      - foo-1.2
 ##- if: osversion == "rhel-10.1"
