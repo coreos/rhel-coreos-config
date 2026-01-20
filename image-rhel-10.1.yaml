@@ -3,10 +3,6 @@ include: "image-default.yaml"
 # See https://github.com/coreos/coreos-assembler/pull/298
 size: 16
 
-# Disable networking by default on firstboot. We can drop this once cosa stops
-# defaulting to `ip=dhcp,dhcp6 rd.neednet=1` when it doesn't see this key.
-ignition-network-kcmdline: []
-
 # dont add the OCP metadata to our container image since it's causing
 # conflicts with rhel-9 images in the same payload.
 # but xref https://github.com/openshift/os/issues/1047#issuecomment-3608508561
