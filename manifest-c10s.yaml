@@ -1,13 +1,8 @@
 # Manifest for CentOS Stream CoreOS 10
 
 metadata:
-  license: MIT
-  name: scos
-  summary: CentOS Stream CoreOS 10
-
-variables:
-  id: "centos"
-  osversion: "centos-10"
+  # tell `cosa build` to default to buildah path
+  build_with_buildah: true
 
 # Include manifests common to all RHEL and CentOS Stream versions
 include:
@@ -17,12 +12,6 @@ repos:
   - c10s-baseos
   - c10s-appstream
   - c10s-extras-common
-
-automatic-version-prefix: "10.0.<date:%Y%m%d>"
-# This ensures we're semver-compatible which OpenShift wants
-automatic-version-suffix: "-"
-
-mutate-os-release: "10"
 
 packages:
  - centos-stream-release
