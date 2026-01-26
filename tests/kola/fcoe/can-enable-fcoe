@@ -1,0 +1,17 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+##   description: Verify that when properly configured, Fibre Channel
+##     over Ethernet (FCoE) support can be enabled via the fcoe.service
+##     added by fcoe-utils.
+
+set -euo pipefail
+
+# shellcheck disable=SC1091
+. $KOLA_EXT_DATA/commonlib.sh
+
+if [ "$(systemctl is-active fcoe)" != 'active' ]; then
+    systemctl status fcoe
+    fatal "fcoe.service is not active - ensure the correct kernel modules are enabled"
+fi
+ok "fcoe.service can be activated when the system is correctly configured"
