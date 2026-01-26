@@ -7,6 +7,8 @@ packages:
   - afterburn
   # User experience
   - console-login-helper-messages-issuegen console-login-helper-messages-profile
+  # Support for Fibre Channel over Ethernet (FCoE)
+  - fcoe-utils
   # installer iso packages
   - coreos-installer coreos-installer-bootinfra
   - ignition
