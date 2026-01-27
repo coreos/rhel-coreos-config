@@ -2,6 +2,15 @@
 # coreos-assembler to automatically skip some tests. For more information,
 # see: https://github.com/coreos/coreos-assembler/pull/866.
 
+
+# There is an issue with rpm-ostree making it to fail
+# For now let's skip it
+- pattern: ext.config.rpm-ostree.replace-rt-kernel
+  tracker: https://github.com/coreos/rhel-coreos-config/pull/163
+  osversion:
+    - centos-10
+    - rhel-10.2
+
 # This test is failing only in prow, so it's skipped by prow
 # but not denylisted here so it can run on the rhcos pipeline
 #- pattern: iso-offline-install-iscsi.ibft.bios
@@ -16,7 +25,7 @@
   tracker: https://github.com/openshift/os/issues/1751
   osversion:
     - centos-10
-    - rhel-10.1
+    - rhel-10.2
 
 # Secureboot in CentOS Stream 10 regressed.
 # - https://github.com/coreos/rhel-coreos-config/issues/130
