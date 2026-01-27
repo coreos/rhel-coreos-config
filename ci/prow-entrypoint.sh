@@ -298,13 +298,13 @@ main() {
             ;;
         "rhcos-10-build-test-qemu")
             setup_user
-            cosa_init "rhel-10.1"
+            cosa_init "rhel-10.2"
             cosa_build
             kola_test_qemu
             ;;
         "rhcos-10-build-test-metal")
             setup_user
-            cosa_init "rhel-10.1"
+            cosa_init "rhel-10.2"
             cosa_build
             kola_test_metal
             ;;
