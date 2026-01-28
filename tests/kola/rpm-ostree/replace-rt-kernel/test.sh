@@ -70,7 +70,7 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
             runv rpm-ostree override reset -a
             kernel_pkgs=("kernel-rt-core" "kernel-rt-modules" "kernel-rt-modules-extra" "kernel-rt-modules-core")
             args=()
-            for x in ${kernel_pkgs}; do
+            for x in "${kernel_pkgs[@]}"; do
                 args+=(--install "${x}")
             done
             runv rpm-ostree override remove kernel{,-core,-modules,-modules-extra,-modules-core} "${args[@]}"
