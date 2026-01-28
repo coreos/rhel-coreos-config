@@ -4,6 +4,8 @@ metadata:
   license: MIT
   name: scos
   summary: CentOS Stream CoreOS 10
+  # tell `cosa build` to default to buildah path
+  build_with_buildah: true
 
 variables:
   id: "centos"

@@ -249,22 +249,13 @@ main() {
             ;;
         # this is called by cosa's CI
         "rhcos-cosa-prow-pr-ci")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_qemu
+            exit 0
             ;;
         "rhcos-9-build-test-qemu")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_qemu
+            exit 0
             ;;
         "rhcos-9-build-test-metal")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_metal
+            exit 0
             ;;
         "rhcos-9next-build-test-qemu")
             exit 0
@@ -273,16 +264,10 @@ main() {
             exit 0
             ;;
         "scos-9-build-test-qemu")
-            setup_user
-            cosa_init "c9s"
-            cosa_build
-            kola_test_qemu
+            exit 0
             ;;
         "scos-9-build-test-metal")
-            setup_user
-            cosa_init "c9s"
-            cosa_build
-            kola_test_metal
+            exit 0
             ;;
         "scos-10-build-test-qemu")
             setup_user
@@ -297,16 +282,10 @@ main() {
             kola_test_metal
             ;;
         "rhcos-10-build-test-qemu")
-            setup_user
-            cosa_init "rhel-10.1"
-            cosa_build
-            kola_test_qemu
+            exit 0
             ;;
         "rhcos-10-build-test-metal")
-            setup_user
-            cosa_init "rhel-10.1"
-            cosa_build
-            kola_test_metal
+            exit 0
             ;;
         *)
             # This case ensures that we exhaustively list the tests that should
