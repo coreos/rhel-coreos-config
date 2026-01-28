@@ -21,7 +21,7 @@ conditional-include:
 ##      - c9s-appstream-mirror
 ##    packages:
 ##      - foo-1.2
-##- if: osversion == "rhel-10.1"
+##- if: osversion == "rhel-10.2"
 ##  include:
 ##    packages:
 ##      - foo-1.2
