@@ -1,13 +1,8 @@
 # Manifest for CentOS Stream CoreOS 9
 
 metadata:
-  license: MIT
-  name: scos
-  summary: CentOS Stream CoreOS 9
-
-variables:
-  id: "centos"
-  osversion: "centos-9"
+  # tell `cosa build` to default to buildah path
+  build_with_buildah: true
 
 # Include manifests common to all RHEL and CentOS Stream versions
 include:
@@ -17,12 +12,6 @@ repos:
   - c9s-baseos
   - c9s-appstream
   - c9s-extras-common
-
-automatic-version-prefix: "9.0.<date:%Y%m%d>"
-# This ensures we're semver-compatible which OpenShift wants
-automatic-version-suffix: "-"
-
-mutate-os-release: "9"
 
 packages:
  - centos-stream-release
