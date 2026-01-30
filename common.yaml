@@ -359,7 +359,3 @@ packages-aarch64:
 packages-s390x:
   # Required genprotimg for IBM Secure Execution
   - s390utils-base
-
-remove-from-packages:
-  - - filesystem
-    - "/usr/share/backgrounds"
