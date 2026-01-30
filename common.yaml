@@ -43,7 +43,7 @@ conditional-include:
   - if: osversion == "centos-10"
     include:
       - manifest-el10-shared.yaml
-  - if: osversion == "rhel-10.1"
+  - if: osversion == "rhel-10.2"
     include:
       - manifest-el10-shared.yaml
   # We also pick up from fedora-bootc while not deriving until we can move
