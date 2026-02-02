@@ -33,8 +33,8 @@ For versions older than 4.9, see the internal documentation.
   If you're going to work on RHCOS based on different versions of RHEL, using a
   dedicated directory for each RHEL version is recommended:
   ```
-  $ mkdir rhcos-rhel-10.1
-  $ cd rhcos-rhel-10.1
+  $ mkdir rhcos-rhel-10.2
+  $ cd rhcos-rhel-10.2
   ```
 
 - Make sure that you have setup the latest internal Red Hat root certificates
@@ -59,10 +59,10 @@ For versions older than 4.9, see the internal documentation.
   $ cosa init --yumrepos "${RHCOS_REPO}" https://github.com/coreos/rhel-coreos-config.git
 
   # Main developement branch, selecting a specific variant
-  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.1 https://github.com/coreos/rhel-coreos-config.git
+  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.2 https://github.com/coreos/rhel-coreos-config.git
 
   # Specific develepment branch, selecting a specific variant
-  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.1 --branch foobar https://github.com/coreos/rhel-coreos-config.git
+  $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.2 --branch foobar https://github.com/coreos/rhel-coreos-config.git
   ```
 
 - Fetch packages and build RHCOS ostree container and QEMU image:
