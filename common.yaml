@@ -109,13 +109,17 @@ postprocess:
     EOF
     fi
 
- # TEMPORARY: Remove /usr/etc/zkey/ group write permissions
+ # TEMPORARY: Remove /etc/zkey/ group write permissions
  # See https://github.com/openshift/os/issues/1209
   - |
     #!/usr/bin/env bash
     set -xeo pipefail
     if [ "$(uname -m)" == "s390x" ]; then
-      chmod -R g-w /usr/etc/zkey
+      if [ -f /run/.containerenv ]; then
+        chmod -R g-w /etc/zkey
+      else
+        chmod -R g-w /usr/etc/zkey
+      fi
     fi
 
   # Nuke network.service from orbit
