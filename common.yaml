@@ -333,6 +333,8 @@ packages:
   # Include RHEL EULA documents. This is safe to include in a shared package list
   # because redhat-release-eula is provided by centos-stream-release in CentOS Stream
   - redhat-release-eula
+  # Support for Fibre Channel over Ethernet (FCoE)
+  - fcoe-utils
 
 packages-x86_64:
   # Temporary add of open-vm-tools. Should be removed when containerized
