@@ -1,0 +1,25 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+##   description: Verify that when properly configured, Fibre Channel
+##     over Ethernet (FCoE) support can be enabled via fcoe.service
+##     added by fcoe-utils, and lldpad.service added by its dependency.
+##   # Only x86_64 currently has all the required kernel modules.
+##   architectures: x86_64
+
+set -euo pipefail
+
+# shellcheck disable=SC1091
+. $KOLA_EXT_DATA/commonlib.sh
+
+if [ "$(systemctl is-active lldpad)" != 'active' ]; then
+    systemctl status lldpad
+    fatal "lldpad.service is not active - ensure the correct kernel modules are enabled"
+fi
+
+if [ "$(systemctl is-active fcoe)" != 'active' ]; then
+    systemctl status fcoe
+    fatal "fcoe.service is not active - ensure the correct kernel modules are enabled"
+fi
+
+ok "lldpad and fcoe services can be activated when the system is correctly configured"
