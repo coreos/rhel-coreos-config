@@ -37,12 +37,6 @@
 #- pattern: pxe-offline-install.rootfs-appended.bios
 #  tracker: https://github.com/openshift/os/issues/1768
 
-- pattern: ostree.sync
-  tracker: https://github.com/openshift/os/issues/1751
-  osversion:
-    - centos-10
-    - rhel-10.2
-
 # Secureboot in CentOS Stream 10 regressed.
 # - https://github.com/coreos/rhel-coreos-config/issues/130
 # - https://issues.redhat.com/browse/RHEL-137210
