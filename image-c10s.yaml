@@ -1,5 +1,1 @@
-include: "image-default.yaml"
-
-# Enable 'erofs' by default for the rootfs in the Live ISO/PXE artifacts
-live-rootfs-fstype: "erofs"
-live-rootfs-fsoptions: "-zlzma,level=6 -Efragments -C1048576 --quiet"
+image-rhel-10.2.yaml
