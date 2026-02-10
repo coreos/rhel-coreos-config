@@ -8,12 +8,6 @@ size: 16
 # Additional default kernel arguments injected into disk images
 extra-kargs: []
 
-# Legacy build settings - drop when moved to container builds only
-## Can also be oci-chunked
-ostree-format: oci-chunked-v1
-## Whether to inject io.openshift.build.version-display-names for OpenShift CVO
-ostree-container-inject-openshift-cvo-labels: false
-
 # VMware OVA settings.
 ## VMware hardware versions: https://kb.vmware.com/s/article/1003746
 ## Supported VMware versions: https://lifecycle.vmware.com/
