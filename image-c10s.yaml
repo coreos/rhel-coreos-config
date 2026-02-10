@@ -1,12 +1,5 @@
 include: "image-default.yaml"
 
-# Add the requisite OCP metadata to our container image. We can do that for
-# C10S even though we can't for RHCOS 10 as we don't do dual stream for OKD so
-# we have a single OS image in the release payload.
-# See: https://github.com/coreos/rhel-coreos-config/pull/117
-# See: https://github.com/openshift/os/issues/1047#issuecomment-3608508561
-ostree-container-inject-openshift-cvo-labels: true
-
 # Enable 'erofs' by default for the rootfs in the Live ISO/PXE artifacts
 live-rootfs-fstype: "erofs"
 live-rootfs-fsoptions: "-zlzma,level=6 -Efragments -C1048576 --quiet"
