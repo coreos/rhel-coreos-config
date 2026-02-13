@@ -90,9 +90,3 @@
     - centos-9
     - centos-10
     - rhel-9.8
-
-- pattern: ext.config.systemd.journal-compat
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/151
-  snooze: 2026-02-01
-  warn: true
-
