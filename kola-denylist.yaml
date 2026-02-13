@@ -4,7 +4,7 @@
 
 # The latest dracut upgrade caused the tests to fail
 - pattern: coreos.unique.boot.*
-  snooze: 2026-02-12
+  snooze: 2026-02-20
   arches:
     - ppc64le
   tracker: https://github.com/coreos/rhel-coreos-config/issues/172
@@ -12,7 +12,7 @@
     - rhel-9.8
 # The latest dracut upgrade caused the test to fail
 - pattern: coreos.ignition.failure
-  snooze: 2026-02-12
+  snooze: 2026-02-20
   arches:
     - ppc64le
   tracker: https://github.com/coreos/rhel-coreos-config/issues/172
