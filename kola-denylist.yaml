@@ -45,12 +45,3 @@
   osversion:
     - centos-10
     - rhel-10.2
-
-# Ignition package update for c9s is currently blocked due to upstream kola test failures.
-# Keeping this denylisted until the updated Ignition package can be released.
-- pattern: fips.enable
-  tracker: https://issues.redhat.com/browse/RHEL-129425
-  osversion:
-    - centos-9
-    - centos-10
-    - rhel-9.8
