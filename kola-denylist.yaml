@@ -30,14 +30,6 @@
   osversion:
     - rhel-10.2
 
-# There is an issue with rpm-ostree making it to fail
-# For now let's skip it
-- pattern: ext.config.rpm-ostree.replace-rt-kernel
-  tracker: https://github.com/coreos/rhel-coreos-config/pull/163
-  osversion:
-    - centos-10
-    - rhel-10.2
-
 # This test is failing only in prow, so it's skipped by prow
 # but not denylisted here so it can run on the rhcos pipeline
 #- pattern: iso-offline-install-iscsi.ibft.bios
