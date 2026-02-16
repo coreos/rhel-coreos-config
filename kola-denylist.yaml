@@ -16,6 +16,3 @@
   tracker: https://github.com/openshift/os/issues/1720
   arches:
     - s390x
-
-- pattern: ext.config.shared.boot.install-bootloader-multipath
-  tracker: https://github.com/coreos/rhel-coreos-config/issues/99
