@@ -348,6 +348,8 @@ packages-x86_64:
   # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
   # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
   - WALinuxAgent-udev
+  # Daemon that provides placement advice for efficient use of CPUs and memory on systems with NUMA topology.
+  - numad
 
 packages-ppc64le:
   - irqbalance
@@ -355,12 +357,15 @@ packages-ppc64le:
   - powerpc-utils-core
   - ppc64-diag-rtas
   - rdma-core
+  - numad
+
 
 packages-aarch64:
   - irqbalance
   # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
   # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
   - WALinuxAgent-udev
+  - numad
 
 packages-s390x:
   # Required genprotimg for IBM Secure Execution
