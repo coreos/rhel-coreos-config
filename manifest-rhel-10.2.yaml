@@ -1,13 +1,8 @@
 # Manifest for RHCOS based on RHEL 10.2
 
 metadata:
-  license: MIT
-  name: rhcos
-  summary: RHEL CoreOS 10.2
-
-variables:
-  id: "rhel"
-  osversion: "rhel-10.2"
+  # tell `cosa build` to default to buildah path
+  build_with_buildah: true
 
 # Include manifests common to all RHEL and CentOS Stream versions
 include:
@@ -17,12 +12,6 @@ repos:
   - rhel-10.2-baseos
   - rhel-10.2-appstream
   - rhel-10.2-early-kernel
-
-automatic-version-prefix: "10.2.<date:%Y%m%d>"
-# This ensures we're semver-compatible which OpenShift wants
-automatic-version-suffix: "-"
-
-mutate-os-release: "10.2"
 
 # Packages that are only in RHCOS and not in SCOS or that have special
 # constraints that do not apply to SCOS

@@ -1,10 +1,5 @@
 include: "image-default.yaml"
 
-# dont add the OCP metadata to our container image since it's causing
-# conflicts with rhel-9 images in the same payload.
-# but xref https://github.com/openshift/os/issues/1047#issuecomment-3608508561
-ostree-container-inject-openshift-cvo-labels: false
-
 # Enable 'erofs' by default for the rootfs in the Live ISO/PXE artifacts
 live-rootfs-fstype: "erofs"
 live-rootfs-fsoptions: "-zlzma,level=6 -Efragments -C1048576 --quiet"
