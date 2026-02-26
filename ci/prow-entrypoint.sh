@@ -80,10 +80,8 @@ prepare_repos() {
 # We do not build the QEMU image here as we don't need it in the pure container
 # test case.
 cosa_build() {
-    # Fetch packages
-    cosa fetch
-    # Only build the ostree image by default
-    cosa build ostree
+    cosa fetch # used for the non build-with-buildah path
+    cosa build
 }
 
 # Build QEMU image and run all kola tests
