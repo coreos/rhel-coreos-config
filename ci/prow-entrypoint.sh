@@ -264,12 +264,6 @@ main() {
             cosa_build
             kola_test_metal
             ;;
-        "rhcos-9next-build-test-qemu")
-            exit 0
-            ;;
-        "rhcos-9next-build-test-metal")
-            exit 0
-            ;;
         "scos-9-build-test-qemu")
             setup_user
             cosa_init "c9s"
