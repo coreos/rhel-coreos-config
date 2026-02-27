@@ -1,0 +1,14 @@
+variant: fcos
+version: 1.6.0
+systemd:
+  units:
+    - name: numad.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=numad - The NUMA daemon that manages application locality.
+        [Service]
+        Type=forking
+        ExecStart=/usr/bin/numad -i 5 -l 7 -m 100
+        [Install]
+        WantedBy=multi-user.target
