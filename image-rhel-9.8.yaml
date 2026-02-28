@@ -1,5 +1,1 @@
 include: "image-default.yaml"
-
-# add the requisite OCP metadata to our container image
-# but xref https://github.com/openshift/os/issues/1047
-ostree-container-inject-openshift-cvo-labels: true
