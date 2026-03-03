@@ -1,13 +1,8 @@
 # Manifest for RHCOS based on RHEL 9.8
 
 metadata:
-  license: MIT
-  name: rhcos
-  summary: RHEL CoreOS 9.8
-
-variables:
-  id: "rhel"
-  osversion: "rhel-9.8"
+  # tell `cosa build` to default to buildah path
+  build_with_buildah: true
 
 # Include manifests common to all RHEL and CentOS Stream versions
 include:
@@ -17,12 +12,6 @@ repos:
   - rhel-9.8-baseos
   - rhel-9.8-appstream
   - rhel-9.8-early-kernel
-
-automatic-version-prefix: "9.8.<date:%Y%m%d>"
-# This ensures we're semver-compatible which OpenShift wants
-automatic-version-suffix: "-"
-
-mutate-os-release: "9.8"
 
 # Packages that are only in RHCOS and not in SCOS or that have special
 # constraints that do not apply to SCOS
