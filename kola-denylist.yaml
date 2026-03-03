@@ -22,9 +22,3 @@
 # but not denylisted here so it can run on the rhcos pipeline
 #- pattern: pxe-offline-install.rootfs-appended.bios
 #  tracker: https://github.com/openshift/os/issues/1768
-
-- pattern: ostree.sync
-  tracker: https://github.com/openshift/os/issues/1751
-  osversion:
-    - centos-10
-    - rhel-10.2
