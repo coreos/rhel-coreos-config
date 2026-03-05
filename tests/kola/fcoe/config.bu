@@ -1,0 +1,18 @@
+variant: fcos
+version: 1.5.0
+systemd:
+  units:
+    - name: lldpad.service
+      enabled: true
+    - name: fcoe.service
+      enabled: true
+storage:
+  files:
+    # Enable kernel modules for FCoE support in RHEL
+    # See: <https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_storage_devices/configuring-fibre-channel-over-ethernet_managing-storage-devices>
+    - path: /etc/modules-load.d/fcoe.conf
+      contents:
+        inline: |
+          qedf
+          bnx2fc
+          fnic
