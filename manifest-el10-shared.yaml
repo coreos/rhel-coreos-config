@@ -11,6 +11,11 @@ packages-x86_64:
   # Will be moved to the bootc image level.
   - amd-ucode-firmware
 
+packages-aarch64:
+  # Needed for NVIDIA Bluefield platforms to configure firmware settings during bootstrap,
+  # so that networking can be enabled
+  - mstflint
+
 postprocess:
   # Implement el10 specific exclude-packages: in a postprocess because when building
   # via container we don't have exclude-packages functionality.
