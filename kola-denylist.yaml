@@ -6,7 +6,7 @@
 # kernel patch exposing that device haven't landed
 # yet.
 - pattern: ext.config.shared.rpm-ostree.kernel-replace
-  snooze: 2026-03-10
+  snooze: 2026-03-24
   arches:
     - s390x
   tracker: https://github.com/coreos/rhel-coreos-config/issues/150
