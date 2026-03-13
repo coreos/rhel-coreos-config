@@ -333,8 +333,6 @@ packages:
   # Include RHEL EULA documents. This is safe to include in a shared package list
   # because redhat-release-eula is provided by centos-stream-release in CentOS Stream
   - redhat-release-eula
-  # Support for Fibre Channel over Ethernet (FCoE)
-  - fcoe-utils
 
 packages-x86_64:
   # Temporary add of open-vm-tools. Should be removed when containerized
@@ -350,6 +348,8 @@ packages-x86_64:
   - WALinuxAgent-udev
   # Daemon that provides placement advice for efficient use of CPUs and memory on systems with NUMA topology.
   - numad
+  # Support for Fibre Channel over Ethernet (FCoE)
+  - fcoe-utils
 
 packages-ppc64le:
   - irqbalance
