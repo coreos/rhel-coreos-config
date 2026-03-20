@@ -29,3 +29,13 @@
   streams:
     - rhel-9.8
     - rhel-10.2
+
+# There could be a kernel issue, so let's skip those tests for now.
+- pattern: ext.config.shared.secex.*
+  snooze: 2026-03-27
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/207
+  arches:
+    - s390x
+  streams:
+    - rhel-9.8
+    - rhel-10.2
