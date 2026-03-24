@@ -1,0 +1,109 @@
+{
+  "description": "Renovate configuration for RHEL CoreOS - automatically updates bootc base container images for CentOS Stream and RHEL builds",
+  "ignorePaths": [
+    "fedora-coreos-config"
+  ],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "automergeType": "branch",
+  "platformAutomerge": true,
+  "enabledManagers": [
+    "custom.regex"
+  ],
+  "baseBranchPatterns": [
+    "main"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": [
+        "Update 'BUILDER_IMG' in build-args conf files"
+      ],
+      "managerFilePatterns": [
+        "/build-args.*\\.conf$/"
+      ],
+      "matchStrings": [
+        "BUILDER_IMG=(?<depName>.*):(?<currentValue>.*)@(?<currentDigest>.*)\\n"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "/quay.io/centos-bootc/centos-bootc/"
+      ],
+      "matchFileNames": [
+        "build-args-c10s.conf"
+      ],
+      "groupName": "bootc base container images"
+      "groupSlug": "bootc-updates",
+      "branchPrefix": "mintmaker/",
+      "schedule": [
+        "at any time"
+      ],
+      "recreateWhen": "always",
+      "rebaseWhen": "always"
+    },
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "/quay.io/centos-bootc/centos-bootc/"
+      ],
+      "matchFileNames": [
+        "build-args-c9s.conf"
+      ],
+      "groupName": "bootc base container images"
+      "groupSlug": "bootc-updates",
+      "branchPrefix": "mintmaker/",
+      "schedule": [
+        "at any time"
+      ],
+      "recreateWhen": "always",
+      "rebaseWhen": "always"
+    },
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "/registry.stage.redhat.io/rhel10/rhel-bootc.*/"
+      ],
+      "matchFileNames": [
+        "build-args-rhel-10.*\\.conf"
+      ],
+      "groupName": "bootc base container images"
+      "groupSlug": "bootc-updates",
+      "branchPrefix": "mintmaker/",
+      "schedule": [
+        "at any time"
+      ],
+      "recreateWhen": "always",
+      "rebaseWhen": "always"
+    },
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "/registry.stage.redhat.io/rhel9/rhel-bootc.*/"
+      ],
+      "matchFileNames": [
+        "build-args-rhel-9.*\\.conf"
+      ],
+      "groupName": "bootc base container images"
+      "groupSlug": "bootc-updates",
+      "branchPrefix": "mintmaker/",
+      "schedule": [
+        "at any time"
+      ],
+      "recreateWhen": "always",
+      "rebaseWhen": "always"
+    }
+  ]
+}
