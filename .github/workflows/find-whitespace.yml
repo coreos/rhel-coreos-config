@@ -3,6 +3,8 @@
 name: Find Whitespace
 
 on:
+  push:
+    branches: ['mintmaker/**']
   pull_request:
     branches: [main]
 
