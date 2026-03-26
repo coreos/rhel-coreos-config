@@ -47,7 +47,7 @@ systemd-coredump:x:796:
 render:x:797:
 unbound:x:799:
 openvswitch:x:800:
-hugetlbfs:x:801:
+hugetlbfs:x:801:openvswitch
 dockerroot:x:986:
 chrony:x:992:
 sssd:x:993:
