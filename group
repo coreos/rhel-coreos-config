@@ -38,6 +38,7 @@ input:x:104:
 ceph:x:167:
 avahi-autoipd:x:170:
 systemd-journal:x:190:
+containers:x:790:
 systemd-journal-remote:x:791:
 dnsmasq:x:792:
 clevis:x:793:
