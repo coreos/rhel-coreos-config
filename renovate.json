@@ -40,8 +40,8 @@
         "build-args-c10s.conf"
       ],
       "groupName": "bootc base container images",
-      "groupSlug": "bootc-updates",
-      "branchPrefix": "mintmaker/",
+      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "branchPrefix": "mintmaker-",
       "schedule": [
         "at any time"
       ],
@@ -59,8 +59,8 @@
         "build-args-c9s.conf"
       ],
       "groupName": "bootc base container images",
-      "groupSlug": "bootc-updates",
-      "branchPrefix": "mintmaker/",
+      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "branchPrefix": "mintmaker-",
       "schedule": [
         "at any time"
       ],
@@ -78,8 +78,8 @@
         "build-args-rhel-10.*\\.conf"
       ],
       "groupName": "bootc base container images",
-      "groupSlug": "bootc-updates",
-      "branchPrefix": "mintmaker/",
+      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "branchPrefix": "mintmaker-",
       "schedule": [
         "at any time"
       ],
@@ -97,8 +97,8 @@
         "build-args-rhel-9.*\\.conf"
       ],
       "groupName": "bootc base container images",
-      "groupSlug": "bootc-updates",
-      "branchPrefix": "mintmaker/",
+      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "branchPrefix": "mintmaker-",
       "schedule": [
         "at any time"
       ],
