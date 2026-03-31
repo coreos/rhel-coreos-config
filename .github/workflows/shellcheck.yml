@@ -4,7 +4,7 @@ name: ShellCheck
 
 on:
   push:
-    branches: ['mintmaker/**']
+    branches: ['mintmaker-**']
   pull_request:
     branches: [main]
 
