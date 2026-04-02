@@ -1,5 +1,9 @@
 {
-  "description": "Renovate configuration for RHEL CoreOS - automatically updates bootc base container images for CentOS Stream and RHEL builds",
+  "description": [
+    "Renovate configuration for RHEL CoreOS",
+    "Automatically updates bootc base container images for CentOS Stream and RHEL builds",
+    "Scheduled on Sunday mornings (00:00-06:00 UTC)"
+  ],
   "ignorePaths": [
     "fedora-coreos-config"
   ],
@@ -47,7 +51,7 @@
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
-        "at any time"
+        "* 0-6 * * 0"
       ],
       "recreateWhen": "always",
       "rebaseWhen": "always"
@@ -70,7 +74,7 @@
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
-        "at any time"
+        "* 0-6 * * 0"
       ],
       "recreateWhen": "always",
       "rebaseWhen": "always"
@@ -93,7 +97,7 @@
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
-        "at any time"
+        "* 0-6 * * 0"
       ],
       "recreateWhen": "always",
       "rebaseWhen": "always"
@@ -116,7 +120,7 @@
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
-        "at any time"
+        "* 0-6 * * 0"
       ],
       "recreateWhen": "always",
       "rebaseWhen": "always"
