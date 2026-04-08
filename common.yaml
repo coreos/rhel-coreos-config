@@ -317,6 +317,8 @@ packages-x86_64:
   - WALinuxAgent-udev
   # Daemon that provides placement advice for efficient use of CPUs and memory on systems with NUMA topology.
   - numad
+  # Support for Fibre Channel over Ethernet (FCoE)
+  - fcoe-utils
 
 packages-ppc64le:
   - irqbalance
