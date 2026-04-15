@@ -261,6 +261,8 @@ packages:
  # Networking
  - nfs-utils
  - dnsmasq
+ # Link Layer Discovery Protocol (LLDP) agent daemon for DCB
+ - lldpad
  # needed for rpm-ostree today
  - polkit
  # Extra runtime
