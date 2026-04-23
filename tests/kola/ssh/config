@@ -11,14 +11,23 @@ set -euo pipefail
 
 . $KOLA_EXT_DATA/commonlib.sh
 
-if [[ "$(sshd -T | grep 'passwordauthentication')" != "passwordauthentication no" ]]; then
-    fatal "PasswordAuthentication not set to 'no'"
-fi
+expected_opts=(
+    "passwordauthentication no"
+    "permitrootlogin no"
+    "clientaliveinterval 180"
+    "permitemptypasswords no"
+    "strictmodes yes"
+    "ignorerhosts yes"
+    "ignoreuserknownhosts yes"
+    "permituserenvironment no"
+    "gssapiauthentication no"
+    "printlastlog yes"
+    "loglevel INFO"
+)
 
-if [[ "$(sshd -T | grep 'permitrootlogin')" != "permitrootlogin no" ]]; then
-    fatal "PermitRootLogin not set to 'no'"
-fi
-
-if [[ "$(sshd -T | grep 'clientaliveinterval')" != "clientaliveinterval 180" ]]; then
-    fatal "ClientAliveInterval not set to '180'"
-fi
+for opt in "${expected_opts[@]}"; do
+    key="${opt%% *}"
+    if [[ "$(sshd -T | grep "^${key} ")" != "$opt" ]]; then
+        fatal "${opt%% *} not set correctly, expected '${opt}'"
+    fi
+done
