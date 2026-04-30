@@ -6,7 +6,8 @@
 size: 16
 
 # Additional default kernel arguments injected into disk images
-extra-kargs: []
+extra-kargs:
+  - initcall_blacklist=algif_aead_init
 
 # VMware OVA settings.
 ## VMware hardware versions: https://kb.vmware.com/s/article/1003746
