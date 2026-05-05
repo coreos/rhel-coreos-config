@@ -85,12 +85,9 @@ cosa_build() {
 }
 
 # Run all kola tests
-kola_test_qemu() {
-    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet
-}
+kola() {
+    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet --denylist-test iso.*
 
-# Run kola iso.* tests
-kola_test_metal() {
     # Use 'testiso' for older cosa builds, otherwise use kola.
     # Until RHCOS openshift cluster gets updated, iso.* tests run sequentially.
     if cosa kola help | grep -q testiso; then
@@ -100,6 +97,15 @@ kola_test_metal() {
         # https://github.com/coreos/coreos-assembler/issues/4546
         cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused
     fi
+}
+
+# Helper function to run the standard build and test workflow
+run_build_test() {
+    local -r variant="${1}"
+    setup_user
+    cosa_init "${variant}"
+    cosa_build
+    kola
 }
 
 # Basic syntaxt validation for manifests
@@ -245,59 +251,17 @@ main() {
             cosa_init "$2"
             ;;
         # this is called by cosa's CI
-        "rhcos-cosa-prow-pr-ci")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_qemu
+        "rhcos-cosa-prow-pr-ci"|"rhcos-9-build-test-qemu"|"rhcos-9-build-test-metal")
+            run_build_test "rhel-9.8"
             ;;
-        "rhcos-9-build-test-qemu")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_qemu
+        "scos-9-build-test-qemu"|"scos-9-build-test-metal")
+            run_build_test "c9s"
             ;;
-        "rhcos-9-build-test-metal")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_metal
+        "scos-10-build-test-qemu"|"scos-10-build-test-metal")
+            run_build_test "c10s"
             ;;
-        "scos-9-build-test-qemu")
-            setup_user
-            cosa_init "c9s"
-            cosa_build
-            kola_test_qemu
-            ;;
-        "scos-9-build-test-metal")
-            setup_user
-            cosa_init "c9s"
-            cosa_build
-            kola_test_metal
-            ;;
-        "scos-10-build-test-qemu")
-            setup_user
-            cosa_init "c10s"
-            cosa_build
-            kola_test_qemu
-            ;;
-        "scos-10-build-test-metal")
-            setup_user
-            cosa_init "c10s"
-            cosa_build
-            kola_test_metal
-            ;;
-        "rhcos-10-build-test-qemu")
-            setup_user
-            cosa_init "rhel-10.2"
-            cosa_build
-            kola_test_qemu
-            ;;
-        "rhcos-10-build-test-metal")
-            setup_user
-            cosa_init "rhel-10.2"
-            cosa_build
-            kola_test_metal
+        "rhcos-10-build-test-qemu"|"rhcos-10-build-test-metal")
+            run_build_test "rhel-10.2"
             ;;
         *)
             # This case ensures that we exhaustively list the tests that should
