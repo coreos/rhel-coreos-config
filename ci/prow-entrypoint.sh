@@ -99,8 +99,15 @@ kola_test_metal() {
     # installs with the image format we ship
     cosa compress --artifact=metal --artifact=metal4k
 
-    # Run all testiso scenarios on metal artifact
-    kola testiso -S --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso  --denylist-test iso-offline-install-iscsi* --denylist-test pxe-offline-install.rootfs-appended.bios
+    # Use 'testiso' for older cosa builds, otherwise use kola.
+    # Until RHCOS openshift cluster gets updated, iso.* tests run sequentially.
+    if cosa kola help | grep -q testiso; then
+        cosa kola testiso -S --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso --denylist-test iso-offline-install-iscsi* --denylist-test pxe-offline-install.rootfs-appended.bios
+    else
+        # Rerun when failed, use 'unused' tag because of following issue:
+        # https://github.com/coreos/coreos-assembler/issues/4546
+        cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused
+    fi
 }
 
 # Basic syntaxt validation for manifests
