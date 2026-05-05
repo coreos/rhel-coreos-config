@@ -74,31 +74,23 @@ prepare_repos() {
     src/config/ci/get-ocp-repo.sh src/config/ocp.repo "${variant}"
 }
 
-# Do a cosa build only.
+# Build OS container and bootimage artifacts
 # This is called both as part of the build phase and test phase in Prow thus we
 # can not do any kola testing in this function.
-# We do not build the QEMU image here as we don't need it in the pure container
-# test case.
 cosa_build() {
     cosa fetch # used for the non build-with-buildah path
     cosa build
+    cosa osbuild qemu metal metal4k live
+    cosa compress --artifact=metal --artifact=metal4k
 }
 
-# Build QEMU image and run all kola tests
+# Run all kola tests
 kola_test_qemu() {
-    cosa osbuild qemu
     cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet
 }
 
-# Build metal, metal4k & live images and run kola tests
+# Run kola iso.* tests
 kola_test_metal() {
-    # Build metal + installer now so we can test them
-    cosa osbuild metal metal4k live
-
-    # Compress the metal and metal4k images now so we're testing
-    # installs with the image format we ship
-    cosa compress --artifact=metal --artifact=metal4k
-
     # Use 'testiso' for older cosa builds, otherwise use kola.
     # Until RHCOS openshift cluster gets updated, iso.* tests run sequentially.
     if cosa kola help | grep -q testiso; then
