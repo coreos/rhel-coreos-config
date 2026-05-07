@@ -78,7 +78,6 @@ prepare_repos() {
 # This is called both as part of the build phase and test phase in Prow thus we
 # can not do any kola testing in this function.
 cosa_build() {
-    cosa fetch # used for the non build-with-buildah path
     cosa build
     cosa osbuild qemu metal metal4k live
     cosa compress --artifact=metal --artifact=metal4k
