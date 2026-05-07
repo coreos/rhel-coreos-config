@@ -245,17 +245,23 @@ main() {
             cosa_init "$2"
             ;;
         # this is called by cosa's CI
-        "rhcos-9-build-test"|"rhcos-cosa-prow-pr-ci"|"rhcos-9-build-test-qemu"|"rhcos-9-build-test-metal")
+        "rhcos-9-build-test"|"rhcos-cosa-prow-pr-ci"|"rhcos-9-build-test-metal")
             run_build_test "rhel-9.8"
             ;;
-        "scos-9-build-test"|"scos-9-build-test-qemu"|"scos-9-build-test-metal")
+        "scos-9-build-test"|"scos-9-build-test-metal")
             run_build_test "c9s"
             ;;
-        "scos-10-build-test"|"scos-10-build-test-qemu"|"scos-10-build-test-metal")
+        "scos-10-build-test"|"scos-10-build-test-metal")
             run_build_test "c10s"
             ;;
-        "rhcos-10-build-test"|"rhcos-10-build-test-qemu"|"rhcos-10-build-test-metal")
+        "rhcos-10-build-test"|"rhcos-10-build-test-metal")
             run_build_test "rhel-10.2"
+            ;;
+        # Keep standalone qemu jobs green while the same coverage is
+        # provided by the corresponding metal jobs.
+        "rhcos-9-build-test-qemu"|"rhcos-10-build-test-qemu"|"scos-9-build-test-qemu"|"scos-10-build-test-qemu")
+            echo "Skipping standalone qemu job; coverage is provided by the corresponding metal job"
+            return 0
             ;;
         *)
             # This case ensures that we exhaustively list the tests that should
