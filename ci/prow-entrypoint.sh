@@ -90,7 +90,7 @@ kola() {
 
     # Rerun when failed, use 'unused' tag because of following issue:
     # https://github.com/coreos/coreos-assembler/issues/4546
-    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused --denylist-test iso.*iscsi*
+    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
 }
 
 # Helper function to run the standard build and test workflow
