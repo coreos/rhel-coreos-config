@@ -74,33 +74,32 @@ prepare_repos() {
     src/config/ci/get-ocp-repo.sh src/config/ocp.repo "${variant}"
 }
 
-# Do a cosa build only.
+# Build OS container and bootimage artifacts
 # This is called both as part of the build phase and test phase in Prow thus we
 # can not do any kola testing in this function.
-# We do not build the QEMU image here as we don't need it in the pure container
-# test case.
 cosa_build() {
-    cosa fetch # used for the non build-with-buildah path
     cosa build
-}
-
-# Build QEMU image and run all kola tests
-kola_test_qemu() {
-    cosa osbuild qemu
-    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet
-}
-
-# Build metal, metal4k & live images and run kola tests
-kola_test_metal() {
-    # Build metal + installer now so we can test them
-    cosa osbuild metal metal4k live
-
-    # Compress the metal and metal4k images now so we're testing
-    # installs with the image format we ship
+    cosa osbuild qemu metal metal4k live
     cosa compress --artifact=metal --artifact=metal4k
+}
 
-    # Run all testiso scenarios on metal artifact
-    kola testiso -S --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso  --denylist-test iso-offline-install-iscsi* --denylist-test pxe-offline-install.rootfs-appended.bios
+# Run all kola tests
+kola() {
+    # Until RHCOS openshift cluster gets updated, iso.* tests run sequentially, so skip them here
+    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet --denylist-test iso.*
+
+    # Rerun when failed, use 'unused' tag because of following issue:
+    # https://github.com/coreos/coreos-assembler/issues/4546
+    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
+}
+
+# Helper function to run the standard build and test workflow
+run_build_test() {
+    local -r variant="${1}"
+    setup_user
+    cosa_init "${variant}"
+    cosa_build
+    kola
 }
 
 # Basic syntaxt validation for manifests
@@ -246,59 +245,23 @@ main() {
             cosa_init "$2"
             ;;
         # this is called by cosa's CI
-        "rhcos-cosa-prow-pr-ci")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_qemu
+        "rhcos-9-build-test"|"rhcos-cosa-prow-pr-ci"|"rhcos-9-build-test-metal")
+            run_build_test "rhel-9.8"
             ;;
-        "rhcos-9-build-test-qemu")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_qemu
+        "scos-9-build-test"|"scos-9-build-test-metal")
+            run_build_test "c9s"
             ;;
-        "rhcos-9-build-test-metal")
-            setup_user
-            cosa_init "rhel-9.8"
-            cosa_build
-            kola_test_metal
+        "scos-10-build-test"|"scos-10-build-test-metal")
+            run_build_test "c10s"
             ;;
-        "scos-9-build-test-qemu")
-            setup_user
-            cosa_init "c9s"
-            cosa_build
-            kola_test_qemu
+        "rhcos-10-build-test"|"rhcos-10-build-test-metal")
+            run_build_test "rhel-10.2"
             ;;
-        "scos-9-build-test-metal")
-            setup_user
-            cosa_init "c9s"
-            cosa_build
-            kola_test_metal
-            ;;
-        "scos-10-build-test-qemu")
-            setup_user
-            cosa_init "c10s"
-            cosa_build
-            kola_test_qemu
-            ;;
-        "scos-10-build-test-metal")
-            setup_user
-            cosa_init "c10s"
-            cosa_build
-            kola_test_metal
-            ;;
-        "rhcos-10-build-test-qemu")
-            setup_user
-            cosa_init "rhel-10.2"
-            cosa_build
-            kola_test_qemu
-            ;;
-        "rhcos-10-build-test-metal")
-            setup_user
-            cosa_init "rhel-10.2"
-            cosa_build
-            kola_test_metal
+        # Keep standalone qemu jobs green while the same coverage is
+        # provided by the corresponding metal jobs.
+        "rhcos-9-build-test-qemu"|"rhcos-10-build-test-qemu"|"scos-9-build-test-qemu"|"scos-10-build-test-qemu")
+            echo "Skipping standalone qemu job; coverage is provided by the corresponding metal job"
+            return 0
             ;;
         *)
             # This case ensures that we exhaustively list the tests that should
