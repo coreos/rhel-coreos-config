@@ -4,6 +4,13 @@ packages:
   # Include the default set of audit rules. Split from the audit package as a
   # recommends in EL10.
   - audit-rules
+  # Tool for collecting system logs and other information.
+  # Including this in our image directly allows us to transition from
+  # coreos/toolbox to containers/toolbox without waiting for both sos to
+  # support toolbox and for toolbox images to include sos.
+  - sos
+  # Used by sos, which also gives a warning if it's not available
+  - python3-file-magic
 
 packages-x86_64:
   # Include AMD microcode firmwares. Split from the linux-firmware package as a
