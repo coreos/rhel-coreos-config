@@ -65,6 +65,26 @@ For versions older than 4.9, see the internal documentation.
   $ cosa init --yumrepos "${RHCOS_REPO}" --variant rhel-10.2 --branch foobar https://github.com/coreos/rhel-coreos-config.git
   ```
 
+- Authenticate to the Red Hat Stage Registry (`registry.stage.redhat.io`):
+
+  The base container images for RHCOS are hosted on `registry.stage.redhat.io`,
+  which requires authentication. Without this, `cosa build` will fail with an
+  `unauthorized` error when pulling the base image.
+
+  1. Create an account at [Red Hat Subscription Management (Ethel)][ethel] if
+     you don't already have one.
+
+  2. Log in to the registry from your host:
+     ```
+     $ podman login registry.stage.redhat.io
+     ```
+
+  3. Share the registry credentials with the COSA container so that `buildah`
+     inside the container can pull from `registry.stage.redhat.io`:
+     ```
+     $ export COREOS_ASSEMBLER_CONTAINER_RUNTIME_ARGS="-v /run/user/$(id -u)/containers/auth.json:/tmp/auth.json:ro -e REGISTRY_AUTH_FILE=/tmp/auth.json"
+     ```
+
 - Fetch packages and build RHCOS ostree container and QEMU image:
   ```
   $ cosa fetch
@@ -110,4 +130,5 @@ For versions older than 4.9, see the internal documentation.
 [cosa-alias]: https://coreos.github.io/coreos-assembler/building-fcos/#define-a-bash-alias-to-run-cosa
 [buildextend]: https://coreos.github.io/coreos-assembler/cosa/#buildextend-commands
 [kola]: https://coreos.github.io/coreos-assembler/kola/
+[ethel]: https://ethel.rhsm.redhat.com/#create
 [Using overrides]: https://coreos.github.io/coreos-assembler/working/#using-overrides
