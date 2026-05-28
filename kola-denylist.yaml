@@ -24,3 +24,11 @@
   warn: true
   streams:
     - c10s
+- pattern: ext.config.shared.boot.install-bootloader-multipath
+  tracker: https://issues.redhat.com/browse/COS-4364
+  snooze: 2026-06-30
+  warn: true
+  streams:
+    - c9s
+  arches:
+    - aarch64
