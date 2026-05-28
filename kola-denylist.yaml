@@ -17,10 +17,12 @@
   snooze: 2026-05-31
   warn: true
   streams:
+    - rhel-10.2
     - c10s
 - pattern: ext.config.rpm-ostree.replace-rt-kernel
   tracker: https://github.com/coreos/rhel-coreos-config/issues/254
   snooze: 2026-05-31
   warn: true
   streams:
+    - rhel-10.2
     - c10s
