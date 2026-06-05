@@ -85,11 +85,8 @@ cosa_build() {
 
 # Run all kola tests
 kola() {
-    # Execute kola tests. Skip iso.* tests here as we run them below sequentially.
-    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --denylist-test iso.*
-
-    # Execute .iso kola tests serially.
-    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
+    # Execute kola tests.
+    cosa kola run --parallel auto --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
 }
 
 # Helper function to run the standard build and test workflow
