@@ -85,12 +85,11 @@ cosa_build() {
 
 # Run all kola tests
 kola() {
-    # Until RHCOS openshift cluster gets updated, iso.* tests run sequentially, so skip them here
-    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet --denylist-test iso.*
+    # Execute kola tests. Skip iso.* tests here as we run them below sequentially.
+    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --denylist-test iso.*
 
-    # Rerun when failed, use 'unused' tag because of following issue:
-    # https://github.com/coreos/coreos-assembler/issues/4546
-    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
+    # Execute .iso kola tests serially.
+    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
 }
 
 # Helper function to run the standard build and test workflow
