@@ -86,7 +86,11 @@ cosa_build() {
 # Run all kola tests
 kola() {
     # Execute kola tests.
-    cosa kola run --parallel auto --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
+    # Denylist the iso.pxe-offline-install.rootfs-appended.* test
+    # because we've noticed it can take 10 minutes in prow for the large
+    # initramfs to be transferred and the kernel start to boot in prow,
+    # which means the test will typically time out.
+    cosa kola run --parallel auto --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --denylist-test iso.pxe-*.rootfs-appended*
 }
 
 # Helper function to run the standard build and test workflow
