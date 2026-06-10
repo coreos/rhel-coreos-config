@@ -85,6 +85,7 @@ cosa_build() {
 
 # Run all kola tests
 kola() {
+    sleep 21600
     # Test a few specific tests that have been failing in prow
     cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet iso.*iscsi* iso.pxe-*.rootfs-appended*
 
