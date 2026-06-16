@@ -3,6 +3,15 @@
 # RPMs) and list the NEVRs we need in the `packages` section. When not needed comment
 # out the sections below.
 conditional-include:
+# newer versions of sssd will require samba-client-libs >= 4.24.3, which is not
+# yet available. Pin sssd to the prior version to avoid this dependency issue.
+# For full error, see: https://github.com/coreos/rhel-coreos-config/pull/270
+- if: osversion == "centos-9"
+  include:
+    repos:
+      - c9s-baseos-mirror
+    packages:
+      - sssd-2.9.9-1.el9
 ##- if: osversion == "centos-9"
 ##  include:
 ##    repos:
