@@ -12,6 +12,14 @@
 #- pattern: pxe-offline-install.rootfs-appended.bios
 #  tracker: https://github.com/openshift/os/issues/1768
 
+# NOTE: This denylist entry and associated test exist only to ensure we don't forget to
+# remove the kernel version pin added in https://github.com/coreos/rhel-coreos-config/pull/268
+- pattern: ext.config.version.kernel-pin-check
+  tracker: https://bugzilla.redhat.com/show_bug.cgi?id=2477939
+  snooze: 2026-07-16
+  streams:
+    - rhel-10.2
+
 - pattern: ext.config.kdump.kernel-rt-crash
   tracker: https://github.com/coreos/rhel-coreos-config/issues/254
   snooze: 2026-05-31

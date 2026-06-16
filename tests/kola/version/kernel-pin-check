@@ -1,0 +1,26 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+##   description: Verify that we dropped the kernel version pin for rhel-10.2
+# This is a follow-up to https://github.com/coreos/rhel-coreos-config/pull/268, where we want to
+# just ensure that we don't forget to remove the kernel version pin.
+
+set -xeuo pipefail
+
+. $KOLA_EXT_DATA/commonlib.sh
+
+if ! is_rhcos || [ "$(get_rhel_ver)" != "10.2" ]; then
+    ok "Not RHEL-10.2 - this test is not relevant"
+    exit 0
+elif [ "$(uname -m)" != "x86_64" ]; then
+    ok "Not x86_64 - skipping"
+    exit 0
+fi
+
+pinned="6.12.0-211.7.1.el10_2.x86_64"
+current="$(uname -r)"
+if [[ "${current}" == "${pinned}" ]]; then
+    fatal "Kernel is still pinned to ${pinned}. Remove the pin or bump the snooze if it's still required."
+fi
+
+ok "The current kernel (${current}) does not match the pinned version (${pinned}). Delete this test."
