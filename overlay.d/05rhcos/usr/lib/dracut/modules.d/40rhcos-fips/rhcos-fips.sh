@@ -69,29 +69,32 @@ finish() {
         fatal "FIPS mode is not enabled."
     fi
 
-    # on EL10 fips-mode-setup was removed and these steps are
-    # no longer needed. Please delete this function and sysroot_bwrap
-    # when EL9 is no longer supported.
-    if [ ! -e /sysroot/usr/bin/fips-mode-setup ]; then
-        return 0
-    fi
-
-    # If we're running from a live system, then set things up so that the dracut fips
-    # module will find the kernel binary.  TODO change dracut to look in /usr/lib/modules/$(uname -r)
-    # directly.
+    # The dracut 01fips module's do_fips() function checks for the
+    # kernel at /run/initramfs/live/vmlinuz0 for HMAC integrity
+    # verification. ISO images do not have the kernel saved in that
+    # path, so we will add a symlink.
+    #
+    # TODO: change dracut to look in /usr/lib/modules/$(uname -r) directly
+    # See: https://github.com/dracut-ng/dracut/blob/02e7ae10830d1268f1acdf879ef14d5b6bc89ac3/modules.d/11fips/fips.sh#L177
     if test -f /etc/coreos-live-initramfs; then
-        # See the dracut source
         rhevh_livedir=/run/initramfs/live
         mkdir -p "${rhevh_livedir}"
-        # Why "vmlinuz0"?  I have no idea; it's what the dracut fips module uses.
         ln -sr /usr/lib/modules/$(uname -r)/vmlinuz ${rhevh_livedir}/vmlinuz0
     fi
 
-    # This is analogous to Anaconda's `chroot /sysroot fips-mode-setup`. Though
-    # of course, since our approach is "Ignition replaces Anaconda", we have to
-    # do it on firstboot ourselves. The key part here is that we do this
-    # *before* the initial switch root.
-    sysroot_bwrap fips-mode-setup --enable --no-bootcfg
+    # Configure the FIPS crypto-policy on disk via sysroot_bwrap,
+    # analogous to Anaconda's chroot into /sysroot. The key part
+    # here is that we do this *before* the initial switch root.
+    #
+    # On EL9, fips-mode-setup configures the crypto-policy on disk.
+    #
+    # On EL10, fips-mode-setup was removed (RHEL-65652), so we call
+    # update-crypto-policies directly.
+    if [ -e /sysroot/usr/bin/fips-mode-setup ]; then
+        sysroot_bwrap fips-mode-setup --enable --no-bootcfg
+    else
+        sysroot_bwrap update-crypto-policies --set FIPS
+    fi
 }
 
 sysroot_bwrap() {
