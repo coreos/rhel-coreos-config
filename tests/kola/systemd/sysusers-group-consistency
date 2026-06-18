@@ -1,0 +1,54 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+##   description: Verify systemd-sysusers.service succeeds and group/gshadow
+##     files are consistent. Regression test for
+##     https://issues.redhat.com/browse/OCPBUGS-64841
+
+set -xeuo pipefail
+
+. $KOLA_EXT_DATA/commonlib.sh
+
+# systemd-sysusers.service is a oneshot; after success it shows "inactive"
+if systemctl is-failed systemd-sysusers.service > /dev/null 2>&1; then
+    systemctl status systemd-sysusers.service || true
+    journalctl -u systemd-sysusers.service --no-pager || true
+    fatal "systemd-sysusers.service is in failed state"
+fi
+ok "systemd-sysusers.service is not failed"
+
+# Verify containers group exists in /etc/group
+if ! getent group containers > /dev/null 2>&1; then
+    fatal "containers group does not exist"
+fi
+ok "containers group exists"
+
+# Verify containers user exists in /etc/passwd
+if ! getent passwd containers > /dev/null 2>&1; then
+    fatal "containers user does not exist"
+fi
+ok "containers user exists"
+
+# Check for duplicate group entries in /etc/group
+dupes=$(awk -F: '{print $1}' /etc/group | sort | uniq -d)
+if [ -n "$dupes" ]; then
+    fatal "duplicate groups found in /etc/group: $dupes"
+fi
+ok "no duplicate groups in /etc/group"
+
+# Check for duplicate group entries in /etc/gshadow
+if [ -f /etc/gshadow ]; then
+    dupes=$(awk -F: '{print $1}' /etc/gshadow | sort | uniq -d)
+    if [ -n "$dupes" ]; then
+        fatal "duplicate groups found in /etc/gshadow: $dupes"
+    fi
+    ok "no duplicate groups in /etc/gshadow"
+
+    # Verify every group in /etc/group has a corresponding gshadow entry
+    while IFS=: read -r groupname _; do
+        if ! grep -q "^${groupname}:" /etc/gshadow; then
+            fatal "group '$groupname' exists in /etc/group but not in /etc/gshadow"
+        fi
+    done < /etc/group
+    ok "/etc/group and /etc/gshadow are consistent"
+fi
