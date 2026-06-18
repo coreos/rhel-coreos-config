@@ -1,0 +1,64 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+##   description: Verify systemd-sysusers.service succeeds and group/gshadow
+##     files are consistent. Regression test for
+##     https://issues.redhat.com/browse/OCPBUGS-64841
+
+set -xeuo pipefail
+
+. "${KOLA_EXT_DATA}/commonlib.sh"
+
+# systemd-sysusers.service is a oneshot; after success it shows "inactive"
+if systemctl is-failed systemd-sysusers.service > /dev/null 2>&1; then
+    systemctl status systemd-sysusers.service || true
+    journalctl -u systemd-sysusers.service --no-pager || true
+    fatal "systemd-sysusers.service is in failed state"
+fi
+ok "systemd-sysusers.service is not failed"
+
+# Check journal for "already exists" errors from systemd-sysusers
+if journalctl -u systemd-sysusers.service --no-pager -o cat | grep -qi "already exists"; then
+    journalctl -u systemd-sysusers.service --no-pager || true
+    fatal "systemd-sysusers reported 'already exists' error in journal"
+fi
+ok "no 'already exists' errors in systemd-sysusers journal"
+
+# The containers user/group (uid/gid 790) is defined in altfiles
+# (/usr/lib/passwd, /usr/lib/group) and resolved via nss-altfiles.
+# Verify they resolve correctly.
+if ! id containers > /dev/null 2>&1; then
+    fatal "containers user does not resolve"
+fi
+ok "containers user resolves"
+
+# Verify uid/gid is 790
+containers_uid=$(id -u containers)
+containers_gid=$(id -g containers)
+if [ "$containers_uid" != "790" ] || [ "$containers_gid" != "790" ]; then
+    fatal "containers uid/gid expected 790/790, got ${containers_uid}/${containers_gid}"
+fi
+ok "containers uid/gid is 790/790"
+
+# Check for duplicate group entries in /etc/group
+dupes=$(awk -F: '!/^#/ && !/^$/ {print $1}' /etc/group | sort | uniq -d)
+if [ -n "$dupes" ]; then
+    fatal "duplicate groups found in /etc/group: $dupes"
+fi
+ok "no duplicate groups in /etc/group"
+
+# Check for duplicate group entries in /etc/gshadow
+if [ -f /etc/gshadow ]; then
+    dupes=$(awk -F: '!/^#/ && !/^$/ {print $1}' /etc/gshadow | sort | uniq -d)
+    if [ -n "$dupes" ]; then
+        fatal "duplicate groups found in /etc/gshadow: $dupes"
+    fi
+    ok "no duplicate groups in /etc/gshadow"
+
+    # Verify every group in /etc/group has a corresponding gshadow entry
+    missing=$(awk -F: '/^#/ || /^$/ {next} NR==FNR {g[$1]; next} !($1 in g) {print $1}' /etc/gshadow /etc/group)
+    if [ -n "$missing" ]; then
+        fatal "groups in /etc/group missing from /etc/gshadow: $missing"
+    fi
+    ok "/etc/group and /etc/gshadow are consistent"
+fi
