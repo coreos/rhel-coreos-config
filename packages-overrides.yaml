@@ -1,13 +1,7 @@
 # This is a poor man's version of an override lockfile for our RHCOS/SCOS streams.
-# When needed, we can enable the mirror repos here for CentOS (which hold older
-# RPMs) and list the NEVRs we need in the `packages` section. When not needed comment
-# out the sections below.
 conditional-include:
 ##- if: osversion == "centos-9"
 ##  include:
-##    repos:
-##      - c9s-baseos-mirror
-##      - c9s-appstream-mirror
 ##    packages:
 ##      - foo-1.2
 ##- if: osversion == "rhel-10.2"
