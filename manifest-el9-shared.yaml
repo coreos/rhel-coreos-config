@@ -39,7 +39,7 @@ conditional-include:
 ostree-layers:
   # Configure plugin order for NetworkManager config files. EL9 only as
   # `ifcfg-rh` has been dropped in EL10.
-  - overlay/15rhcos-networkmanager-plugin-order
+  - overlay.d/15rhcos-networkmanager-plugin-order
 
 postprocess:
   # zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
