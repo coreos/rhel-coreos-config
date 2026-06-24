@@ -91,7 +91,10 @@ finish() {
     # On EL10, fips-mode-setup was removed (RHEL-65652), so we call
     # update-crypto-policies directly.
     if [ -e /sysroot/usr/bin/fips-mode-setup ]; then
-        sysroot_bwrap fips-mode-setup --enable --no-bootcfg
+        sysroot_bwrap env                                   \
+                      FIPS_MODE_SETUP_SKIP_WARNING=1        \
+                      FIPS_MODE_SETUP_SKIP_ARGON2_CHECK=1   \
+                      fips-mode-setup --enable --no-bootcfg
     else
         sysroot_bwrap update-crypto-policies --set FIPS
     fi
