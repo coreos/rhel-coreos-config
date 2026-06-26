@@ -1,11 +1,5 @@
 # We inherit from Fedora CoreOS' base configuration
 include:
-  - fedora-coreos-config/manifests/system-configuration.yaml
-  - fedora-coreos-config/manifests/ignition-and-ostree.yaml
-  - fedora-coreos-config/manifests/file-transfer.yaml
-  - fedora-coreos-config/manifests/networking-tools.yaml
-  - fedora-coreos-config/manifests/user-experience.yaml
-  - fedora-coreos-config/manifests/coreos-bootc-delta.yaml
   - fedora-coreos-config/manifests/shared-el.yaml
   # RHCOS owned packages
   - packages-rhcos.yaml
@@ -13,18 +7,14 @@ include:
 
 # Layers common to all versions of RHCOS and SCOS
 ostree-layers:
-  - overlay/01fcos
-  - overlay/02fcos-nouveau
-  - overlay/05rhcos
-  - overlay/06gcp-routes
-  - overlay/15rhcos-networkmanager-dispatcher
-  - overlay/15rhcos-tuned-bits
-  - overlay/15rhcos-journald-backcompat
-  - overlay/20platform-chrony
-  - overlay/21dhcp-chrony
-  - overlay/30rhcos-nvme-compat-udev
-  - overlay/30gcp-udev-rules
-  - overlay/30lvmdevices
+  - overlay.d/05rhcos
+  - overlay.d/06gcp-routes
+  - overlay.d/15rhcos-networkmanager-dispatcher
+  - overlay.d/15rhcos-tuned-bits
+  - overlay.d/15rhcos-journald-backcompat
+  - overlay.d/21dhcp-chrony
+  - overlay.d/30rhcos-nvme-compat-udev
+  - overlay.d/30gcp-udev-rules
 
 conditional-include:
   # Configuration specific to el9
