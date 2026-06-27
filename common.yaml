@@ -181,6 +181,33 @@ postprocess:
         exit 1
     fi
 
+  # Symlink ignition issues to /etc/issues.d
+  # Since util-linux 2.41 agetty will source issues from run so we moved
+  # FCOS to write the generated issues there.
+  #
+  # Until we have util-linux >= 2.41 we need to symlink these back
+  # to /etc/issue.d/.
+  # See https://github.com/coreos/fedora-coreos-config/pull/4046
+  - |
+    #!/usr/bin/env bash
+    # set -x
+    installed_ver=$(rpm -q util-linux --qf "%{VERSION}\n")
+    required_ver=2.41
+
+    # compare the two versions
+    lower_ver=$(printf "%s\n%s" "$installed_ver" "$required_ver" | sort -V | head -n1)
+
+    if [ "$lower_ver" != "$required_ver" ]; then
+      mkdir -p /usr/lib/systemd/system/coreos-ignition-write-issues.service.d
+      cat << EOF > /usr/lib/systemd/system/coreos-ignition-write-issues.service.d/issue.d-compat-symlinks.conf
+    # Util-linux won't source issue files from /run/issue.d/ until v2.41.
+    # Create symlinks from /etc pointing to /run/issue.d/ so agetty picks them up.
+    # See https://github.com/coreos/fedora-coreos-tracker/issues/2108
+    [Service]
+    ExecStartPost=/usr/bin/bash -c "mkdir -p /etc/issue.d && find /run/issue.d -maxdepth 1 -name '30_coreos_ignition_*.issue' -exec ln -sft /etc/issue.d/ {} +"
+    EOF
+    fi
+
 # A lof of packages are inherited by the manifests included at the top.
 packages:
   # Contains SCTP (https://bugzilla.redhat.com/show_bug.cgi?id=1718049)
