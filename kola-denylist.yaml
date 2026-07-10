@@ -12,9 +12,9 @@
 #- pattern: pxe-offline-install.rootfs-appended.bios
 #  tracker: https://github.com/openshift/os/issues/1768
 
-- pattern: ext.config.boot.raid1-boot.ppc64le
+- pattern: ext.config.shared.boot.raid1-boot.ppc64le
   tracker: https://github.com/coreos/rhel-coreos-config/issues/281
   warn: true
-  snooze: 2026-07-15
+  snooze: 2026-07-29
   arches:
     - ppc64le
