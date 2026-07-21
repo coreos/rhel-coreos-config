@@ -1,0 +1,13 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+
+# This test verifies that composefs is set to maybe as a workaround for
+# https://github.com/openshift/os/issues/1678
+
+set -xeuo pipefail
+
+source /etc/os-release
+if [[ $VERSION_ID = 9.* ]]; then
+    grep -nr -Pz '\[composefs\]\nenabled = maybe' /usr/lib/ostree/prepare-root.conf
+fi

@@ -1,0 +1,21 @@
+#!/bin/bash
+## kola:
+##   exclusive: false
+##   description: Verify /etc/localtime state.
+##     Symlink was added in el9 for
+##         https://github.com/openshift/os/pull/1021
+##         https://issues.redhat.com/browse/LOG-3117
+##     Symlink was removed in el10+
+##         https://github.com/coreos/rhel-coreos-config/pull/103
+
+set -xeuo pipefail
+
+. $KOLA_EXT_DATA/commonlib.sh
+
+if match_maj_ver "9"; then
+    test -L /etc/localtime
+    ok "/etc/localtime symlink exists"
+else
+    test ! -e /etc/localtime
+    ok "/etc/localtime does not exist"
+fi

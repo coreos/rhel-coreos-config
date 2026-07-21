@@ -1,0 +1,76 @@
+# Place here configuration that should happen on all el9* builds
+
+packages:
+  - containernetworking-plugins
+  # Gluster - Used for Openshift e2e gluster testcases
+  # Reverts https://gitlab.cee.redhat.com/coreos/redhat-coreos/merge_requests/367 and add it for all arches
+  - glusterfs-fuse
+  # Kept in EL9 for backward compatibility. Dropped in EL10.
+  - perl-interpreter
+  # Packages that we need to name to keep the same package set in EL9
+  # after moving to recomends=false in el9 to support building-via-container
+  # since building via container doesn't support cancelling out recommends with
+  # `exclude-packages`.
+  # https://github.com/coreos/rhel-coreos-config/issues/119#issuecomment-3642292482
+  - adcli
+  - gawk-all-langpacks
+  - geolite2-city
+  - geolite2-country
+  - initscripts-service
+  - perl-NDBM_File
+  - polkit-pkla-compat
+  - python-unversioned-command
+  - rpm-plugin-systemd-inhibit
+
+# Arch specific packages that we need to keep the same package set in EL9.
+conditional-include:
+  # Couldn't include fwupd-plugin-flashrom above because s390x
+  # doesn't have that package.
+  - if: basearch != "s390x"
+    include:
+      packages:
+        - fwupd-plugin-flashrom
+  # For some reason libxcrypt-compat was only installed on x86_64
+  - if: basearch == "x86_64"
+    include:
+      packages:
+        - libxcrypt-compat
+
+ostree-layers:
+  # Configure plugin order for NetworkManager config files. EL9 only as
+  # `ifcfg-rh` has been dropped in EL10.
+  - overlay.d/15rhcos-networkmanager-plugin-order
+
+postprocess:
+  # zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
+  # config, we want to disable it. We don't need this in el10 because the config
+  # was split in a subpackage we don't pull in.
+  - |
+    #!/usr/bin/bash
+    set -xeuo pipefail
+    rm /usr/lib/systemd/zram-generator.conf
+
+  # We added this for https://issues.redhat.com/browse/LOG-3117
+  # because something changed between rhel8 and rhel9 to not
+  # generate this by default but we had containers that expected it
+  # to exist to be mounted. We include it in RHEL 9, but the
+  # containers were fixed in [1] so we won't include it in RHEL 10.
+  # [1] https://github.com/openshift/cluster-logging-operator/pull/1675
+  - |
+    #!/usr/bin/env bash
+    set -xeo pipefail
+    ln -sr /usr/share/zoneinfo/UTC /etc/localtime
+
+  # mstflint rpm package may have broken symlink '/usr/lib64/libmtcr_ul.a',
+  # let's check and remove it.
+  # https://redhat.atlassian.net/browse/RHEL-160059
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    # This is only needed on aarch64 where mstflint is installed.
+    if [ "$(uname -m)" == "aarch64" ]; then
+        linkname=/usr/lib64/libmtcr_ul.a
+        if [ -L "${linkname}" ] && [ ! -e "${linkname}" ]; then
+            rm -f "${linkname}"
+        fi
+    fi

@@ -1,0 +1,283 @@
+# We inherit from Fedora CoreOS' base configuration
+include:
+  - fedora-coreos-config/manifests/shared-el.yaml
+  # RHCOS owned packages
+  - packages-rhcos.yaml
+  - packages-overrides.yaml
+
+# Layers common to all versions of RHCOS and SCOS
+ostree-layers:
+  - overlay.d/05rhcos
+  - overlay.d/06gcp-routes
+  - overlay.d/15rhcos-networkmanager-dispatcher
+  - overlay.d/15rhcos-tuned-bits
+  - overlay.d/15rhcos-journald-backcompat
+  - overlay.d/21dhcp-chrony
+  - overlay.d/30rhcos-nvme-compat-udev
+  - overlay.d/30gcp-udev-rules
+
+conditional-include:
+  # Configuration specific to el9
+  - if: osversion == "centos-9"
+    include:
+      - manifest-el9-shared.yaml
+  - if: osversion == "rhel-9.8"
+    include:
+      - manifest-el9-shared.yaml
+  # Configuration specific to el10
+  - if: osversion == "centos-10"
+    include:
+      - manifest-el10-shared.yaml
+  - if: osversion == "rhel-10.2"
+    include:
+      - manifest-el10-shared.yaml
+
+documentation: false
+
+recommends: false
+
+postprocess:
+  # Set composefs to `maybe` for now because older bootimages
+  # could be starting with an OSTree that's not new enough.
+  # https://github.com/openshift/os/issues/1678
+  # This used to be in manifest-el9-shared.yaml, but because of subtle
+  # rpm-ostree include semantics, it runs too early, i.e. before `prepare-root.conf`
+  # is actually written. This will become irrelevant when we move to `podman build`.
+  # https://github.com/coreos/rhel-coreos-config/issues/12
+  - |
+    #!/usr/bin/bash
+    set -xeuo pipefail
+    source /etc/os-release
+    # always expect the file to be there, and that it turns on composefs
+    grep -Pz '\[composefs\]\nenabled = yes\n' /usr/lib/ostree/prepare-root.conf
+    if [[ $VERSION_ID = 9.* ]]; then
+      sed -i -e 's,enabled = yes,enabled = maybe,' /usr/lib/ostree/prepare-root.conf
+    fi
+
+  # Mark the OS as of the CoreOS variant.
+  # XXX: should be part of a centos/redhat-release subpackage instead
+  - |
+     #!/usr/bin/bash
+     set -euo pipefail
+     cat >> /usr/lib/os-release <<EOF
+     VARIANT=CoreOS
+     VARIANT_ID=coreos
+     EOF
+
+     # And put "CoreOS" in NAME and PRETTY_NAME
+     sed -i -e 's/^NAME="\(.*\)"/NAME="\1 CoreOS"/' /usr/lib/os-release
+     . /usr/lib/os-release
+     sed -i -e "s/^PRETTY_NAME=.*/PRETTY_NAME=\"$NAME $VERSION\"/" /usr/lib/os-release
+
+  # TEMPORARY: Create /etc/vmware-tools/tools.conf to ensure RHCOS shows up properly in VMWare
+  # See https://jira.coreos.com/browse/RHCOS-258
+  - |
+    #!/usr/bin/env bash
+    set -xeo pipefail
+    if [ "$(uname -m)" == "x86_64" ]; then
+      cat > /etc/vmware-tools/tools.conf <<'EOF'
+    [guestosinfo]
+    short-name = rhel8-64
+    EOF
+    fi
+
+ # TEMPORARY: Remove /etc/zkey/ group write permissions
+ # See https://github.com/openshift/os/issues/1209
+  - |
+    #!/usr/bin/env bash
+    set -xeo pipefail
+    if [ "$(uname -m)" == "s390x" ]; then
+      if [ -f /run/.containerenv ]; then
+        chmod -R g-w /etc/zkey
+      else
+        chmod -R g-w /usr/etc/zkey
+      fi
+    fi
+
+  # Nuke network.service from orbit
+  # https://github.com/openshift/os/issues/117
+  - |
+    #!/usr/bin/env bash
+    set -xeo pipefail
+    rm -rf /etc/rc.d/init.d/network /etc/rc.d/rc*.d/*network
+
+    # We're not using resolved yet
+    rm -f /usr/lib/systemd/system/systemd-resolved.service
+
+  # This updates the PAM configuration to reference all of the SSSD modules.
+  # authselect requires access to /var and more permissions to enable a profile,
+  # so we use 'authselect test' instead.
+
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    # use `authselect test` since `authselect select` wants to copy to `/var` too
+    authselect test sssd --nsswitch | tail -n +2 > /etc/nsswitch.conf
+    for pam_file in system-auth password-auth smartcard-auth fingerprint-auth postlogin; do
+      authselect test sssd --${pam_file} | tail -n +2 > /etc/pam.d/${pam_file}
+    done
+
+  - |
+    #!/usr/bin/env bash
+    set -xeo pipefail
+
+    # FIXME: Why is this only broken here?  NM isn't removing the link?
+    sed -i '/etc.resolv/d' /usr/lib/tmpfiles.d/etc.conf
+
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    # Enable tmp-on-tmpfs by default because we don't want to have things leak
+    # across reboots, it increases alignment with FCOS, and also fixes the
+    # Live ISO. First, verify that RHEL is still disabling.
+    grep -q '# RHEL-only: Disable /tmp on tmpfs' /usr/lib/systemd/system/basic.target
+    echo '# RHCOS-only: we follow the Fedora/upstream default' >> /usr/lib/systemd/system/basic.target
+    echo 'Wants=tmp.mount' >> /usr/lib/systemd/system/basic.target
+
+  # sudo prefers its config files to be mode 440, and some security scanners
+  # complain if /etc/sudoers.d files are world-readable.
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1981979
+  # This is added by the 05core overlay listed above.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    chmod 440 /etc/sudoers.d/coreos-sudo-group
+
+  # Add the sudo group to /etc/group in container-native flow.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    if [ -f /run/.containerenv ]; then
+        grep sudo /usr/lib/group >> /etc/group
+    fi
+
+  # Implement exclude-packages: in a postprocess because when building
+  # via container we don't have exclude-packages functionality.
+  #
+  # These are things we don't expect to ship on the host and want to catch
+  # if they ever sneak in.
+  #
+  # Copied from https://github.com/coreos/fedora-coreos-config/blob/c0abc9cd871327349951ab59994d83466e2740fe/manifests/fedora-coreos.yaml#L201-L237
+  - |
+    #!/usr/bin/env bash
+    set -x
+    excludes=(
+      # https://github.com/coreos/rpm-ostree/pull/1789/files/a0cd999a8acd5b40ec1024a794a642916fbc8ff8#diff-fc2076dc46933204a7a798f544ce3734
+      # People need to use `rpm-ostree kargs` instead.
+      grubby
+      # udisks2 is a fwupd recommends only need for encrypted swap checks
+      udisks2
+      # dhcp-client is recommended by chrony for handling NTP servers given out via
+      # DHCP, but we have a NM dispatcher script that is doing that
+      # See: https://bugzilla.redhat.com/show_bug.cgi?id=1930468
+      # See: https://bugzilla.redhat.com/show_bug.cgi?id=1800901
+      dhcp-client
+    )
+    # Determine if anything that isn't allowed is actually provided.
+    actuals="$(rpm -q --whatprovides ${excludes[@]} | grep -v 'no package provides')"
+    if [ ! -z "${actuals}" ]; then
+        echo "Something is providing excluded RPM functionality!" 1>&2
+        echo "${actuals}" 1>&2
+        exit 1
+    fi
+
+# A lof of packages are inherited by the manifests included at the top.
+packages:
+  # Contains SCTP (https://bugzilla.redhat.com/show_bug.cgi?id=1718049)
+  # and it's not really going to be worth playing the "where's my kernel module"
+  # game long term.  If we ship it we support it, etc.
+  - kernel-modules-extra
+  # Audit
+  - audit
+  # Bootloader updater
+  - bootupd
+  # Containers
+  - container-selinux
+  - skopeo
+  # Networking
+  - nfs-utils
+  - dnsmasq
+  # Link Layer Discovery Protocol (LLDP) agent daemon for DCB
+  - lldpad
+  # needed for rpm-ostree today
+  - polkit
+  # Extra runtime
+  - sssd
+  # Common tools used by scripts and admins interactively
+  - rsync tmux
+  - nmap-ncat strace
+  # Future update manager on the client-side
+  - bootc
+  # Editors
+  - nano
+  # Red Hat CA certs
+  - subscription-manager-rhsm-certificates
+  # Used on the bootstrap node
+  - systemd-journal-remote
+  # Extras
+  - systemd-journal-gateway
+  # Used to update PAM configuration to work with SSSD
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1774154
+  - authselect
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1900759
+  - qemu-guest-agent
+  # passwd was obsoleted by shadow-utils in F40+, but still needed here
+  - passwd
+  # Provide fips-mode-setup which is needed by rhcos-fips.sh
+  - crypto-policies-scripts
+  # For semanage
+  - policycoreutils-python-utils
+  # https://github.com/coreos/fedora-coreos-tracker/issues/1687
+  - dnf
+  # This is used by rpm-ostree treefile-apply to deal with
+  # https://gitlab.com/fedora/bootc/tracker/-/issues/59
+  - 'dnf-command(versionlock)'
+  # https://issues.redhat.com/browse/OCPBUGS-35247
+  - subscription-manager
+  # Can be removed once OpenSSH 10.0 is included in RHEL
+  # See: https://github.com/coreos/ssh-key-dir/issues/188
+  - ssh-key-dir
+  # Include RHEL EULA documents. This is safe to include in a shared package list
+  # because redhat-release-eula is provided by centos-stream-release in CentOS Stream
+  - redhat-release-eula
+
+packages-x86_64:
+  # Temporary add of open-vm-tools. Should be removed when containerized
+  - open-vm-tools
+  - irqbalance
+  # Until we sort out 4.2 -> 4.3 upgrades, we need to carry this.
+  # See also https://github.com/ostreedev/ostree/pull/1929
+  - ostree-grub2
+  # rdma-core cleanly covers some key bare metal use cases
+  - rdma-core
+  # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
+  # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
+  - WALinuxAgent-udev
+  # Daemon that provides placement advice for efficient use of CPUs and memory on systems with NUMA topology.
+  - numad
+  # Support for Fibre Channel over Ethernet (FCoE)
+  - fcoe-utils
+
+packages-ppc64le:
+  - irqbalance
+  - librtas
+  - powerpc-utils-core
+  - ppc64-diag-rtas
+  - rdma-core
+  - numad
+
+packages-aarch64:
+  - irqbalance
+  # Upstream PR https://github.com/coreos/fedora-coreos-config/pull/786
+  # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
+  - WALinuxAgent-udev
+  - numad
+  # Needed for NVIDIA Bluefield platforms to configure firmware settings during bootstrap,
+  # so that networking can be enabled. NVIDIA Bluefield is limited to aarch64 for now so
+  # limit install of this package to aarch64.
+  # See: https://issues.redhat.com/browse/COS-3934
+  - mstflint
+
+packages-s390x:
+  # Required genprotimg for IBM Secure Execution
+  - s390utils-base

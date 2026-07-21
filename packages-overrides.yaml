@@ -1,0 +1,10 @@
+# This is a poor man's version of an override lockfile for our RHCOS/SCOS streams.
+conditional-include:
+##- if: osversion == "centos-9"
+##  include:
+##    packages:
+##      - foo-1.2
+##- if: osversion == "rhel-10.2"
+##  include:
+##    packages:
+##      - foo-1.2

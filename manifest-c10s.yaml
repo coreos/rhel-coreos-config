@@ -1,0 +1,20 @@
+# Manifest for CentOS Stream CoreOS 10
+
+metadata:
+  # tell `cosa build` to default to buildah path
+  build_with_buildah: true
+
+# Include manifests common to all RHEL and CentOS Stream versions
+include:
+  - common.yaml
+
+repos:
+  - c10s-baseos
+  - c10s-appstream
+  - c10s-extras-common
+
+packages:
+ - centos-stream-release
+ - centos-release-cloud-common
+ - centos-release-nfv-common
+ - centos-release-virt-common

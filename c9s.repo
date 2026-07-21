@@ -1,0 +1,63 @@
+[c9s-baseos]
+name=CentOS Stream 9 - BaseOS
+baseurl=https://mirror.stream.centos.org/9-stream/BaseOS/$basearch/os
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+[c9s-appstream]
+name=CentOS Stream 9 - AppStream
+baseurl=https://mirror.stream.centos.org/9-stream/AppStream/$basearch/os
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+[c9s-nfv]
+name=CentOS Stream 9 - NFV
+baseurl=https://mirror.stream.centos.org/9-stream/NFV/$basearch/os
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+[c9s-rt]
+name=CentOS Stream 9 - RT
+baseurl=https://mirror.stream.centos.org/9-stream/RT/$basearch/os
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+[c9s-extras-common]
+name=CentOS Stream 9 - Extras packages
+baseurl=https://mirror.stream.centos.org/SIGs/9-stream/extras/$basearch/extras-common
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Extras-SHA512
+
+[c9s-sig-nfv]
+name=CentOS Stream 9 - SIG NFV
+baseurl=https://mirror.stream.centos.org/SIGs/9-stream/nfv/$basearch/openvswitch-2/
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-NFV
+
+[c9s-sig-virtualization]
+name=CentOS Stream 9 - SIG Virtualization
+baseurl=https://mirror.stream.centos.org/SIGs/9-stream/virt/$basearch/kata-containers/
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
+
+[c9s-sig-cloud-okd]
+name=CentOS Stream 9 - SIG Cloud OKD 4.19
+baseurl=https://mirror.stream.centos.org/SIGs/9-stream/cloud/$basearch/okd-4.19/
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud
