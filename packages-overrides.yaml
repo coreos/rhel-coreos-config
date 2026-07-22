@@ -8,3 +8,13 @@ conditional-include:
 ##  include:
 ##    packages:
 ##      - foo-1.2
+
+# https://github.com/coreos/rhel-coreos-config/issues/290
+- if: osversion == "centos-9"
+  include:
+    packages:
+      - kernel-5.14.0-722.el9
+      - kernel-core-5.14.0-722.el9
+      - kernel-modules-5.14.0-722.el9
+      - kernel-modules-core-5.14.0-722.el9
+      - kernel-modules-extra-5.14.0-722.el9
