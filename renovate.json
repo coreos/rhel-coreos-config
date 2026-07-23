@@ -38,7 +38,7 @@
         "custom.regex"
       ],
       "addLabels": [
-          "lgtm"
+        "lgtm"
       ],
       "matchPackageNames": [
         "/quay.io/centos-bootc/centos-bootc/"
@@ -61,7 +61,7 @@
         "custom.regex"
       ],
       "addLabels": [
-          "lgtm"
+        "lgtm"
       ],
       "matchPackageNames": [
         "/quay.io/centos-bootc/centos-bootc/"
@@ -84,7 +84,7 @@
         "custom.regex"
       ],
       "addLabels": [
-          "lgtm"
+        "lgtm"
       ],
       "matchPackageNames": [
         "/registry.stage.redhat.io/rhel10/rhel-bootc.*/"
@@ -92,6 +92,7 @@
       "matchFileNames": [
         "build-args-rhel-10.*\\.conf"
       ],
+      "allowedVersions": "/^10\\.2/",
       "groupName": "bootc base container images",
       "groupSlug": "bootc-{{baseBranch}}-updates",
       "branchPrefix": "mintmaker-",
@@ -107,7 +108,7 @@
         "custom.regex"
       ],
       "addLabels": [
-          "lgtm"
+        "lgtm"
       ],
       "matchPackageNames": [
         "/registry.stage.redhat.io/rhel9/rhel-bootc.*/"
@@ -115,6 +116,7 @@
       "matchFileNames": [
         "build-args-rhel-9.*\\.conf"
       ],
+      "allowedVersions": "/^9\\.8/",
       "groupName": "bootc base container images",
       "groupSlug": "bootc-{{baseBranch}}-updates",
       "branchPrefix": "mintmaker-",
