@@ -18,3 +18,6 @@ packages:
   # for kdump:
   # https://github.com/coreos/fedora-coreos-tracker/issues/622
   - kexec-tools
+  # this was being installed in node-image but the package needs to align versions
+  # therefore move it to rhcos
+  - NetworkManager-ovs
