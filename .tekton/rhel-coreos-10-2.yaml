@@ -31,7 +31,7 @@ spec:
   - name: privileged-nested
     value: true
   - name: build-args-file
-    value: build-args-rhel-10-2.conf
+    value: build-args-rhel-10.2.conf
   - name: workingdir-mount
     value: /run/src
   - name: build-platforms
