@@ -41,8 +41,8 @@ spec:
     value: 50
   - name: hermetic
     value: false
-  - name: prefetch-input
-    value: '[{"type": "rpm", "path": "."}]'
+  #- name: prefetch-input
+  #  value: '[{"type": "rpm", "path": "."}]'
   - name: image-expires-after
     value: 5d
   pipelineRef:
