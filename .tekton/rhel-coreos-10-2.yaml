@@ -45,10 +45,12 @@ spec:
   #  value: '[{"type": "rpm", "path": "."}]'
   - name: image-expires-after
     value: 5d
+  - name: additional-secret
+    value: yumrepos
   pipelineRef:
     params:
     - name: bundle
-      value: quay.io/bootc-devel/tekton-catalog-pr:buildah-build-bootc-multi-platform-oci-ta-36ad2bb77d2abd905257e4891d19aa30816e7df9-556965fbbd35
+      value: quay.io/bootc-devel/tekton-catalog-pr:buildah-build-bootc-multi-platform-oci-ta-02f0e53fdc09e292c9a5f281dfc18e0411ed67d6-42cd342acae3
     - name: name
       value: buildah-build-bootc-multi-platform-oci-ta
     - name: kind
