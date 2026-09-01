@@ -23,4 +23,4 @@ vmware-secure-boot: false
 # see https://github.com/coreos/coreos-assembler/pull/3607
 aws-imdsv2-only: false
 aws-volume-type: "gp2"
-aws-x86-boot-mode: "legacy-bios"
+aws-x86-boot-mode: "uefi-preferred"
