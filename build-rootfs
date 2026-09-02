@@ -1,1 +1,687 @@
-fedora-coreos-config/build-rootfs
+#!/usr/bin/python3
+
+# This script is called by the Containerfile to build FCOS. Here's what it does at a high-level:
+# 1. It gathers the list of FCOS-specific packages using the manifests.
+# 2. It gathers the list of FCOS-specific overlays using the manifests.
+# 3. It runs `bootc-base-imagectl make-rootfs`.
+# 4. It injects various metadata (e.g. image.json, live/ bits, platforms.json, and disk.yaml).
+# 5. It runs the postprocess scripts defined in the manifest.
+
+import argparse
+import glob
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import yaml
+
+
+ARCH = os.uname().machine
+INPUTHASH = '/run/inputhash'
+HERMETIC_REPO = '/etc/yum.repos.d/cachi2.repo'
+
+# Build-args to propagate as env vars into the postprocess bwrap sandbox.
+# Add entries here as needed; they must also be declared as ARG in the
+# Containerfile builder stage so they are present in os.environ.
+POSTPROCESS_ENV_VARS = ['NAME']
+IS_HERMETIC = os.path.exists(HERMETIC_REPO)
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Build a CoreOS rootfs.')
+    parser.add_argument('--srcdir', default='/src',
+                        help='The source config directory')
+    subparsers = parser.add_subparsers(help='Subcommands', required=True)
+
+    cmd_make_rootfs = \
+        subparsers.add_parser('make-rootfs',
+                              help='Generate a container root filesystem')
+    cmd_make_rootfs.add_argument('--target-rootfs', required=True,
+                                 help='Path to the target rootfs.')
+    cmd_make_rootfs.set_defaults(func=build_rootfs)
+
+    cmd_parse_treefile = \
+        subparsers.add_parser('parse-treefile',
+                              help='Print flattened treefile to stdout')
+    cmd_parse_treefile.set_defaults(func=print_treefile)
+    args = parser.parse_args()
+
+    # Convert srcdir arg into absolute path
+    args.srcdir = os.path.abspath(args.srcdir)
+
+    variables = {
+        'target_rootfs': getattr(args, 'target_rootfs', ''),
+        'srcdir': args.srcdir,
+        'manifest_name': os.getenv('MANIFEST'),
+        'image_config': os.getenv('IMAGE_CONFIG'),
+        'version': os.getenv('VERSION'),
+        'stream': os.getenv('STREAM'),
+        'osid': os.getenv('ID'),
+        'mutate_os_release': os.getenv('MUTATE_OS_RELEASE'),
+        'strict_mode': os.getenv('STRICT_MODE'),
+        'passwd_group_dir': os.getenv('PASSWD_GROUP_DIR')
+    }
+
+    args.func(**variables)
+
+
+def print_treefile(manifest_name, osid, stream, version, srcdir, **kwargs):
+    if not manifest_name or not osid or not stream or not version or not srcdir:
+        raise Exception("Must set env vars before calling. Source build-args.conf")
+    manifest_path = os.path.join(srcdir, manifest_name)
+    print(json.dumps(get_treefile(manifest_path, osid, stream, version)))
+
+
+def get_treefile(manifest_path, osid, stream, version):
+    with tempfile.NamedTemporaryFile(suffix='.json', mode='w') as tmp_manifest:
+        # Substitute in a few values from build-args into the treefile.
+        ## Split the version to get components for releasever and osversion
+        (x, y, _) = version.split('.', 2) if '.' in version else (version, '0', '0')
+        osversion = f"{osid}-{x}"
+        if osid == "rhel":
+            # For RHCOS we add the minor to the osversion
+            osversion = f"{osid}-{x}.{y}"
+        json.dump({
+            "variables": {
+                "deriving": True,
+                "id": osid,
+                "stream": stream,
+                "osversion": osversion
+            },
+            "releasever": int(x),  # Only needed/used by Fedora
+            "include": manifest_path
+        }, tmp_manifest)
+        tmp_manifest.flush()
+        data = subprocess.check_output(['rpm-ostree', 'compose', 'tree',
+                                        '--print-only', tmp_manifest.name])
+    return json.loads(data)
+
+
+def inject_yumrepos(srcdir):
+    # first delete all the default repos
+    for repo in glob.glob('/etc/yum.repos.d/*.repo'):
+        if os.path.basename(repo) == 'secret.repo':
+            # this is a supported podman secret to inject repo files; see Containerfile
+            continue
+        if repo == HERMETIC_REPO:
+            # this is the repo Konflux injects when hermetic build is enabled
+            continue
+        os.unlink(repo)
+
+    # and now inject our repos
+    if not IS_HERMETIC:
+        for repo in glob.glob(f'{srcdir}/*.repo'):
+            shutil.copy(repo, "/etc/yum.repos.d")
+
+
+def run_buildroot_prep():
+    # This allows FCOS/SCOS/RHCOS to do specific things before the main
+    # build process. Runs after inject_yumrepos() so repos are available.
+    buildroot_prep = os.path.join(SRCDIR, 'buildroot-prep')
+    if os.path.isfile(buildroot_prep):
+        subprocess.check_call([buildroot_prep])
+
+def build_rootfs(target_rootfs, srcdir, manifest_name,
+                 image_config, osid, stream, version,
+                 strict_mode, passwd_group_dir, mutate_os_release):
+
+    # we allow strict_mode and passwd_group_dir to be None. Check all others.
+    if not target_rootfs or not manifest_name or not image_config or \
+        not osid or not stream or not version or not mutate_os_release:
+        raise Exception("Must set env vars before calling. Source build-args.conf")
+
+    manifest_path = os.path.join(srcdir, manifest_name)
+    image_cfg_path = os.path.join(srcdir, image_config)
+
+    manifest = get_treefile(
+        manifest_path=manifest_path,
+        osid=osid,
+        stream=stream,
+        version=version
+    )
+    packages = list(manifest['packages'])
+
+    repos = manifest.get('repos', [])
+    lockfile_repos = manifest.get('lockfile-repos', [])
+    if repos or lockfile_repos:
+        inject_yumrepos(srcdir)
+
+    local_overrides = prepare_local_rpm_overrides(target_rootfs, srcdir)
+    if local_overrides:
+        repos += ['overrides']
+
+    locked_nevras = get_locked_nevras(local_overrides, srcdir)
+    if locked_nevras:
+        # Lockfile repos require special handling because we only want locked
+        # NEVRAs to appear there. For lack of a generic solution for any repo
+        # there, we only special-case the one place where we know we use this.
+        if lockfile_repos == ['fedora-coreos-pool']:
+            if not IS_HERMETIC:
+                modify_pool_repo(locked_nevras)
+                repos += lockfile_repos
+        elif len(lockfile_repos) > 0:
+            raise Exception(f"unknown lockfile-repo found in {lockfile_repos}")
+
+    add_dirs = gather_add_dirs(manifest, srcdir)
+    nodocs = (manifest.get('documentation') is False)
+    recommends = manifest.get('recommends')
+    # We generate the initramfs using dracut ourselves later after our
+    # CoreOS postprocess scripts have run. If this version of rpm-ostree
+    # supports it we'll tell it to not run dracut in the initial compose.
+    no_initramfs = True if no_initramfs_arg_supported() else False
+
+    if passwd_group_dir is not None:
+        inject_passwd_group(os.path.join(srcdir, passwd_group_dir))
+
+    with tempfile.NamedTemporaryFile(mode='w') as argsfile:
+        for pkg in packages:
+            argsfile.write(f"--install={pkg}\n")
+        for add_dir in add_dirs:
+            argsfile.write(f"--add-dir={add_dir}\n")
+        if nodocs:
+            argsfile.write("--no-docs\n")
+            # temporarily work around https://issues.redhat.com/browse/RHEL-97826
+            tmpd = workaround_rhel_97826(argsfile)
+        if recommends:
+            if not recommends_arg_supported():
+                raise Exception(f"Need to set recommends: true but --recommends is unsupported")
+            argsfile.write("--recommends\n")
+        if no_initramfs:
+            argsfile.write("--no-initramfs\n")
+        if repos and repo_arg_supported():
+            for repo in repos:
+                argsfile.write(f"--repo={repo}\n")
+        if locked_nevras and lock_arg_supported():
+            for locked_nevra in locked_nevras:
+                argsfile.write(f"--lock={locked_nevra}\n")
+        argsfile.flush()
+        # print out argsfile content for debugging
+        with open(argsfile.name, "r") as f:
+            print(f"Using following argsfile for bootc-base-imagectl:\n{f.read()}", flush=True)
+        cache_arg = []
+        if os.path.isdir('/cache') and rpm_ostree_has_cachedir_fix():
+            cache_arg = ['--cachedir=/cache']
+        subprocess.check_call(["/usr/libexec/bootc-base-imagectl",
+                               "--args-file", argsfile.name, "build-rootfs",
+                               "--manifest", 'minimal-plus',
+                               target_rootfs] + cache_arg)
+    if nodocs and tmpd is not None:
+        del tmpd
+
+    inject_live(target_rootfs, srcdir)
+    inject_image_json(target_rootfs, image_cfg_path, stream)
+    inject_platforms_json(target_rootfs, srcdir)
+    inject_disk_yaml(target_rootfs, srcdir)
+    inject_content_manifest(target_rootfs, manifest)
+
+    inject_version_info(
+        rootfs=target_rootfs,
+        replace_version=mutate_os_release,
+        version=version
+    )
+
+    if strict_mode == '1':
+        verify_strict_mode(target_rootfs, locked_nevras)
+    run_postprocess_scripts(target_rootfs, manifest)
+    run_dracut(target_rootfs)
+    cleanup_extraneous_files(target_rootfs)
+
+    calculate_inputhash(target_rootfs, add_dirs, manifest)
+
+def get_bootc_base_imagectl_help():
+    return subprocess.check_output(['/usr/libexec/bootc-base-imagectl', 'build-rootfs', '-h'], encoding='utf-8')
+
+
+def repo_arg_supported():
+    # Detect if we have https://gitlab.com/fedora/bootc/base-images/-/merge_requests/248.
+    # If not, then we can't use `--repo`. That's OK because that should only
+    # happen on RHEL, where we don't have any default repos anyway and only rely on
+    # the mounted secret repo file.
+    return '--repo REPO' in get_bootc_base_imagectl_help()
+
+
+def lock_arg_supported():
+    # Detect if we have https://gitlab.com/fedora/bootc/base-images/-/merge_requests/279.
+    # If not, then we can't use `--lock`. That should only happen in RHCOS,
+    # where we only use this for autolocking and not base lockfile management.
+    return '--lock NEVRA' in get_bootc_base_imagectl_help()
+
+
+def recommends_arg_supported():
+    # Detect if we have https://gitlab.com/fedora/bootc/base-images/-/merge_requests/314.
+    # If not, then we can't use `--recommends` and should error.
+    return '--recommends' in get_bootc_base_imagectl_help()
+
+
+def no_initramfs_arg_supported():
+    # Detect if we have # https://gitlab.com/fedora/bootc/base-images/-/merge_requests/320.
+    # If not, then we can't use `--no-initramfs`, but that's OK because it's just
+    # an optimization to prevent building the initramfs twice.
+    if not '--no-initramfs' in get_bootc_base_imagectl_help():
+        return False
+    # Detect if we have https://github.com/coreos/rpm-ostree/commit/481fbb034292666578780bacfdbf3dae9d10e6c3
+    # At the time of this writing it's unreleased in rpm-ostree but it
+    # should be in the next release (2025.13 or 2026.1).
+    out = subprocess.check_output(['rpm-ostree', '--version'], encoding='utf-8')
+    data = yaml.safe_load(out)
+    version_str = data['rpm-ostree']['Version']
+    # ideally, we could use `packaging.version`, but that's not in centos-bootc
+    # but conveniently, Python list comparisons do the right thing here
+    version = [int(c) for c in version_str.split('.')]
+    return version >= [2025, 13]
+
+
+def workaround_rhel_97826(argsfile):
+    basedir = 'usr/share/doc/bootc/baseimage/base'
+    # Detect if we have https://github.com/bootc-dev/bootc/pull/1352.
+    # This is not strictly correct because we're checking the _builder
+    # image_ which could be different from the target. In practice, we don't
+    # "cross-compose" and we're always going to be fetching equal or newer
+    # NEVRAs from the repos so this is fine.
+    if os.path.exists(f'/{basedir}/sysroot/.keepdir'):
+        return
+    print("Working around RHEL-97826", flush=True)
+    tmpd = tempfile.TemporaryDirectory()
+    shutil.copytree(f'/{basedir}', os.path.join(tmpd.name, basedir), symlinks=True)
+    argsfile.write(f'--add-dir={tmpd.name}\n')
+    return tmpd
+
+
+def rpm_ostree_has_cachedir_fix():
+    # we can only use --cachedir if we have rpm-ostree >= 2025.9 which has
+    # https://github.com/coreos/rpm-ostree/pull/5391
+    out = subprocess.check_output(['rpm-ostree', '--version'], encoding='utf-8')
+    data = yaml.safe_load(out)
+    version_str = data['rpm-ostree']['Version']
+    # ideally, we could use `packaging.version`, but that's not in centos-bootc
+    # but conveniently, Python list comparisons do the right thing here
+    version = [int(c) for c in version_str.split('.')]
+    return version >= [2025, 9]
+
+
+# We want to keep our passwd/group as canonical for now. We should be
+# able to clean this up when we migrate them to sysusers instead. See:
+# https://github.com/coreos/rpm-ostree/pull/5427
+def inject_passwd_group(parent_dir):
+    minimal = '/usr/share/doc/bootc-base-imagectl/manifests/minimal'
+    dst_passwd = os.path.join(minimal, 'passwd')
+    dst_group = os.path.join(minimal, 'group')
+    # unlink first instead of overwriting as a way to confirm they're still there
+    os.unlink(dst_passwd)
+    os.unlink(dst_group)
+    print("Overriding passwd/group files", flush=True)
+    shutil.copy(os.path.join(parent_dir, 'passwd'), dst_passwd)
+    shutil.copy(os.path.join(parent_dir, 'group'), dst_group)
+
+
+
+def run_postprocess_scripts(rootfs, manifest):
+    # Since we have the derive-only manifest handy, just run the scripts now. An
+    # alternative is to run it as a second stage, which would avoid the bwrap,
+    # but operating on the raw rootfs means we don't pay for deleted files (nor
+    # without requiring another rechunk).
+    # Propagate select build-args as env vars for postprocess scripts.
+    env = {}
+    for var in POSTPROCESS_ENV_VARS:
+        val = os.getenv(var)
+        if val:
+            env[var] = val
+    for i, script in enumerate(manifest.get('postprocess', [])):
+        name = f'usr/libexec/coreos-postprocess-{i}'
+        with open(os.path.join(rootfs, name), mode='w') as f:
+            os.fchmod(f.fileno(), 0o755)
+            f.write(script)
+        print(f"\n<<< Running CoreOS postprocess script {i} >>>\n", flush=True)
+        bwrap(rootfs, [f'/{name}'], env=env)
+        os.unlink(os.path.join(rootfs, name))
+
+
+def run_dracut(rootfs):
+    print(f"Running dracut to generate the initramfs", flush=True)
+    # https://docs.fedoraproject.org/en-US/bootc/initramfs/#_modifying_and_regenerating_the_initrd
+    kver = bwrap(rootfs, ['ls', '/usr/lib/modules'], capture=True).strip()
+    bwrap(rootfs, env={'DRACUT_NO_XATTR': '1'},
+          args=['dracut', '--verbose', '--force',  '--reproducible',
+                '--no-hostonly', f"/usr/lib/modules/{kver}/initramfs.img", kver])
+
+
+def prepare_local_rpm_overrides(rootfs, srcdir):
+    overrides_repo = os.path.join(srcdir, 'overrides/rpm')
+    if not os.path.isdir(f'{overrides_repo}/repodata'):
+        return None
+
+    pkglist = subprocess.check_output(['dnf', 'repoquery', f'--repofrompath=overrides,file://{overrides_repo}',
+                                       '--repo=overrides', '--latest-limit=1', f'--arch={ARCH},noarch',
+                                       '--qf=pkg,%{name},%{evr},%{arch}\\n'], encoding='utf-8')
+    lockfile = {}
+    for line in pkglist.splitlines():
+        if not line.startswith("pkg"):
+            continue
+        _, name, evr, arch = line.split(',')
+        lockfile[name] = {"evra": f"{evr}.{arch}"}
+
+    if len(lockfile) == 0:
+        return None
+
+    with open('/etc/yum.repos.d/overrides.repo', 'w') as f:
+        f.write(f'''
+[overrides]
+name=overrides
+baseurl=file://{overrides_repo}
+gpgcheck=0
+cost=500
+priority=1
+''')
+
+    print("Injected", len(lockfile), 'package overrides')
+    return lockfile
+
+
+# Could upstream this as e.g. `bootc-base-imagectl runroot /rootfs <cmd>` maybe?
+# But we'd need to carry it anyway at least for RHCOS 9.6.
+def bwrap(rootfs, args, env=dict(), capture=False):
+    env_args = []
+    for k, v in env.items():
+        env_args.extend(['--setenv', k, v])
+
+    args = ['bwrap', '--bind', f'{rootfs}', '/', '--dev', '/dev',
+            '--proc', '/proc', '--tmpfs', '/tmp', '--tmpfs', '/var',
+            '--tmpfs', '/var/tmp', '--tmpfs', '/run',
+            '--bind', '/run/.containerenv', '/run/.containerenv'] + env_args + ['--'] + args
+    if capture:
+        return subprocess.check_output(args, encoding='utf-8')
+    subprocess.check_call(args)
+
+
+def get_locked_nevras(local_overrides, srcdir):
+    lockfile_path = os.path.join(srcdir, f"manifest-lock.{ARCH}.json")
+    overrides_path = os.path.join(srcdir, "manifest-lock.overrides.yaml")
+    overrides_arch_path = os.path.join(srcdir, f"manifest-lock.overrides.{ARCH}.yaml")
+
+    # we go from lowest priority to highest here: base lockfiles, overrides, local overrides
+    locks = {}
+    for path in [lockfile_path, overrides_path, overrides_arch_path]:
+        if os.path.exists(path):
+            with open(path) as f:
+                if path.endswith('.yaml'):
+                    data = yaml.safe_load(f)
+                else:
+                    data = json.load(f)
+                # this essentially re-implements the merge semantics of rpm-ostree
+                locks.update({pkgname: v['evra'] if 'evra' in v else v['evr']
+                              for (pkgname, v) in data['packages'].items()})
+    if local_overrides:
+        locks.update({pkgname: v['evra'] if 'evra' in v else v['evr']
+                      for (pkgname, v) in local_overrides.items()})
+    return [f'{k}-{v}' for (k, v) in locks.items()]
+
+
+def modify_pool_repo(locked_nevras):
+    # When adding the pool, we only want to _filter in_ locked packages;
+    # matching `lockfile-repos` semantics. This is abusing pretty hard the
+    # `includepkgs=` semantic but... it works.
+    repo = os.path.join('/etc/yum.repos.d/fedora-coreos-pool.repo')
+    packages = ','.join(locked_nevras)
+    with open(repo, 'a') as f:
+        f.write(f"\nincludepkgs={packages}\n")
+
+
+# This re-implements rpm-ostree's mutate-os-release to preserve the historical
+# /usr/lib/os-release API, but we may in the future completely sever off of that
+# and only rely on org.opencontainers.image.version as argued in:
+# https://gitlab.com/fedora/bootc/base-images/-/issues/40
+# https://gitlab.com/fedora/bootc/base-images/-/issues/46
+def inject_version_info(rootfs, replace_version, version):
+    os_release_path = os.path.join(rootfs, 'usr/lib/os-release')
+    with open(os_release_path) as f:
+        from collections import OrderedDict
+        os_release = OrderedDict()
+        for line in f:
+            line = line.strip()
+            if len(line) == 0 or line.startswith('#'):
+                continue
+            (k, v) = line.split('=', 1)
+            os_release[k] = v
+
+    for key in ['VERSION', 'PRETTY_NAME']:
+        os_release[key] = os_release[key].replace(replace_version, version)
+    os_release['OSTREE_VERSION'] = f"'{version}'"
+    os_release['IMAGE_VERSION'] = f"'{version}'"
+
+    with open(os_release_path, mode='w', encoding='utf-8') as f:
+        for (k, v) in os_release.items():
+            f.write(f'{k}={v}\n')
+
+
+def gather_add_dirs(manifest, srcdir):
+    add_dirs = []
+    for layer in manifest.get('ostree-layers', []):
+        add_dirs.append(os.path.normpath(os.path.join(srcdir, layer)))
+
+    # sort by the base name of the directory to allow for overriding
+    # files in layers that sort earlier. i.e. a file in 03-core/etc/foo.d/file
+    # would override a file in 02-core/etc/foo.d/file.
+    add_dirs.sort(key=lambda x: os.path.basename(x))
+
+    rootfs_override = os.path.join(srcdir, 'overrides/rootfs')
+    if os.path.isdir(rootfs_override) and len(os.listdir(rootfs_override)) > 0:
+        print("Injecting rootfs override")
+        add_dirs.append(rootfs_override)
+
+    return add_dirs
+
+
+# Inject live/ bits.
+def inject_live(rootfs, srcdir):
+    target_path = os.path.join(rootfs, 'usr/share/coreos-assembler/live')
+    shutil.copytree(os.path.join(srcdir, "live"), target_path)
+
+
+def inject_image_json(rootfs, image_cfg_path, stream):
+    image = flatten_image_yaml(image_cfg_path, format_args={'stream': stream})
+    fn = os.path.join(rootfs, 'usr/share/coreos-assembler/image.json')
+    with open(fn, 'w') as f:
+        json.dump(image, f, sort_keys=True)
+
+
+def inject_content_manifest(target_rootfs, manifest):
+    print("DEBUG: inject content manifest")
+
+    secrets_dir = '/run/secrets/yumrepos'
+    if os.path.exists(secrets_dir):
+        print(f"DEBUG: Contents of {secrets_dir}:")
+        for entry in os.listdir(secrets_dir):
+            entry_path = os.path.join(secrets_dir, entry)
+            if os.path.isfile(entry_path):
+                print(f"  - {entry} (file)")
+            elif os.path.isdir(entry_path):
+                print(f"  - {entry}/ (dir)")
+            else:
+                print(f"  - {entry} (other)")
+    else:
+        print(f"DEBUG: {secrets_dir} does not exist")
+
+    content_manifest_path = '/run/secrets/yumrepos/contentsets'
+    if not os.path.exists(content_manifest_path):
+        print("DEBUG: no content manifest")
+        return
+
+    with open(content_manifest_path) as f:
+        data = yaml.safe_load(f)
+
+    repos = []
+    for base_repo in manifest['repos']:
+        if base_repo in data['repo_mapping']:
+            if data['repo_mapping'][base_repo]['name'] != '':
+                repo_name = data['repo_mapping'][base_repo]['name'].replace('$ARCH', ARCH)
+                repos.append(repo_name)
+            else:
+                print('Warning: No corresponding repo in repository-to-cpe.json for ' + base_repo)
+        else:
+            # Warning message for repositories with no entry in content_sets.yaml
+            print('Warning: No corresponding entry in content_sets.yaml for ' + base_repo)
+
+    dest = os.path.join(target_rootfs, "usr/share/buildinfo/content_manifest.json")
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    with open(dest, 'w') as f:
+        json.dump(fp=f, obj={
+            'metadata': {
+                'icm_version': 1,
+                'icm_spec': 'https://raw.githubusercontent.com/containerbuildsystem/atomic-reactor/master/atomic_reactor/schemas/content_manifest.json',
+                'image_layer_index': 1
+            },
+            'content_sets': repos,
+            'image_contents': []
+        })
+
+
+def verify_strict_mode(rootfs, locked_nevras):
+    cmd = ['rpm', '-qa', '--qf', '%{EPOCH}\t%{NVRA}\t%{NVR}\t%{NEVRA}\t%{NEVR}\n']
+    rpms = bwrap(rootfs, cmd, capture=True)
+    for rpm in rpms.splitlines():
+        epoch, nvra, nvr, nevra, nevr = rpm.split()
+        if nevra in locked_nevras or nevr in locked_nevras:
+            continue
+        # Do one more check. If a package has an Epoch explicitly
+        # set to 0 [1] (rather than just an undefined Epoch) then
+        # rpm-ostree won't write that value into the lockfiles. We
+        # need to check just the NVR or NVRA in that case.
+        # [1] https://src.fedoraproject.org/rpms/perl/blob/a8ff590c732b326216ab1499780e5964e4b03ddf/f/perl.spec#_2048
+        if epoch == '0':
+            if nvra in locked_nevras or nvr in locked_nevras:
+                continue
+        raise Exception(f"found unlocked RPM in strict mode: {rpm}")
+    print("Strict mode: all installed packages were locked")
+
+
+def cleanup_extraneous_files(rootfs):
+    def unlink_optional(f):
+        try:
+            os.unlink(os.path.join(rootfs, f))
+        except FileNotFoundError:
+            pass
+
+    # for now just this
+    unlink_optional('usr/share/rpm/.rpm.lock')
+
+
+def calculate_inputhash(rootfs, overlays, manifest):
+    h = hashlib.sha256()
+
+    # rpms
+    rpms = bwrap(rootfs, ['rpm', '-qa', '--qf', '%{NEVRA}\n'], capture=True)
+    rpms = sorted(rpms.splitlines())
+    h.update(''.join(rpms).encode('utf-8'))
+
+    # overlays
+    for overlay in overlays:
+        all_files = []
+        for root, _, files in os.walk(overlay):
+            for file in files:
+                all_files.append(os.path.join(root, file))
+        all_files = sorted(all_files)
+        for file in all_files:
+            if os.path.islink(file):
+                # For symlinks, hash the link target instead of following it
+                link_target = os.readlink(file)
+                h.update(link_target.encode('utf-8'))
+            else:
+                with open(file, 'rb') as f:
+                    # When python3.11+ is the minimal version we can use hashlib.file_digest
+                    # h.update(hashlib.file_digest(f, 'sha256').digest())
+                    h.update(hashlib.sha256(f.read()).digest())
+                    has_x_bit = os.stat(f.fileno()).st_mode & 0o111 != 0
+                    h.update(bytes([has_x_bit]))
+
+    # postprocess
+    for script in manifest.get('postprocess', []):
+        h.update(script.encode('utf-8'))
+
+    with open(INPUTHASH, 'w', encoding='utf-8') as f:
+        f.write(h.hexdigest())
+
+
+# Imported from cosa
+# Merge two lists, avoiding duplicates. Exact duplicate kargs could be valid
+# but we have no use case for them right now in our official images.
+def merge_lists(x, y, k):
+    x[k] = x.get(k, [])
+    assert isinstance(x[k], list)
+    y[k] = y.get(k, [])
+    assert isinstance(y[k], list)
+    x[k].extend([i for i in y[k] if i not in x[k]])
+
+
+# Imported from cosa
+def flatten_image_yaml(srcfile, base=None, format_args={}):
+    if base is None:
+        base = {}
+
+    with open(srcfile) as f:
+        contents = f.read()
+        srcyaml = yaml.safe_load(contents.format(**format_args))
+
+    # first, special-case list values
+    merge_lists(base, srcyaml, 'extra-kargs')
+
+    # then handle all the non-list values
+    base = merge_dicts(base, srcyaml)
+
+    if 'include' not in srcyaml:
+        return base
+
+    fn = os.path.join(os.path.dirname(srcfile), srcyaml['include'])
+    del base['include']
+    return flatten_image_yaml(fn, base=base, format_args=format_args)
+
+
+# Imported from cosa
+# Credit to @arithx
+def merge_dicts(x, y):
+    """
+    Merge two dicts recursively, but based on the difference.
+    """
+    sd = set(x.keys()).symmetric_difference(y.keys())
+    ret = {}
+    for d in [x, y]:
+        for k, v in d.items():
+            if k in sd:
+                # the key is only present in one dict, add it directly
+                ret.update({k: v})
+            elif isinstance(x[k], dict) and isinstance(y[k], dict):
+                # recursively merge
+                ret.update({k: merge_dicts(x[k], y[k])})
+            elif isinstance(x[k], list) and isinstance(y[k], list):
+                ret.update({k: x[k]})
+                merge_lists(ret, y, k)
+            else:
+                # first dictionary always takes precedence
+                ret.update({k: x[k]})
+    return ret
+
+
+def inject_platforms_json(rootfs, srcdir):
+    with open(os.path.join(srcdir, 'platforms.yaml')) as f:
+        platforms = yaml.safe_load(f)
+    fn = os.path.join(rootfs, 'usr/share/coreos-assembler/platforms.json')
+    if ARCH in platforms:
+        with open(fn, 'w') as f:
+            json.dump(platforms[ARCH], f, sort_keys=True, indent=2)
+            f.write('\n')
+
+
+def inject_disk_yaml(rootfs, srcdir):
+    dst = os.path.join(rootfs, 'usr/lib/image-builder/bootc')
+    if os.path.exists(dst):
+        # Relative symlink as both files are in the same directory
+        print(f"Creating symlink to arch specific image-builder config: 'disk.yaml' -> '{ARCH}.yaml'")
+        os.symlink(f'{ARCH}.yaml', os.path.join(dst, 'disk.yaml'))
+    else:
+        print("No image-builder config found. Skipping symlink to arch specific config.")
+
+
+if __name__ == "__main__":
+    sys.exit(main())
