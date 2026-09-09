@@ -1,0 +1,81 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: centos-stream-coreos-9-on-pull-request
+  namespace: coreos-tenant
+  labels:
+    appstudio.openshift.io/application: centos-stream-coreos-9
+    appstudio.openshift.io/component: centos-stream-coreos-9
+    pipelines.appstudio.openshift.io/type: build
+  annotations:
+    build.appstudio.openshift.io/repo: https://github.com/coreos/rhel-coreos-config?rev={{revision}}
+    build.appstudio.redhat.com/cancel-in-progress: "true"
+    build.appstudio.redhat.com/commit_sha: '{{revision}}'
+    build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
+    build.appstudio.redhat.com/target_branch: '{{target_branch}}'
+    pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: >-
+      event == "pull_request" && target_branch == "main" && (
+        ".tekton/centos-stream-coreos-9-on-pull-request.yaml".pathChanged() ||
+        "fedora-coreos-config/**".pathChanged() ||
+        "live/**".pathChanged() ||
+        "overlay.d/**".pathChanged() ||
+        "tests/kola/**".pathChanged() ||
+        "build-args-c9s.conf".pathChanged() ||
+        "common.yaml".pathChanged() ||
+        "group".pathChanged() ||
+        "image-default.yaml".pathChanged() ||
+        "image-c9s.yaml".pathChanged() ||
+        "kola-denylist.yaml".pathChanged() ||
+        "manifest-el9-shared.yaml".pathChanged() ||
+        "manifest-c9s.yaml".pathChanged() ||
+        "packages-overrides.yaml".pathChanged() ||
+        "packages-rhcos.yaml".pathChanged() ||
+        "passwd".pathChanged()
+      )
+  creationTimestamp: null
+spec:
+  params:
+  - name: git-url
+    value: '{{source_url}}'
+  - name: revision
+    value: '{{revision}}'
+  - name: output-image
+    value: quay.io/redhat-user-workloads/coreos-tenant/centos-stream-coreos-9:on-pr-{{revision}}
+  - name: dockerfile
+    value: Containerfile
+  - name: path-context
+    value: .
+  - name: privileged-nested
+    value: true
+  - name: build-args-file
+    value: build-args-c9s.conf
+  - name: workingdir-mount
+    value: /run/src
+  - name: build-platforms
+    value:
+    - linux/amd64
+    - linux/arm64
+    - linux/ppc64le
+    - linux/s390x
+  - name: clone-depth
+    value: 50
+  - name: hermetic
+    value: false
+  #- name: prefetch-input
+  #  value: '[{"type": "rpm", "path": "."}]'
+  - name: image-expires-after
+    value: 5d
+  - name: additional-secret
+    value: container-image-build
+  pipelineRef:
+    params:
+    - name: bundle
+      value: quay.io/bootc-devel/tekton-catalog/pipeline-buildah-build-bootc-multi-platform-oci-ta@sha256:9eb1decf91e0d678a613f7d4767091c05b37bec8a02163087254328f1e848c51
+    - name: name
+      value: buildah-build-bootc-multi-platform-oci-ta
+    - name: kind
+      value: pipeline
+    resolver: bundles
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-centos-stream-coreos-9
