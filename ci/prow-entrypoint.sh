@@ -85,12 +85,12 @@ cosa_build() {
 
 # Run all kola tests
 kola() {
-    # Until RHCOS openshift cluster gets updated, iso.* tests run sequentially, so skip them here
-    cosa kola run --parallel 2 --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --allow-rerun-success tags=needs-internet --denylist-test iso.*
-
-    # Rerun when failed, use 'unused' tag because of following issue:
-    # https://github.com/coreos/coreos-assembler/issues/4546
-    cosa kola run --output-dir ${ARTIFACT_DIR:-/tmp}/kola-testiso iso.* --rerun --allow-rerun-success tags=unused --denylist-test iso.*iscsi* --denylist-test iso.pxe-*.rootfs-appended*
+    # Execute kola tests.
+    # Denylist the iso.pxe-offline-install.rootfs-appended.* test
+    # because we've noticed it can take 10 minutes in prow for the large
+    # initramfs to be transferred and the kernel start to boot in prow,
+    # which means the test will typically time out.
+    cosa kola run --parallel auto --output-dir ${ARTIFACT_DIR:-/tmp}/kola --rerun --denylist-test iso.pxe-*.rootfs-appended*
 }
 
 # Helper function to run the standard build and test workflow
