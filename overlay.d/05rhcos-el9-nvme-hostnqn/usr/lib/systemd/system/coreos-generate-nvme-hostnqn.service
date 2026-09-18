@@ -1,0 +1,23 @@
+# The nvme-cli %post scriptlet can generate /etc/nvme/hostnqn while the
+# RHCOS image is built. Since that image is cloned to every node, the
+# resulting hostnqn is not unique per node. Generate the identity during
+# first boot instead. See https://issues.redhat.com/browse/OCPBUGS-100442
+[Unit]
+Description=Generate unique NVMe hostnqn
+ConditionFirstBoot=true
+ConditionPathExists=!/etc/nvme/hostid
+ConditionPathExists=!/etc/nvme/hostnqn
+ConditionPathExists=/usr/sbin/nvme
+Before=first-boot-complete.target systemd-machine-id-commit.service
+Wants=first-boot-complete.target
+DefaultDependencies=no
+After=local-fs.target
+Requires=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/libexec/coreos-generate-nvme-hostnqn
+
+[Install]
+WantedBy=basic.target

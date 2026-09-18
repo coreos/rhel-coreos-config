@@ -37,11 +37,23 @@ conditional-include:
         - libxcrypt-compat
 
 ostree-layers:
+  # Generate per-node NVMe identities for EL9/RHCOS only. EL10 remains stateless.
+  - overlay.d/05rhcos-el9-nvme-hostnqn
   # Configure plugin order for NetworkManager config files. EL9 only as
   # `ifcfg-rh` has been dropped in EL10.
   - overlay.d/15rhcos-networkmanager-plugin-order
 
 postprocess:
+  # The nvme-cli transaction can generate these files while building the image.
+  # Remove the build-time identities so each EL9 node generates its own values
+  # on first boot. See RHEL-8041, OCPBUGS-34629, and OCPBUGS-100442.
+  # This workaround is only needed for EL9; RHEL 10 is stateless here and the
+  # underlying issue is fixed by RHEL-68495.
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm -f /etc/nvme/hostid /etc/nvme/hostnqn
+
   # zram-generator-0.3.2 (shipped in centOS 9) provides a default zram-generator
   # config, we want to disable it. We don't need this in el10 because the config
   # was split in a subpackage we don't pull in.
