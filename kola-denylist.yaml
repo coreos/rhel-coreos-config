@@ -22,6 +22,6 @@
 - pattern: ext.config.shared.rpm-ostree.kernel-replace
   tracker: https://github.com/coreos/rhel-coreos-config/issues/305
   warn: true
-  snooze: 2026-09-21
+  snooze: 2026-10-21
   streams:
     - rhel-9.4
