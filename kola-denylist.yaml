@@ -34,3 +34,10 @@
     - c10s
   arches:
     - aarch64
+
+- pattern: ext.config.shared.ignition.home-dir-symlink
+  tracker: https://github.com/coreos/ignition/pull/2316
+  warn: true
+  snooze: 2026-10-01
+  streams:
+    - c10s
