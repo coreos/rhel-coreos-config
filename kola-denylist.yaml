@@ -26,9 +26,10 @@
   streams:
     - rhel-9.4
 
-- pattern: fips
+- pattern: "*fips*"
   tracker: https://github.com/coreos/rhel-coreos-config/issues/326
   warn: true
+  snooze: 2026-10-24
   streams:
     - c10s
   arches:
