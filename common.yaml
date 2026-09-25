@@ -104,7 +104,8 @@ postprocess:
     # We're not using resolved yet
     rm -f /usr/lib/systemd/system/systemd-resolved.service
 
-  # This updates the PAM configuration to reference all of the SSSD modules.
+  # This updates the PAM configuration to reference all of the SSSD modules
+  # and applies without-nullok to disable empty password authentication.
   # authselect requires access to /var and more permissions to enable a profile,
   # so we use 'authselect test' instead.
 
@@ -112,10 +113,15 @@ postprocess:
     #!/usr/bin/env bash
     set -xeuo pipefail
     # use `authselect test` since `authselect select` wants to copy to `/var` too
-    authselect test sssd --nsswitch | tail -n +2 > /etc/nsswitch.conf
+    authselect test sssd without-nullok --nsswitch | tail -n +2 > /etc/nsswitch.conf
     for pam_file in system-auth password-auth smartcard-auth fingerprint-auth postlogin; do
-      authselect test sssd --${pam_file} | tail -n +2 > /etc/pam.d/${pam_file}
+      authselect test sssd without-nullok --${pam_file} | tail -n +2 > /etc/pam.d/${pam_file}
     done
+    # Verify nullok was removed from all PAM auth files
+    if grep -q nullok /etc/pam.d/{system,password,smartcard,fingerprint}-auth /etc/pam.d/postlogin; then
+      echo "ERROR: nullok still present in PAM configuration after authselect" >&2
+      exit 1
+    fi
 
   - |
     #!/usr/bin/env bash
