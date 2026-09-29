@@ -272,6 +272,7 @@ packages-aarch64:
   # This package is only available on x86_64 and aarch64: https://issues.redhat.com/browse/ENGCMP-5941
   - WALinuxAgent-udev
   - numad
+  - rdma-core
   # Needed for NVIDIA Bluefield platforms to configure firmware settings during bootstrap,
   # so that networking can be enabled. NVIDIA Bluefield is limited to aarch64 for now so
   # limit install of this package to aarch64.
