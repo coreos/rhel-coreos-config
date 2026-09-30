@@ -12,11 +12,49 @@
   "automergeType": "branch",
   "platformAutomerge": true,
   "enabledManagers": [
-    "custom.regex"
+    "custom.regex",
+    "rpm-lockfile",
+    "tekton"
   ],
   "baseBranchPatterns": [
     "main"
   ],
+  "tekton": {
+    "enabled": true,
+    "managerFilePatterns": [
+      "\\.yaml$",
+      "\\.yml$"
+    ],
+    "includePaths": [
+      ".tekton/**"
+    ],
+    "packageRules": [
+      {
+        "matchUpdateTypes": ["digest"],
+        "matchPackageNames": [
+          "/^quay.io/bootc-devel/tekton-catalog//"
+        ],
+        "enabled": true,
+        "groupName": "Konflux references",
+        "group": {
+          "branchTopic": "{{{baseBranch}}}",
+          "commitMessageTopic": "{{{groupName}}}"
+        },
+        "commitMessageTopic": "Konflux references",
+        "recreateWhen": "always",
+        "rebaseWhen": "behind-base-branch",
+        "automergeType": "pr",
+        "platformAutomerge": true,
+        "automerge": true,
+        "addLabels": [
+          "lgtm"
+        ],
+      }
+    ],
+    "schedule": [
+      "* * * * *"
+    ]
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -32,6 +70,12 @@
       "datasourceTemplate": "docker"
     }
   ],
+  "rpm-lockfile": {
+    "lockFileMaintenance": {
+      "enabled": true,
+      "schedule": ["* * * * *"]
+    }
+  },
   "packageRules": [
     {
       "matchManagers": [
