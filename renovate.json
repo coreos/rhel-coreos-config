@@ -12,11 +12,48 @@
   "automergeType": "branch",
   "platformAutomerge": true,
   "enabledManagers": [
-    "custom.regex"
+    "custom.regex",
+    "tekton"
   ],
   "baseBranchPatterns": [
     "main"
   ],
+  "tekton": {
+    "managerFilePatterns": [
+      "/\\.yaml$/",
+      "/\\.yml$/"
+    ],
+    "includePaths": [
+      ".tekton/**"
+    ],
+    "packageRules": [
+      {
+        "matchPackageNames": [
+          "/^quay.io/bootc-devel/tekton-catalog//"
+        ],
+        "enabled": true,
+        "versioning": "semver-coerced",
+        "groupName": "Konflux references",
+        "branchPrefix": "konflux/references/",
+        "additionalBranchPrefix": "",
+        "group": {
+          "branchTopic": "{{{baseBranch}}}",
+          "commitMessageTopic": "{{{groupName}}}"
+        },
+        "commitMessageTopic": "Konflux references",
+        "recreateWhen": "always",
+        "rebaseWhen": "behind-base-branch",
+        "platformAutomerge": true,
+        "automerge": true,
+        "addLabels": [
+          "lgtm"
+        ],
+      }
+    ],
+    "schedule": [
+      "* 0-4 * * *"
+    ]
+  },
   "customManagers": [
     {
       "customType": "regex",
