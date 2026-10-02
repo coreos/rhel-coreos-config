@@ -56,15 +56,15 @@ spec:
   - name: build-platforms
     value:
     - linux/amd64
-    - linux/arm64
-    - linux/ppc64le
-    - linux/s390x
+    #- linux/arm64
+    #- linux/ppc64le
+    #- linux/s390x
   - name: clone-depth
     value: 50
   - name: hermetic
-    value: false
-  #- name: prefetch-input
-  #  value: '[{"type": "rpm", "path": "."}]'
+    value: true
+  - name: prefetch-input
+    value: '[{"type": "rpm", "path": "."}]'
   - name: image-expires-after
     value: 5d
   - name: additional-secret
@@ -72,7 +72,7 @@ spec:
   pipelineRef:
     params:
     - name: bundle
-      value: quay.io/bootc-devel/tekton-catalog/pipeline-buildah-build-bootc-multi-platform-oci-ta@sha256:78bccb809c627d548a8cc9af43465d35e25d539721ebce4b0d3926e6028f287e
+      value: quay.io/bootc-devel/tekton-catalog-pr:buildah-build-bootc-multi-platform-oci-ta-969c8f43748d3cc3d7f444653ccac62fb053a246-7c5f9f1db6a6
     - name: name
       value: buildah-build-bootc-multi-platform-oci-ta
     - name: kind
