@@ -37,6 +37,12 @@ documentation: false
 recommends: false
 
 postprocess:
+  # Allow lldpad to reply to lldptool when invoked by a systemd service
+  - |
+    #!/usr/bin/bash
+    set -xeuo pipefail
+    semodule -i /usr/share/selinux/packages/rhcos-lldpad.cil
+
   # Set composefs to `maybe` for now because older bootimages
   # could be starting with an OSTree that's not new enough.
   # https://github.com/openshift/os/issues/1678
