@@ -8,10 +8,3 @@ conditional-include:
 ##  include:
 ##    packages:
 ##      - foo-1.2
-
-# https://redhat.atlassian.net/browse/COS-5170
-- if: osversion == "rhel-10.2"
-  include:
-    packages:
-      - libibverbs-61.0-1.el10
-      - rdma-core-61.0-1.el10
