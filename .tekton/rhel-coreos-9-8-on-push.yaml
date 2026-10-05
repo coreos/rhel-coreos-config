@@ -13,6 +13,26 @@ metadata:
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: >-
+      event == "push" && target_branch == "main" && (
+        ".tekton/rhel-coreos-9-8-on-push.yaml".pathChanged() ||
+        "fedora-coreos-config".pathChanged() ||
+        "fedora-coreos-config/**".pathChanged() ||
+        "live/**".pathChanged() ||
+        "overlay.d/**".pathChanged() ||
+        "tests/kola/**".pathChanged() ||
+        "build-args-rhel-9.8.conf".pathChanged() ||
+        "common.yaml".pathChanged() ||
+        "group".pathChanged() ||
+        "image-default.yaml".pathChanged() ||
+        "image-rhel-9.8.yaml".pathChanged() ||
+        "kola-denylist.yaml".pathChanged() ||
+        "manifest-el9-shared.yaml".pathChanged() ||
+        "manifest-rhel-9.8.yaml".pathChanged() ||
+        "packages-overrides.yaml".pathChanged() ||
+        "packages-rhcos.yaml".pathChanged() ||
+        "passwd".pathChanged()
+      )
   creationTimestamp: null
 spec:
   params:
