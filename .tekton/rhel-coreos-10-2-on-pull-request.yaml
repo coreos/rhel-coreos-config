@@ -56,9 +56,9 @@ spec:
   - name: build-platforms
     value:
     - linux/amd64
-    - linux/arm64
-    - linux/ppc64le
-    - linux/s390x
+    #- linux/arm64
+    #- linux/ppc64le
+    #- linux/s390x
   - name: clone-depth
     value: 50
   - name: hermetic
@@ -69,10 +69,25 @@ spec:
     value: 5d
   - name: additional-secret
     value: container-image-build
+  - name: build-source-image
+    value: true
+  # We have to override the default computeResources values
+  # See https://redhat.atlassian.net/browse/COS-5180
+  taskRunSpecs:
+    - pipelineTaskName: rpms-signature-scan
+      stepSpecs:
+        - name: rpms-signature-scan
+          computeResources:
+            limits:
+              cpu: 200m
+              memory: 4Gi
+            requests:
+              cpu: 200m
+              memory: 4Gi
   pipelineRef:
     params:
     - name: bundle
-      value: quay.io/bootc-devel/tekton-catalog/pipeline-buildah-build-bootc-multi-platform-oci-ta@sha256:78bccb809c627d548a8cc9af43465d35e25d539721ebce4b0d3926e6028f287e
+      value: quay.io/bootc-devel/tekton-catalog-pr:buildah-build-bootc-multi-platform-oci-ta-2bf382c5468d1352ca12f66f686933c0d8f57d44-5243226f23d6
     - name: name
       value: buildah-build-bootc-multi-platform-oci-ta
     - name: kind
