@@ -69,6 +69,19 @@ spec:
     value: 5d
   - name: additional-secret
     value: container-image-build
+  # We have to override the default computeResources values
+  # See https://redhat.atlassian.net/browse/COS-5180
+  taskRunSpecs:
+    - pipelineTaskName: rpms-signature-scan
+      stepSpecs:
+        - name: rpms-signature-scan
+          computeResources:
+            limits:
+              cpu: 200m
+              memory: 4Gi
+            requests:
+              cpu: 200m
+              memory: 4Gi
   pipelineRef:
     params:
     - name: bundle
