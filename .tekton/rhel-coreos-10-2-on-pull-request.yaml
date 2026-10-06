@@ -62,9 +62,9 @@ spec:
   - name: clone-depth
     value: 50
   - name: hermetic
-    value: false
-  #- name: prefetch-input
-  #  value: '[{"type": "rpm", "path": "."}]'
+    value: true
+  - name: prefetch-input
+    value: '[{"type": "rpm", "path": "."}]'
   - name: image-expires-after
     value: 5d
   - name: additional-secret
