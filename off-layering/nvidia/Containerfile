@@ -4,6 +4,8 @@ ARG VERSION
 FROM ${FROM}
 
 ARG VERSION
+# FIXME: use the value below once we move the container build to Konflux
+#COPY voyager.repo  /etc/yum.repos.d/
 COPY off-layering/nvidia/voyager.repo  /etc/yum.repos.d/
 
 RUN <<EOF
