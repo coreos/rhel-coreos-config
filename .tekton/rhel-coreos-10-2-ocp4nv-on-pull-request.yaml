@@ -1,0 +1,84 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: rhel-coreos-10-2-ocp4nv-on-pull-request
+  namespace: coreos-tenant
+  labels:
+    appstudio.openshift.io/application: rhel-coreos-10-2-ocp4nv
+    appstudio.openshift.io/component: rhel-coreos-10-2-ocp4nv
+    pipelines.appstudio.openshift.io/type: build
+  annotations:
+    build.appstudio.openshift.io/repo: https://github.com/coreos/rhel-coreos-config?rev={{revision}}
+    build.appstudio.redhat.com/cancel-in-progress: "true"
+    build.appstudio.redhat.com/commit_sha: '{{revision}}'
+    build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
+    build.appstudio.redhat.com/target_branch: '{{target_branch}}'
+    pipelinesascode.tekton.dev/max-keep-runs: "3"
+    pipelinesascode.tekton.dev/on-cel-expression: >-
+      event == "pull_request" && target_branch == "main" && (
+        ".tekton/rhel-coreos-10-2-ocp4nv-on-pull-request.yaml".pathChanged() ||
+        "off-layering/nvidia/**".pathChanged()
+      )
+  creationTimestamp: null
+spec:
+  params:
+  - name: git-url
+    value: '{{source_url}}'
+  - name: revision
+    value: '{{revision}}'
+  - name: output-image
+    value: quay.io/redhat-user-workloads/coreos-tenant/rhel-coreos-10-2-ocp4nv:on-pr-{{revision}}
+  - name: dockerfile
+    # FIXME: use the value below once we move the container build to Konflux
+    #value: Containerfile
+    value: ./off-layering/nvidia/Containerfile
+  - name: path-context
+    # FIXME: use the value below once we move the container build to Konflux
+    #value: ./off-layering/nvidia
+    value: ./
+  - name: privileged-nested
+    value: true
+  - name: build-args-file
+    value: off-layering/nvidia/build-args-rhel-10.2.conf
+  - name: workingdir-mount
+    value: /run/src
+  - name: build-platforms
+    value:
+    - linux/amd64
+    - linux/arm64
+  - name: clone-depth
+    value: 50
+  - name: hermetic
+    value: true
+  - name: prefetch-input
+    value: '[{"type": "rpm", "path": "./off-layering/nvidia", "options": {"dnf": {"voyager": {"gpgcheck": "0"}}}}]'
+  - name: image-expires-after
+    value: 5d
+  - name: additional-secret
+    value: container-image-build
+  - name: build-source-image
+    value: true
+  # We have to override the default computeResources values
+  # See https://redhat.atlassian.net/browse/COS-5180
+  taskRunSpecs:
+    - pipelineTaskName: rpms-signature-scan
+      stepSpecs:
+        - name: rpms-signature-scan
+          computeResources:
+            limits:
+              cpu: 200m
+              memory: 4Gi
+            requests:
+              cpu: 200m
+              memory: 4Gi
+  pipelineRef:
+    params:
+    - name: bundle
+      value: quay.io/bootc-devel/tekton-catalog/pipeline-buildah-build-bootc-multi-platform-oci-ta@sha256:b5e91227825536518ba23662cf6d700c2a10f9ba78735e6e97428f7ae405db56
+    - name: name
+      value: buildah-build-bootc-multi-platform-oci-ta
+    - name: kind
+      value: pipeline
+    resolver: bundles
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-rhel-coreos-10-2-ocp4nv
