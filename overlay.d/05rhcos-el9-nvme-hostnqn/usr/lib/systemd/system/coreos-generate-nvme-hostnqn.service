@@ -4,7 +4,6 @@
 # first boot instead.
 [Unit]
 Description=Generate unique NVMe hostnqn
-ConditionFirstBoot=true
 ConditionPathExists=!/etc/nvme/hostid
 ConditionPathExists=!/etc/nvme/hostnqn
 ConditionPathExists=/usr/sbin/nvme
