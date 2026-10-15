@@ -1,0 +1,68 @@
+---
+lockfileVersion: 1
+lockfileVendor: redhat
+arches:
+- arch: aarch64
+  packages:
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/aarch64/os/Packages/kernel-64k-core-6.12.0-259.26.el10nv.aarch64.rpm
+    repoid: voyager
+    size: 19269845
+    checksum: sha256:3cc6ab2cfc0a6ef4f762493edf9bb18323c6b39eae475e46f9b51b9b9674815a
+    name: kernel-64k-core
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/aarch64/os/Packages/kernel-64k-modules-6.12.0-259.26.el10nv.aarch64.rpm
+    repoid: voyager
+    size: 26513097
+    checksum: sha256:38901e51a557865b4c6b46e272ed22f30e65c7eba4617ffbd975f5cfbdd18a24
+    name: kernel-64k-modules
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/aarch64/os/Packages/kernel-64k-modules-core-6.12.0-259.26.el10nv.aarch64.rpm
+    repoid: voyager
+    size: 24791333
+    checksum: sha256:c3c86e984199ed10d30f74834749cbceac7c42fb44f74ed2782538e7e1a9151e
+    name: kernel-64k-modules-core
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/aarch64/os/Packages/kernel-64k-modules-extra-6.12.0-259.26.el10nv.aarch64.rpm
+    repoid: voyager
+    size: 1437581
+    checksum: sha256:ee46070bf45bd349813c8f30728a88b336fcf394a23a2658adaf865d0216dade
+    name: kernel-64k-modules-extra
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  source: []
+  module_metadata: []
+- arch: x86_64
+  packages:
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/x86_64/os/Packages/kernel-core-6.12.0-259.26.el10nv.x86_64.rpm
+    repoid: voyager
+    size: 18964729
+    checksum: sha256:8729a6cf3af83f1095e0adc7b5aa745c45008e510564aff60c37649163cc45cf
+    name: kernel-core
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/x86_64/os/Packages/kernel-modules-6.12.0-259.26.el10nv.x86_64.rpm
+    repoid: voyager
+    size: 43191161
+    checksum: sha256:9ba41934aad999cf07b06dd07f069aa2e8ee103142248e3fc362486f6db3340b
+    name: kernel-modules
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/x86_64/os/Packages/kernel-modules-core-6.12.0-259.26.el10nv.x86_64.rpm
+    repoid: voyager
+    size: 30314373
+    checksum: sha256:5620209e7eb844d7604901c1c419acca71341632790334f7459765b0c2756c09
+    name: kernel-modules-core
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  - url: https://download-01.beak-001.prod.iad2.dc.redhat.com/rhel-10/nightly/updates/RHEL4NV-10/latest-RHEL4NV-10.2/compose/RHEL4NV/x86_64/os/Packages/kernel-modules-extra-6.12.0-259.26.el10nv.x86_64.rpm
+    repoid: voyager
+    size: 1685441
+    checksum: sha256:32f4b76b0e545bf89f65b5d53d21ea3fb0c7464011f4fdf2aec6019f7acd7f18
+    name: kernel-modules-extra
+    evr: 6.12.0-259.26.el10nv
+    sourcerpm: kernel-6.12.0-259.26.el10nv.src.rpm
+  source: []
+  module_metadata: []
