@@ -1,0 +1,25 @@
+packages:
+- name: kernel-64k-core
+  arches:
+    only:
+      - aarch64
+- name: kernel-64k-modules-extra
+  arches:
+    only:
+      - aarch64
+upgradePackages:
+- name: kernel-core
+  arches:
+    only:
+      - x86_64
+- name: kernel-modules-extra
+  arches:
+    only:
+      - x86_64
+contentOrigin:
+  repofiles: ["voyager.repo"]
+context:
+  image: quay.io/openshift-release-dev/ocp-v4.0-art-dev:rhel-10.2-coreos
+arches:
+- aarch64
+- x86_64
