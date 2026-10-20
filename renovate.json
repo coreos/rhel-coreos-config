@@ -40,7 +40,9 @@
           "branchTopic": "{{{baseBranch}}}",
           "commitMessageTopic": "{{{groupName}}}"
         },
+        "commitMessagePrefix": "NO-JIRA: ",
         "commitMessageTopic": "Konflux references",
+        "commitMessageExtra": "",
         "recreateWhen": "always",
         "rebaseWhen": "behind-base-branch",
         "automergeType": "pr",
