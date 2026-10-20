@@ -30,3 +30,13 @@
     - c10s
   arches:
     - aarch64
+
+# Nvidia does not include the RT kernel
+# Replacing Kernel tests also fail because a kernel override already exists.
+# Skip all kernel tests.
+- pattern: "*kernel*"
+  streams:
+    - rhel-10.2-ocp4nv
+  arches:
+    - aarch64
+    - x86_64
