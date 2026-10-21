@@ -1,9 +1,17 @@
 # This builds the OCP4NV nodeimage/baseimage on top of the nodeimage/baseimage itself.
 ARG FROM
-ARG VERSION
 FROM ${FROM}
 
 ARG VERSION
+ARG NAME=overridden
+ARG STREAM=overridden
+ARG DESCRIPTION=overridden
+ARG MAINTAINER=overridden
+ARG URL=overridden
+ARG DISTRIBUTION_SCOPE=overridden
+ARG COMPONENT=overridden
+ARG CPE_NAME=overridden
+
 # FIXME: use the value below once we move the container build to Konflux
 #COPY voyager.repo  /etc/yum.repos.d/
 COPY off-layering/nvidia/voyager.repo  /etc/yum.repos.d/
@@ -31,4 +39,13 @@ kver=$(ls /usr/lib/modules)
 env DRACUT_NO_XATTR=1 dracut -vf /usr/lib/modules/$kver/initramfs.img "$kver"
 EOF
 
-LABEL org.opencontainers.image.version=$VERSION
+LABEL org.opencontainers.image.version=$VERSION \
+      com.coreos.osname=$NAME \
+      name=$NAME \
+      com.coreos.stream=$STREAM \
+      org.opencontainers.image.title=$DESCRIPTION \
+      org.opencontainers.image.description=$DESCRIPTION \
+      io.k8s.description=$DESCRIPTION \
+      description=$DESCRIPTION \
+      com.redhat.component=$COMPONENT \
+      cpe=$CPE_NAME
