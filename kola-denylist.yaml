@@ -40,3 +40,10 @@
   arches:
     - aarch64
     - x86_64
+
+- pattern: "*fwupd-refresh*"
+  tracker: https://redhat.atlassian.net/browse/COS-5239
+  streams:
+    - c10s
+    - rhel-10.2
+  snooze: 2026-11-04
