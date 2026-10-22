@@ -1,0 +1,4 @@
+# Force disable until we have a version of fwupd with https://github.com/fwupd/fwupd/pull/11235
+# Resolves https://redhat.atlassian.net/browse/OCPBUGS-132089, and re-enabling this timer
+# tracked in https://redhat.atlassian.net/browse/COS-5239
+disable fwupd-refresh.timer
