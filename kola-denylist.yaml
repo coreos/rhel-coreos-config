@@ -15,7 +15,7 @@
 - pattern: ext.config.shared.boot.raid1-boot.ppc64le
   tracker: https://github.com/coreos/rhel-coreos-config/issues/281
   warn: true
-  snooze: 2026-10-21
+  snooze: 2026-11-21
   arches:
     - ppc64le
   streams:
