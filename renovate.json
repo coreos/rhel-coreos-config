@@ -40,7 +40,9 @@
           "branchTopic": "{{{baseBranch}}}",
           "commitMessageTopic": "{{{groupName}}}"
         },
+        "commitMessagePrefix": "NO-JIRA: ",
         "commitMessageTopic": "Konflux references",
+        "commitMessageExtra": "",
         "recreateWhen": "always",
         "rebaseWhen": "behind-base-branch",
         "automergeType": "pr",
@@ -90,8 +92,10 @@
       "matchFileNames": [
         "build-args-c10s.conf"
       ],
-      "groupName": "bootc base container images",
-      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "groupName": "c10s update",
+      "commitMessagePrefix": "NO-JIRA: ",
+      "commitMessageTopic": "bootc c10s base image",
+      "commitMessageExtra": "",
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
@@ -113,8 +117,10 @@
       "matchFileNames": [
         "build-args-c9s.conf"
       ],
-      "groupName": "bootc base container images",
-      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "groupName": "c9s update",
+      "commitMessagePrefix": "NO-JIRA: ",
+      "commitMessageTopic": "bootc c9s base image",
+      "commitMessageExtra": "",
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
@@ -137,8 +143,10 @@
         "build-args-rhel-10.*\\.conf"
       ],
       "allowedVersions": "/^10\\.2/",
-      "groupName": "bootc base container images",
-      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "groupName": "rhel-10 update",
+      "commitMessagePrefix": "NO-JIRA: ",
+      "commitMessageTopic": "bootc rhel-10 base image",
+      "commitMessageExtra": "",
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
@@ -161,8 +169,10 @@
         "build-args-rhel-9.*\\.conf"
       ],
       "allowedVersions": "/^9\\.8/",
-      "groupName": "bootc base container images",
-      "groupSlug": "bootc-{{baseBranch}}-updates",
+      "groupName": "rhel-9 update",
+      "commitMessagePrefix": "NO-JIRA: ",
+      "commitMessageTopic": "bootc rhel-9 base image",
+      "commitMessageExtra": "",
       "branchPrefix": "mintmaker-",
       "additionalBranchPrefix": "",
       "schedule": [
