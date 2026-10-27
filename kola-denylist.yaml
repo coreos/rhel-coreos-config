@@ -46,4 +46,5 @@
   streams:
     - c10s
     - rhel-10.2
+    - rhel-10.2-ocp4nv
   snooze: 2026-11-04
