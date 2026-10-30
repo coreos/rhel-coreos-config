@@ -4,7 +4,8 @@ conditional-include:
 ##  include:
 ##    packages:
 ##      - foo-1.2
-##- if: osversion == "rhel-10.2"
-##  include:
-##    packages:
-##      - foo-1.2
+- if: osversion == "rhel-9.8"
+  include:
+    packages:
+      - coreos-installer-0.26.0-1.el9_8
+      - coreos-installer-bootinfra-0.26.0-1.el9_8
