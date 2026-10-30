@@ -1,0 +1,1408 @@
+{
+  "packages": {
+    "NetworkManager": {
+      "evra": "1:1.58.0-1.el10.ppc64le"
+    },
+    "NetworkManager-cloud-setup": {
+      "evra": "1:1.58.0-1.el10.ppc64le"
+    },
+    "NetworkManager-libnm": {
+      "evra": "1:1.58.0-1.el10.ppc64le"
+    },
+    "NetworkManager-ovs": {
+      "evra": "1:1.58.0-1.el10.ppc64le"
+    },
+    "NetworkManager-tui": {
+      "evra": "1:1.58.0-1.el10.ppc64le"
+    },
+    "aardvark-dns": {
+      "evra": "4:2.1.0-1.el10.ppc64le"
+    },
+    "acl": {
+      "evra": "2.4.0-2.el10.ppc64le"
+    },
+    "afterburn": {
+      "evra": "5.11.0-1.el10.ppc64le"
+    },
+    "afterburn-dracut": {
+      "evra": "5.11.0-1.el10.ppc64le"
+    },
+    "alternatives": {
+      "evra": "1.30-2.el10.ppc64le"
+    },
+    "amd-gpu-firmware": {
+      "evra": "20260812-27.el10.noarch"
+    },
+    "attr": {
+      "evra": "2.6.0-2.el10.ppc64le"
+    },
+    "audit": {
+      "evra": "4.2.1-3.el10.ppc64le"
+    },
+    "audit-libs": {
+      "evra": "4.2.1-3.el10.ppc64le"
+    },
+    "audit-rules": {
+      "evra": "4.2.1-3.el10.ppc64le"
+    },
+    "authselect": {
+      "evra": "1.5.3-1.el10.ppc64le"
+    },
+    "authselect-libs": {
+      "evra": "1.5.3-1.el10.ppc64le"
+    },
+    "basesystem": {
+      "evra": "11-22.el10.noarch"
+    },
+    "bash": {
+      "evra": "5.2.26-6.el10.ppc64le"
+    },
+    "bash-completion": {
+      "evra": "1:2.11-16.el10.noarch"
+    },
+    "bc": {
+      "evra": "1.07.1-23.el10.ppc64le"
+    },
+    "bind-libs": {
+      "evra": "32:9.18.33-29.el10.ppc64le"
+    },
+    "bind-license": {
+      "evra": "32:9.18.33-29.el10.noarch"
+    },
+    "bind-utils": {
+      "evra": "32:9.18.33-29.el10.ppc64le"
+    },
+    "bootc": {
+      "evra": "1.17.1-1.el10.ppc64le"
+    },
+    "bootupd": {
+      "evra": "0.2.35-1.el10.ppc64le"
+    },
+    "bsdtar": {
+      "evra": "3.7.7-11.el10.ppc64le"
+    },
+    "bubblewrap": {
+      "evra": "0.10.0-3.el10.ppc64le"
+    },
+    "bzip2": {
+      "evra": "1.0.8-25.el10.ppc64le"
+    },
+    "bzip2-libs": {
+      "evra": "1.0.8-25.el10.ppc64le"
+    },
+    "c-ares": {
+      "evra": "1.34.8-1.el10.ppc64le"
+    },
+    "ca-certificates": {
+      "evra": "2026.2.92_v9.0.319-100.1.el10.noarch"
+    },
+    "catatonit": {
+      "evra": "5:0.2.1-4.el10.ppc64le"
+    },
+    "centos-gpg-keys": {
+      "evra": "10.0-23.el10.noarch"
+    },
+    "centos-release-cloud": {
+      "evra": "1-1.el10s.noarch"
+    },
+    "centos-release-nfv-common": {
+      "evra": "1-5.el10s.noarch"
+    },
+    "centos-release-virt-common": {
+      "evra": "1-1.el10s.noarch"
+    },
+    "centos-stream-release": {
+      "evra": "10.0-23.el10.noarch"
+    },
+    "centos-stream-repos": {
+      "evra": "10.0-23.el10.noarch"
+    },
+    "checkpolicy": {
+      "evra": "3.11-2.el10.ppc64le"
+    },
+    "chrony": {
+      "evra": "4.8-2.el10.ppc64le"
+    },
+    "cifs-utils": {
+      "evra": "7.9-1.el10.ppc64le"
+    },
+    "clevis": {
+      "evra": "23-2.el10.ppc64le"
+    },
+    "clevis-dracut": {
+      "evra": "23-2.el10.ppc64le"
+    },
+    "clevis-luks": {
+      "evra": "23-2.el10.ppc64le"
+    },
+    "clevis-pin-tpm2": {
+      "evra": "0.5.5-1.el10.ppc64le"
+    },
+    "clevis-systemd": {
+      "evra": "23-2.el10.ppc64le"
+    },
+    "cloud-utils-growpart": {
+      "evra": "0.33-11.el10.noarch"
+    },
+    "composefs": {
+      "evra": "1.0.8-1.el10.ppc64le"
+    },
+    "composefs-libs": {
+      "evra": "1.0.8-1.el10.ppc64le"
+    },
+    "conmon": {
+      "evra": "3:2.2.1-4.el10.ppc64le"
+    },
+    "console-login-helper-messages": {
+      "evra": "0.21.3-10.el10.noarch"
+    },
+    "console-login-helper-messages-issuegen": {
+      "evra": "0.21.3-10.el10.noarch"
+    },
+    "console-login-helper-messages-profile": {
+      "evra": "0.21.3-10.el10.noarch"
+    },
+    "container-selinux": {
+      "evra": "4:2.250.0-1.el10.noarch"
+    },
+    "containers-common": {
+      "evra": "6:6.0-3.el10.noarch"
+    },
+    "containers-common-extra": {
+      "evra": "6:6.0-3.el10.noarch"
+    },
+    "coreos-installer": {
+      "evra": "0.27.0-2.el10.ppc64le"
+    },
+    "coreos-installer-bootinfra": {
+      "evra": "0.27.0-2.el10.ppc64le"
+    },
+    "coreutils": {
+      "evra": "9.5-14.el10.ppc64le"
+    },
+    "coreutils-common": {
+      "evra": "9.5-14.el10.ppc64le"
+    },
+    "cpio": {
+      "evra": "2.15-3.el10.ppc64le"
+    },
+    "cracklib": {
+      "evra": "2.9.11-8.el10.ppc64le"
+    },
+    "cracklib-dicts": {
+      "evra": "2.9.11-8.el10.ppc64le"
+    },
+    "criu": {
+      "evra": "4.2-9.el10.ppc64le"
+    },
+    "criu-libs": {
+      "evra": "4.2-9.el10.ppc64le"
+    },
+    "crun": {
+      "evra": "1.30.1-1.el10.ppc64le"
+    },
+    "crypto-policies": {
+      "evra": "20260811-1.git4dcd294.el10.noarch"
+    },
+    "crypto-policies-scripts": {
+      "evra": "20260811-1.git4dcd294.el10.noarch"
+    },
+    "cryptsetup": {
+      "evra": "2.8.6-2.el10.ppc64le"
+    },
+    "cryptsetup-libs": {
+      "evra": "2.8.6-2.el10.ppc64le"
+    },
+    "curl": {
+      "evra": "8.12.1-8.el10.ppc64le"
+    },
+    "cyrus-sasl-gssapi": {
+      "evra": "2.1.28-27.el10.ppc64le"
+    },
+    "cyrus-sasl-lib": {
+      "evra": "2.1.28-27.el10.ppc64le"
+    },
+    "dbus": {
+      "evra": "1:1.14.10-6.el10.ppc64le"
+    },
+    "dbus-broker": {
+      "evra": "36-5.el10.ppc64le"
+    },
+    "dbus-common": {
+      "evra": "1:1.14.10-6.el10.noarch"
+    },
+    "dbus-libs": {
+      "evra": "1:1.14.10-6.el10.ppc64le"
+    },
+    "device-mapper": {
+      "evra": "10:1.02.217-1.el10.ppc64le"
+    },
+    "device-mapper-event": {
+      "evra": "10:1.02.217-1.el10.ppc64le"
+    },
+    "device-mapper-event-libs": {
+      "evra": "10:1.02.217-1.el10.ppc64le"
+    },
+    "device-mapper-libs": {
+      "evra": "10:1.02.217-1.el10.ppc64le"
+    },
+    "device-mapper-multipath": {
+      "evra": "0.9.9-20.el10.ppc64le"
+    },
+    "device-mapper-multipath-libs": {
+      "evra": "0.9.9-20.el10.ppc64le"
+    },
+    "device-mapper-persistent-data": {
+      "evra": "1.3.4-1.el10.ppc64le"
+    },
+    "diffutils": {
+      "evra": "3.10-8.el10.ppc64le"
+    },
+    "dnf": {
+      "evra": "4.20.0-28.el10.noarch"
+    },
+    "dnf-data": {
+      "evra": "4.20.0-28.el10.noarch"
+    },
+    "dnsmasq": {
+      "evra": "2.90-8.el10.ppc64le"
+    },
+    "dosfstools": {
+      "evra": "4.2-12.el10.ppc64le"
+    },
+    "dracut": {
+      "evra": "107-11.el10.ppc64le"
+    },
+    "dracut-network": {
+      "evra": "107-11.el10.ppc64le"
+    },
+    "dracut-squash": {
+      "evra": "107-11.el10.ppc64le"
+    },
+    "duktape": {
+      "evra": "2.7.0-10.el10.ppc64le"
+    },
+    "e2fsprogs": {
+      "evra": "1.47.1-5.el10.ppc64le"
+    },
+    "e2fsprogs-libs": {
+      "evra": "1.47.1-5.el10.ppc64le"
+    },
+    "elfutils-default-yama-scope": {
+      "evra": "0.197-1.el10.noarch"
+    },
+    "elfutils-libelf": {
+      "evra": "0.197-1.el10.ppc64le"
+    },
+    "elfutils-libs": {
+      "evra": "0.197-1.el10.ppc64le"
+    },
+    "erofs-utils": {
+      "evra": "1.8.10-1.el10.ppc64le"
+    },
+    "ethtool": {
+      "evra": "2:7.2-1.el10.ppc64le"
+    },
+    "expat": {
+      "evra": "2.7.3-4.el10.ppc64le"
+    },
+    "file": {
+      "evra": "5.45-12.el10.ppc64le"
+    },
+    "file-libs": {
+      "evra": "5.45-12.el10.ppc64le"
+    },
+    "filesystem": {
+      "evra": "3.18-17.el10.ppc64le"
+    },
+    "findutils": {
+      "evra": "1:4.10.0-5.el10.ppc64le"
+    },
+    "firewalld-filesystem": {
+      "evra": "2.4.3-4.el10.noarch"
+    },
+    "flatpak-session-helper": {
+      "evra": "1.18.0-2.el10.ppc64le"
+    },
+    "fstrm": {
+      "evra": "0.6.1-12.el10.ppc64le"
+    },
+    "fuse-common": {
+      "evra": "3.16.2-5.el10.ppc64le"
+    },
+    "fuse-libs": {
+      "evra": "2.9.9-25.el10.ppc64le"
+    },
+    "fuse3": {
+      "evra": "3.16.2-5.el10.ppc64le"
+    },
+    "fuse3-libs": {
+      "evra": "3.16.2-5.el10.ppc64le"
+    },
+    "fwupd": {
+      "evra": "2.1.6-1.el10.ppc64le"
+    },
+    "gawk": {
+      "evra": "5.3.0-7.el10.ppc64le"
+    },
+    "gdbm": {
+      "evra": "1:1.26-15.el10.ppc64le"
+    },
+    "gdbm-libs": {
+      "evra": "1:1.26-15.el10.ppc64le"
+    },
+    "gettext-envsubst": {
+      "evra": "0.22.5-6.el10.ppc64le"
+    },
+    "gettext-libs": {
+      "evra": "0.22.5-6.el10.ppc64le"
+    },
+    "gettext-runtime": {
+      "evra": "0.22.5-6.el10.ppc64le"
+    },
+    "git-core": {
+      "evra": "2.52.0-1.el10.ppc64le"
+    },
+    "glib2": {
+      "evra": "2.80.4-22.el10.ppc64le"
+    },
+    "glibc": {
+      "evra": "2.39-147.el10.ppc64le"
+    },
+    "glibc-common": {
+      "evra": "2.39-147.el10.ppc64le"
+    },
+    "glibc-gconv-extra": {
+      "evra": "2.39-147.el10.ppc64le"
+    },
+    "glibc-minimal-langpack": {
+      "evra": "2.39-147.el10.ppc64le"
+    },
+    "gmp": {
+      "evra": "1:6.2.1-12.el10.ppc64le"
+    },
+    "gnupg2": {
+      "evra": "2.4.5-5.el10.ppc64le"
+    },
+    "gnutls": {
+      "evra": "3.8.10-5.el10.ppc64le"
+    },
+    "gobject-introspection": {
+      "evra": "1.79.1-7.el10.ppc64le"
+    },
+    "gpgme": {
+      "evra": "1.23.2-6.el10.ppc64le"
+    },
+    "grep": {
+      "evra": "3.11-10.el10.ppc64le"
+    },
+    "grub2-common": {
+      "evra": "1:2.12-58.el10.noarch"
+    },
+    "grub2-ppc64le": {
+      "evra": "1:2.12-58.el10.ppc64le"
+    },
+    "grub2-ppc64le-modules": {
+      "evra": "1:2.12-58.el10.noarch"
+    },
+    "grub2-tools": {
+      "evra": "1:2.12-58.el10.ppc64le"
+    },
+    "grub2-tools-minimal": {
+      "evra": "1:2.12-58.el10.ppc64le"
+    },
+    "gssproxy": {
+      "evra": "0.9.2-10.el10.ppc64le"
+    },
+    "gzip": {
+      "evra": "1.13-4.el10.ppc64le"
+    },
+    "hostname": {
+      "evra": "3.23-14.el10.ppc64le"
+    },
+    "hwdata": {
+      "evra": "0.379-10.10.el10.noarch"
+    },
+    "ignition": {
+      "evra": "2.28.0-1.el10.ppc64le"
+    },
+    "ignition-grub": {
+      "evra": "2.28.0-1.el10.ppc64le"
+    },
+    "ima-evm-utils": {
+      "evra": "1.6.2-6.el10.ppc64le"
+    },
+    "info": {
+      "evra": "7.1-6.el10.ppc64le"
+    },
+    "inih": {
+      "evra": "58-3.el10.ppc64le"
+    },
+    "intel-gpu-firmware": {
+      "evra": "20260812-27.el10.noarch"
+    },
+    "ipcalc": {
+      "evra": "1.0.3-12.el10.ppc64le"
+    },
+    "iproute": {
+      "evra": "7.0.0-2.el10.ppc64le"
+    },
+    "iproute-tc": {
+      "evra": "7.0.0-2.el10.ppc64le"
+    },
+    "iptables-libs": {
+      "evra": "1.8.11-16.el10.ppc64le"
+    },
+    "iptables-nft": {
+      "evra": "1.8.11-16.el10.ppc64le"
+    },
+    "iputils": {
+      "evra": "20240905-5.el10.ppc64le"
+    },
+    "irqbalance": {
+      "evra": "2:1.9.4-7.el10.ppc64le"
+    },
+    "iscsi-initiator-utils": {
+      "evra": "6.2.1.11-4.git4b3e853.el10.ppc64le"
+    },
+    "iscsi-initiator-utils-iscsiuio": {
+      "evra": "6.2.1.11-4.git4b3e853.el10.ppc64le"
+    },
+    "isns-utils-libs": {
+      "evra": "0.103-2.el10.ppc64le"
+    },
+    "jansson": {
+      "evra": "2.14-3.el10.ppc64le"
+    },
+    "jose": {
+      "evra": "14-102.el10.ppc64le"
+    },
+    "jq": {
+      "evra": "1.7.1-13.el10.ppc64le"
+    },
+    "json-c": {
+      "evra": "0.18-3.el10.ppc64le"
+    },
+    "json-glib": {
+      "evra": "1.8.0-5.el10.ppc64le"
+    },
+    "kbd": {
+      "evra": "2.6.4-8.el10.ppc64le"
+    },
+    "kbd-legacy": {
+      "evra": "2.6.4-8.el10.noarch"
+    },
+    "kbd-misc": {
+      "evra": "2.6.4-8.el10.noarch"
+    },
+    "kdump-utils": {
+      "evra": "1.0.61-2.el10.ppc64le"
+    },
+    "kernel": {
+      "evra": "6.12.0-279.el10.ppc64le"
+    },
+    "kernel-core": {
+      "evra": "6.12.0-279.el10.ppc64le"
+    },
+    "kernel-modules": {
+      "evra": "6.12.0-279.el10.ppc64le"
+    },
+    "kernel-modules-core": {
+      "evra": "6.12.0-279.el10.ppc64le"
+    },
+    "kernel-modules-extra": {
+      "evra": "6.12.0-279.el10.ppc64le"
+    },
+    "kexec-tools": {
+      "evra": "2.0.32-3.el10.ppc64le"
+    },
+    "keyutils": {
+      "evra": "1.6.3-5.el10.ppc64le"
+    },
+    "keyutils-libs": {
+      "evra": "1.6.3-5.el10.ppc64le"
+    },
+    "kmod": {
+      "evra": "31-13.el10.ppc64le"
+    },
+    "kmod-libs": {
+      "evra": "31-13.el10.ppc64le"
+    },
+    "kpartx": {
+      "evra": "0.9.9-20.el10.ppc64le"
+    },
+    "krb5-libs": {
+      "evra": "1.21.3-11.el10.ppc64le"
+    },
+    "less": {
+      "evra": "661-3.el10.ppc64le"
+    },
+    "libacl": {
+      "evra": "2.4.0-2.el10.ppc64le"
+    },
+    "libaio": {
+      "evra": "0.3.112-1.el10.ppc64le"
+    },
+    "libarchive": {
+      "evra": "3.7.7-11.el10.ppc64le"
+    },
+    "libassuan": {
+      "evra": "2.5.6-6.el10.ppc64le"
+    },
+    "libatomic": {
+      "evra": "14.4.1-4.el10.ppc64le"
+    },
+    "libattr": {
+      "evra": "2.6.0-2.el10.ppc64le"
+    },
+    "libbasicobjects": {
+      "evra": "0.1.1-58.el10.ppc64le"
+    },
+    "libblkid": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "libbpf": {
+      "evra": "2:1.7.0-2.el10.ppc64le"
+    },
+    "libcap": {
+      "evra": "2.69-7.el10.ppc64le"
+    },
+    "libcap-ng": {
+      "evra": "0.9.3-2.el10.ppc64le"
+    },
+    "libcbor": {
+      "evra": "0.11.0-3.el10.ppc64le"
+    },
+    "libcollection": {
+      "evra": "0.7.0-58.el10.ppc64le"
+    },
+    "libcom_err": {
+      "evra": "1.47.1-5.el10.ppc64le"
+    },
+    "libcomps": {
+      "evra": "0.1.21-3.el10.ppc64le"
+    },
+    "libconfig": {
+      "evra": "1.7.3-10.el10.ppc64le"
+    },
+    "libcurl-minimal": {
+      "evra": "8.12.1-8.el10.ppc64le"
+    },
+    "libdhash": {
+      "evra": "0.5.0-58.el10.ppc64le"
+    },
+    "libdnf": {
+      "evra": "0.73.1-17.el10.ppc64le"
+    },
+    "libdnf-plugin-subscription-manager": {
+      "evra": "1.30.16-1.el10.ppc64le"
+    },
+    "libdrm": {
+      "evra": "2.4.128-1.el10.ppc64le"
+    },
+    "libeconf": {
+      "evra": "0.6.2-4.el10.ppc64le"
+    },
+    "libedit": {
+      "evra": "3.1-52.20230828cvs.el10.ppc64le"
+    },
+    "libev": {
+      "evra": "4.33-15.el10.ppc64le"
+    },
+    "libevent": {
+      "evra": "2.1.13-1.el10.ppc64le"
+    },
+    "libfdisk": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "libffi": {
+      "evra": "3.4.4-10.el10.ppc64le"
+    },
+    "libfido2": {
+      "evra": "1.14.0-7.el10.ppc64le"
+    },
+    "libgcc": {
+      "evra": "14.4.1-4.el10.ppc64le"
+    },
+    "libgcrypt": {
+      "evra": "1.11.0-7.el10.ppc64le"
+    },
+    "libgomp": {
+      "evra": "14.4.1-4.el10.ppc64le"
+    },
+    "libgpg-error": {
+      "evra": "1.50-2.el10.ppc64le"
+    },
+    "libibverbs": {
+      "evra": "62.0-3.el10.ppc64le"
+    },
+    "libicu": {
+      "evra": "74.2-5.el10.ppc64le"
+    },
+    "libidn2": {
+      "evra": "2.3.7-3.el10.ppc64le"
+    },
+    "libini_config": {
+      "evra": "1.3.1-58.el10.ppc64le"
+    },
+    "libipa_hbac": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "libjcat": {
+      "evra": "0.2.2-2.el10.ppc64le"
+    },
+    "libjose": {
+      "evra": "14-102.el10.ppc64le"
+    },
+    "libkcapi": {
+      "evra": "1.5.1-1.el10.ppc64le"
+    },
+    "libkcapi-hasher": {
+      "evra": "1.5.1-1.el10.ppc64le"
+    },
+    "libkcapi-hmaccalc": {
+      "evra": "1.5.1-1.el10.ppc64le"
+    },
+    "libksba": {
+      "evra": "1.6.7-2.el10.ppc64le"
+    },
+    "libldb": {
+      "evra": "4.24.5-101.el10.ppc64le"
+    },
+    "libluksmeta": {
+      "evra": "10-1.el10.ppc64le"
+    },
+    "libmaxminddb": {
+      "evra": "1.9.1-4.el10.ppc64le"
+    },
+    "libmicrohttpd": {
+      "evra": "1:1.0.0-3.el10.ppc64le"
+    },
+    "libmnl": {
+      "evra": "1.0.5-7.el10.ppc64le"
+    },
+    "libmodulemd": {
+      "evra": "2.15.0-12.el10.ppc64le"
+    },
+    "libmount": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "libndp": {
+      "evra": "1.9-2.el10.ppc64le"
+    },
+    "libnet": {
+      "evra": "1.3-7.el10.ppc64le"
+    },
+    "libnetfilter_conntrack": {
+      "evra": "1.0.9-12.el10.ppc64le"
+    },
+    "libnfnetlink": {
+      "evra": "1.0.2-3.el10.ppc64le"
+    },
+    "libnfsidmap": {
+      "evra": "1:2.8.3-9.el10.ppc64le"
+    },
+    "libnftnl": {
+      "evra": "1.3.0-3.el10.ppc64le"
+    },
+    "libnghttp2": {
+      "evra": "1.68.0-6.el10.ppc64le"
+    },
+    "libnl3": {
+      "evra": "3.11.0-1.el10.ppc64le"
+    },
+    "libnvme": {
+      "evra": "1.16.2-1.el10.ppc64le"
+    },
+    "libpath_utils": {
+      "evra": "0.2.1-58.el10.ppc64le"
+    },
+    "libpcap": {
+      "evra": "14:1.10.4-8.el10.ppc64le"
+    },
+    "libpciaccess": {
+      "evra": "0.16-16.el10.ppc64le"
+    },
+    "libpkgconf": {
+      "evra": "2.1.0-3.el10.ppc64le"
+    },
+    "libpwquality": {
+      "evra": "1.4.5-13.el10.ppc64le"
+    },
+    "libref_array": {
+      "evra": "0.1.5-58.el10.ppc64le"
+    },
+    "librepo": {
+      "evra": "1.19.0-1.el10.ppc64le"
+    },
+    "librtas": {
+      "evra": "2.0.6-4.el10.ppc64le"
+    },
+    "libseccomp": {
+      "evra": "2.5.6-1.el10.ppc64le"
+    },
+    "libselinux": {
+      "evra": "3.11-3.el10.ppc64le"
+    },
+    "libselinux-utils": {
+      "evra": "3.11-3.el10.ppc64le"
+    },
+    "libsemanage": {
+      "evra": "3.11-3.el10.ppc64le"
+    },
+    "libsepol": {
+      "evra": "3.11-2.el10.ppc64le"
+    },
+    "libservicelog": {
+      "evra": "1.1.19-14.el10.ppc64le"
+    },
+    "libsmartcols": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "libsmbclient": {
+      "evra": "4.24.5-101.el10.ppc64le"
+    },
+    "libsolv": {
+      "evra": "0.7.33-7.el10.ppc64le"
+    },
+    "libss": {
+      "evra": "1.47.1-5.el10.ppc64le"
+    },
+    "libsss_certmap": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "libsss_idmap": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "libsss_nss_idmap": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "libsss_sudo": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "libstdc++": {
+      "evra": "14.4.1-4.el10.ppc64le"
+    },
+    "libtalloc": {
+      "evra": "2.4.4-100.el10.ppc64le"
+    },
+    "libtasn1": {
+      "evra": "4.20.0-5.el10.ppc64le"
+    },
+    "libtdb": {
+      "evra": "1.4.15-100.el10.ppc64le"
+    },
+    "libtevent": {
+      "evra": "0.17.1-100.el10.ppc64le"
+    },
+    "libtirpc": {
+      "evra": "1.3.5-1.el10.ppc64le"
+    },
+    "libunistring": {
+      "evra": "1.1-10.el10.ppc64le"
+    },
+    "liburing": {
+      "evra": "2.12-1.el10.ppc64le"
+    },
+    "libusb1": {
+      "evra": "1.0.30-1.el10.ppc64le"
+    },
+    "libutempter": {
+      "evra": "1.2.1-15.el10.ppc64le"
+    },
+    "libuuid": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "libuv": {
+      "evra": "1:1.52.1-1.el10.ppc64le"
+    },
+    "libverto": {
+      "evra": "0.3.2-10.el10.ppc64le"
+    },
+    "libverto-libev": {
+      "evra": "0.3.2-10.el10.ppc64le"
+    },
+    "libwbclient": {
+      "evra": "4.24.5-101.el10.ppc64le"
+    },
+    "libxcrypt": {
+      "evra": "4.4.36-10.el10.ppc64le"
+    },
+    "libxml2": {
+      "evra": "2.12.5-15.el10.ppc64le"
+    },
+    "libxmlb": {
+      "evra": "0.3.28-1.el10.ppc64le"
+    },
+    "libyaml": {
+      "evra": "0.2.5-16.el10.ppc64le"
+    },
+    "libzstd": {
+      "evra": "1.5.5-9.el10.ppc64le"
+    },
+    "linux-firmware": {
+      "evra": "20260812-27.el10.noarch"
+    },
+    "linux-firmware-whence": {
+      "evra": "20260812-27.el10.noarch"
+    },
+    "lldpad": {
+      "evra": "1.1.1-4.gitf1dd9eb.el10.ppc64le"
+    },
+    "lmdb-libs": {
+      "evra": "0.9.32-4.el10.ppc64le"
+    },
+    "logrotate": {
+      "evra": "3.22.0-5.el10.ppc64le"
+    },
+    "lsof": {
+      "evra": "4.98.0-7.el10.ppc64le"
+    },
+    "lua-libs": {
+      "evra": "5.4.8-1.el10.ppc64le"
+    },
+    "luksmeta": {
+      "evra": "10-1.el10.ppc64le"
+    },
+    "lvm2": {
+      "evra": "10:2.03.43-1.el10.ppc64le"
+    },
+    "lvm2-libs": {
+      "evra": "10:2.03.43-1.el10.ppc64le"
+    },
+    "lz4-libs": {
+      "evra": "1.9.4-8.el10.ppc64le"
+    },
+    "lzo": {
+      "evra": "2.10-14.el10.ppc64le"
+    },
+    "makedumpfile": {
+      "evra": "1.7.8-2.el10.ppc64le"
+    },
+    "mdadm": {
+      "evra": "4.6-1.el10.ppc64le"
+    },
+    "mpdecimal": {
+      "evra": "2.5.1-12.el10.ppc64le"
+    },
+    "mpfr": {
+      "evra": "4.2.1-8.el10.ppc64le"
+    },
+    "nano": {
+      "evra": "8.1-3.el10.ppc64le"
+    },
+    "ncurses-base": {
+      "evra": "6.4-15.20240127.el10.noarch"
+    },
+    "ncurses-libs": {
+      "evra": "6.4-15.20240127.el10.ppc64le"
+    },
+    "net-tools": {
+      "evra": "2.0-0.73.20160912git.el10.ppc64le"
+    },
+    "netavark": {
+      "evra": "4:2.1.0-1.el10.ppc64le"
+    },
+    "nettle": {
+      "evra": "3.10.1-1.el10.ppc64le"
+    },
+    "newt": {
+      "evra": "0.52.24-5.el10.ppc64le"
+    },
+    "nfs-utils": {
+      "evra": "1:2.8.3-9.el10.ppc64le"
+    },
+    "nftables": {
+      "evra": "1:1.1.5-6.el10.ppc64le"
+    },
+    "nmap-ncat": {
+      "evra": "4:7.92-5.el10.ppc64le"
+    },
+    "nmstate": {
+      "evra": "2.2.62-4.el10.ppc64le"
+    },
+    "npth": {
+      "evra": "1.6-21.el10.ppc64le"
+    },
+    "nss-altfiles": {
+      "evra": "2.23.0-6.el10.ppc64le"
+    },
+    "numactl": {
+      "evra": "2.0.19-3.el10.ppc64le"
+    },
+    "numactl-libs": {
+      "evra": "2.0.19-3.el10.ppc64le"
+    },
+    "numad": {
+      "evra": "0.5-50.20251104git.el10.ppc64le"
+    },
+    "nvidia-gpu-firmware": {
+      "evra": "20260812-27.el10.noarch"
+    },
+    "nvme-cli": {
+      "evra": "2.16-3.el10.ppc64le"
+    },
+    "oniguruma": {
+      "evra": "6.9.9-7.el10.ppc64le"
+    },
+    "openldap": {
+      "evra": "2.6.13-1.el10.ppc64le"
+    },
+    "openssh": {
+      "evra": "9.9p1-33.el10.ppc64le"
+    },
+    "openssh-clients": {
+      "evra": "9.9p1-33.el10.ppc64le"
+    },
+    "openssh-server": {
+      "evra": "9.9p1-33.el10.ppc64le"
+    },
+    "openssl-fips-provider": {
+      "evra": "1:3.5.9-1.el10.ppc64le"
+    },
+    "openssl-libs": {
+      "evra": "1:3.5.9-1.el10.ppc64le"
+    },
+    "os-prober": {
+      "evra": "1.81-9.el10.ppc64le"
+    },
+    "ostree": {
+      "evra": "2026.4-1.el10.ppc64le"
+    },
+    "ostree-grub2": {
+      "evra": "2026.4-1.el10.ppc64le"
+    },
+    "ostree-libs": {
+      "evra": "2026.4-1.el10.ppc64le"
+    },
+    "p11-kit": {
+      "evra": "0.26.4-1.el10.ppc64le"
+    },
+    "p11-kit-trust": {
+      "evra": "0.26.4-1.el10.ppc64le"
+    },
+    "pam": {
+      "evra": "1.6.1-11.el10.ppc64le"
+    },
+    "pam-libs": {
+      "evra": "1.6.1-11.el10.ppc64le"
+    },
+    "passt": {
+      "evra": "0^20260728.gf8df3f1-1.el10.ppc64le"
+    },
+    "passt-selinux": {
+      "evra": "0^20260728.gf8df3f1-1.el10.noarch"
+    },
+    "pciutils": {
+      "evra": "3.13.0-6.el10.ppc64le"
+    },
+    "pciutils-libs": {
+      "evra": "3.13.0-6.el10.ppc64le"
+    },
+    "pcre2": {
+      "evra": "10.44-1.4.el10.ppc64le"
+    },
+    "pcre2-syntax": {
+      "evra": "10.44-1.4.el10.noarch"
+    },
+    "pkgconf": {
+      "evra": "2.1.0-3.el10.ppc64le"
+    },
+    "pkgconf-m4": {
+      "evra": "2.1.0-3.el10.noarch"
+    },
+    "pkgconf-pkg-config": {
+      "evra": "2.1.0-3.el10.ppc64le"
+    },
+    "podman": {
+      "evra": "7:6.1.0-2.el10.ppc64le"
+    },
+    "podman-sequoia": {
+      "evra": "0.4.0~pqc.3-1.el10.ppc64le"
+    },
+    "policycoreutils": {
+      "evra": "3.11-1.el10.ppc64le"
+    },
+    "policycoreutils-python-utils": {
+      "evra": "3.11-1.el10.noarch"
+    },
+    "polkit": {
+      "evra": "125-6.el10.ppc64le"
+    },
+    "polkit-libs": {
+      "evra": "125-6.el10.ppc64le"
+    },
+    "popt": {
+      "evra": "1.19-9.el10.ppc64le"
+    },
+    "powerpc-utils-core": {
+      "evra": "1.3.13-6.el10.ppc64le"
+    },
+    "ppc64-diag-rtas": {
+      "evra": "2.7.11-1.el10.ppc64le"
+    },
+    "procps-ng": {
+      "evra": "4.0.4-13.el10.ppc64le"
+    },
+    "protobuf-c": {
+      "evra": "1.5.0-6.el10.ppc64le"
+    },
+    "psmisc": {
+      "evra": "23.6-8.el10.ppc64le"
+    },
+    "python3": {
+      "evra": "3.12.15-1.el10.ppc64le"
+    },
+    "python3-audit": {
+      "evra": "4.2.1-3.el10.ppc64le"
+    },
+    "python3-charset-normalizer": {
+      "evra": "3.4.2-1.el10.noarch"
+    },
+    "python3-cloud-what": {
+      "evra": "1.30.16-1.el10.ppc64le"
+    },
+    "python3-dateutil": {
+      "evra": "1:2.9.0.post0-1.el10.noarch"
+    },
+    "python3-dbus": {
+      "evra": "1.3.2-8.el10.ppc64le"
+    },
+    "python3-decorator": {
+      "evra": "5.1.1-12.el10.noarch"
+    },
+    "python3-distro": {
+      "evra": "1.9.0-5.el10.noarch"
+    },
+    "python3-dnf": {
+      "evra": "4.20.0-28.el10.noarch"
+    },
+    "python3-dnf-plugin-versionlock": {
+      "evra": "4.7.0-12.el10.noarch"
+    },
+    "python3-dnf-plugins-core": {
+      "evra": "4.7.0-12.el10.noarch"
+    },
+    "python3-file-magic": {
+      "evra": "5.45-12.el10.noarch"
+    },
+    "python3-gobject-base": {
+      "evra": "3.46.0-7.el10.ppc64le"
+    },
+    "python3-gobject-base-noarch": {
+      "evra": "3.46.0-7.el10.noarch"
+    },
+    "python3-hawkey": {
+      "evra": "0.73.1-17.el10.ppc64le"
+    },
+    "python3-idna": {
+      "evra": "3.7-6.el10.noarch"
+    },
+    "python3-iniparse": {
+      "evra": "0.5-10.el10.noarch"
+    },
+    "python3-inotify": {
+      "evra": "0.9.6-36.el10.noarch"
+    },
+    "python3-libcomps": {
+      "evra": "0.1.21-3.el10.ppc64le"
+    },
+    "python3-libdnf": {
+      "evra": "0.73.1-17.el10.ppc64le"
+    },
+    "python3-librepo": {
+      "evra": "1.19.0-1.el10.ppc64le"
+    },
+    "python3-libs": {
+      "evra": "3.12.15-1.el10.ppc64le"
+    },
+    "python3-libselinux": {
+      "evra": "3.11-3.el10.ppc64le"
+    },
+    "python3-libsemanage": {
+      "evra": "3.11-3.el10.ppc64le"
+    },
+    "python3-packaging": {
+      "evra": "24.2-2.el10.noarch"
+    },
+    "python3-pexpect": {
+      "evra": "4.9.0-6.el10.noarch"
+    },
+    "python3-pip-wheel": {
+      "evra": "23.3.2-11.el10.noarch"
+    },
+    "python3-policycoreutils": {
+      "evra": "3.11-1.el10.noarch"
+    },
+    "python3-ptyprocess": {
+      "evra": "0.7.0-9.el10.noarch"
+    },
+    "python3-pyyaml": {
+      "evra": "6.0.1-19.el10.ppc64le"
+    },
+    "python3-requests": {
+      "evra": "2.32.4-1.el10.noarch"
+    },
+    "python3-rpm": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "python3-setools": {
+      "evra": "4.7.1-1.1.el10.ppc64le"
+    },
+    "python3-setuptools": {
+      "evra": "69.0.3-12.el10.noarch"
+    },
+    "python3-six": {
+      "evra": "1.16.0-16.el10.noarch"
+    },
+    "python3-subscription-manager-rhsm": {
+      "evra": "1.30.16-1.el10.ppc64le"
+    },
+    "python3-systemd": {
+      "evra": "235-11.el10.ppc64le"
+    },
+    "python3-urllib3": {
+      "evra": "1.26.19-4.el10.noarch"
+    },
+    "qemu-guest-agent": {
+      "evra": "18:11.1.0-2.el10.ppc64le"
+    },
+    "quota": {
+      "evra": "1:4.09-10.el10.ppc64le"
+    },
+    "quota-nls": {
+      "evra": "1:4.09-10.el10.noarch"
+    },
+    "rdma-core": {
+      "evra": "62.0-3.el10.ppc64le"
+    },
+    "readline": {
+      "evra": "8.2-11.el10.ppc64le"
+    },
+    "rpcbind": {
+      "evra": "1.2.9-1.el10.ppc64le"
+    },
+    "rpm": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rpm-build-libs": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rpm-libs": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rpm-ostree": {
+      "evra": "2026.3-2.el10.ppc64le"
+    },
+    "rpm-ostree-libs": {
+      "evra": "2026.3-2.el10.ppc64le"
+    },
+    "rpm-plugin-audit": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rpm-plugin-selinux": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rpm-plugin-syslog": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rpm-sequoia": {
+      "evra": "1.10.2.3-1.el10.ppc64le"
+    },
+    "rpm-sign-libs": {
+      "evra": "4.19.1.1-28.el10.ppc64le"
+    },
+    "rsync": {
+      "evra": "3.4.4-1.el10.ppc64le"
+    },
+    "samba-client-libs": {
+      "evra": "4.24.5-101.el10.ppc64le"
+    },
+    "samba-common": {
+      "evra": "4.24.5-101.el10.noarch"
+    },
+    "samba-core-libs": {
+      "evra": "4.24.5-101.el10.ppc64le"
+    },
+    "samba-ndr-libs": {
+      "evra": "4.24.5-101.el10.ppc64le"
+    },
+    "sed": {
+      "evra": "4.9-5.el10.ppc64le"
+    },
+    "selinux-policy": {
+      "evra": "42.1.27-2.el10.noarch"
+    },
+    "selinux-policy-targeted": {
+      "evra": "42.1.27-2.el10.noarch"
+    },
+    "servicelog": {
+      "evra": "1.1.16-8.el10.ppc64le"
+    },
+    "setup": {
+      "evra": "2.14.5-7.el10.noarch"
+    },
+    "sg3_utils": {
+      "evra": "1.48-11.el10.ppc64le"
+    },
+    "sg3_utils-libs": {
+      "evra": "1.48-11.el10.ppc64le"
+    },
+    "shadow-utils": {
+      "evra": "2:4.15.0-13.el10.ppc64le"
+    },
+    "shadow-utils-subid": {
+      "evra": "2:4.15.0-13.el10.ppc64le"
+    },
+    "shared-mime-info": {
+      "evra": "2.3-8.el10.ppc64le"
+    },
+    "skopeo": {
+      "evra": "3:1.24.0-2.el10.ppc64le"
+    },
+    "slang": {
+      "evra": "2.3.3-8.el10.ppc64le"
+    },
+    "snappy": {
+      "evra": "1.1.10-7.el10.ppc64le"
+    },
+    "socat": {
+      "evra": "1.7.4.4-9.el10.ppc64le"
+    },
+    "sos": {
+      "evra": "4.11.2-8.el10.noarch"
+    },
+    "sqlite-libs": {
+      "evra": "3.46.1-6.el10.ppc64le"
+    },
+    "ssh-key-dir": {
+      "evra": "0.1.4-9.el10.ppc64le"
+    },
+    "sssd": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-ad": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-client": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-common": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-common-pac": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-ipa": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-krb5": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-krb5-common": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-ldap": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-nfs-idmap": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "sssd-proxy": {
+      "evra": "2.13.1-3.el10.ppc64le"
+    },
+    "stalld": {
+      "evra": "1.26.3-1.el10.ppc64le"
+    },
+    "strace": {
+      "evra": "6.12-3.el10.ppc64le"
+    },
+    "subscription-manager": {
+      "evra": "1.30.16-1.el10.ppc64le"
+    },
+    "subscription-manager-rhsm-certificates": {
+      "evra": "20220623-6.el10.noarch"
+    },
+    "sudo": {
+      "evra": "1.9.17-13.p2.el10.ppc64le"
+    },
+    "systemd": {
+      "evra": "257-35.el10.ppc64le"
+    },
+    "systemd-journal-remote": {
+      "evra": "257-35.el10.ppc64le"
+    },
+    "systemd-libs": {
+      "evra": "257-35.el10.ppc64le"
+    },
+    "systemd-pam": {
+      "evra": "257-35.el10.ppc64le"
+    },
+    "systemd-udev": {
+      "evra": "257-35.el10.ppc64le"
+    },
+    "tar": {
+      "evra": "2:1.35-13.el10.ppc64le"
+    },
+    "tmux": {
+      "evra": "3.3a-14.20230918gitb202a2f.el10.ppc64le"
+    },
+    "toolbox": {
+      "evra": "0.3-3.el10.ppc64le"
+    },
+    "tpm2-tools": {
+      "evra": "5.7-6.el10.ppc64le"
+    },
+    "tpm2-tss": {
+      "evra": "4.1.3-6.el10.ppc64le"
+    },
+    "tpm2-tss-fapi": {
+      "evra": "4.1.3-6.el10.ppc64le"
+    },
+    "tzdata": {
+      "evra": "2026e-1.el10.noarch"
+    },
+    "userspace-rcu": {
+      "evra": "0.14.0-7.el10.ppc64le"
+    },
+    "util-linux": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "util-linux-core": {
+      "evra": "2.40.2-23.el10.ppc64le"
+    },
+    "vim-data": {
+      "evra": "2:9.1.083-25.el10.noarch"
+    },
+    "vim-minimal": {
+      "evra": "2:9.1.083-25.el10.ppc64le"
+    },
+    "virt-what": {
+      "evra": "1.27-3.el10.ppc64le"
+    },
+    "which": {
+      "evra": "2.21-44.el10.ppc64le"
+    },
+    "xfsprogs": {
+      "evra": "6.16.0-1.el10.ppc64le"
+    },
+    "xz": {
+      "evra": "1:5.6.2-5.el10.ppc64le"
+    },
+    "xz-libs": {
+      "evra": "1:5.6.2-5.el10.ppc64le"
+    },
+    "zlib-ng-compat": {
+      "evra": "2.2.3-3.el10.ppc64le"
+    },
+    "zram-generator": {
+      "evra": "1.1.2-14.el10.ppc64le"
+    },
+    "zstd": {
+      "evra": "1.5.5-9.el10.ppc64le"
+    }
+  },
+  "metadata": {
+    "generated": "2026-10-30T00:00:00Z"
+  }
+}
