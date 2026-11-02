@@ -19,6 +19,7 @@ metadata:
         ".tekton/centos-stream-coreos-9-on-pull-request.yaml".pathChanged() ||
         "fedora-coreos-config".pathChanged() ||
         "fedora-coreos-config/**".pathChanged() ||
+        "lockfiles/c9s/**".pathChanged() ||
         "live/**".pathChanged() ||
         "overlay.d/**".pathChanged() ||
         "tests/kola/**".pathChanged() ||

@@ -19,6 +19,7 @@ metadata:
         ".tekton/rhel-coreos-9-8-on-pull-request.yaml".pathChanged() ||
         "fedora-coreos-config".pathChanged() ||
         "fedora-coreos-config/**".pathChanged() ||
+        "lockfiles/rhel-9.8/**".pathChanged() ||
         "live/**".pathChanged() ||
         "overlay.d/**".pathChanged() ||
         "tests/kola/**".pathChanged() ||
