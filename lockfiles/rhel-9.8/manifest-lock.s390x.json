@@ -67,13 +67,13 @@
       "evra": "1:2.11-5.el9.noarch"
     },
     "bind-libs": {
-      "evra": "32:9.16.23-40.el9_8.12.s390x"
+      "evra": "32:9.16.23-40.el9_8.13.s390x"
     },
     "bind-license": {
-      "evra": "32:9.16.23-40.el9_8.12.noarch"
+      "evra": "32:9.16.23-40.el9_8.13.noarch"
     },
     "bind-utils": {
-      "evra": "32:9.16.23-40.el9_8.12.s390x"
+      "evra": "32:9.16.23-40.el9_8.13.s390x"
     },
     "binutils": {
       "evra": "2.35.2-72.el9.s390x"
@@ -478,19 +478,19 @@
       "evra": "2.4.0-12.el9_8.noarch"
     },
     "kernel": {
-      "evra": "5.14.0-687.63.1.el9_8.s390x"
+      "evra": "5.14.0-687.65.1.el9_8.s390x"
     },
     "kernel-core": {
-      "evra": "5.14.0-687.63.1.el9_8.s390x"
+      "evra": "5.14.0-687.65.1.el9_8.s390x"
     },
     "kernel-modules": {
-      "evra": "5.14.0-687.63.1.el9_8.s390x"
+      "evra": "5.14.0-687.65.1.el9_8.s390x"
     },
     "kernel-modules-core": {
-      "evra": "5.14.0-687.63.1.el9_8.s390x"
+      "evra": "5.14.0-687.65.1.el9_8.s390x"
     },
     "kernel-modules-extra": {
-      "evra": "5.14.0-687.63.1.el9_8.s390x"
+      "evra": "5.14.0-687.65.1.el9_8.s390x"
     },
     "kexec-tools": {
       "evra": "2.0.29-17.el9.s390x"
@@ -1589,6 +1589,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-10-30T00:00:00Z"
+    "generated": "2026-11-02T00:00:00Z"
   }
 }
