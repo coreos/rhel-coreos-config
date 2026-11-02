@@ -484,19 +484,19 @@
       "evra": "1.0.58-15.el10.ppc64le"
     },
     "kernel": {
-      "evra": "6.12.0-211.71.1.el10_2.ppc64le"
+      "evra": "6.12.0-211.73.1.el10_2.ppc64le"
     },
     "kernel-core": {
-      "evra": "6.12.0-211.71.1.el10_2.ppc64le"
+      "evra": "6.12.0-211.73.1.el10_2.ppc64le"
     },
     "kernel-modules": {
-      "evra": "6.12.0-211.71.1.el10_2.ppc64le"
+      "evra": "6.12.0-211.73.1.el10_2.ppc64le"
     },
     "kernel-modules-core": {
-      "evra": "6.12.0-211.71.1.el10_2.ppc64le"
+      "evra": "6.12.0-211.73.1.el10_2.ppc64le"
     },
     "kernel-modules-extra": {
-      "evra": "6.12.0-211.71.1.el10_2.ppc64le"
+      "evra": "6.12.0-211.73.1.el10_2.ppc64le"
     },
     "kexec-tools": {
       "evra": "2.0.32-3.el10.ppc64le"
@@ -544,7 +544,7 @@
       "evra": "0.1.1-58.el10.ppc64le"
     },
     "libblkid": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "libbpf": {
       "evra": "2:1.7.0-1.el10.ppc64le"
@@ -598,7 +598,7 @@
       "evra": "2.1.13-1.el10_2.ppc64le"
     },
     "libfdisk": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "libffi": {
       "evra": "3.4.4-10.el10.ppc64le"
@@ -670,7 +670,7 @@
       "evra": "2.15.0-12.el10.ppc64le"
     },
     "libmount": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "libndp": {
       "evra": "1.9-2.el10.ppc64le"
@@ -745,7 +745,7 @@
       "evra": "1.1.19-14.el10.ppc64le"
     },
     "libsmartcols": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "libsmbclient": {
       "evra": "4.23.5-111.el10_2.ppc64le"
@@ -799,7 +799,7 @@
       "evra": "1.2.1-15.el10.ppc64le"
     },
     "libuuid": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "libuv": {
       "evra": "1:1.52.1-1.el10_2.ppc64le"
@@ -1006,7 +1006,7 @@
       "evra": "2.1.0-3.el10.ppc64le"
     },
     "podman": {
-      "evra": "7:5.8.2-11.el10_2.ppc64le"
+      "evra": "7:5.8.2-12.el10_2.ppc64le"
     },
     "podman-sequoia": {
       "evra": "0.4.0~pqc.3-1.el10_2.ppc64le"
@@ -1354,10 +1354,10 @@
       "evra": "0.14.0-7.el10.ppc64le"
     },
     "util-linux": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "util-linux-core": {
-      "evra": "2.40.2-18.el10.ppc64le"
+      "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
     "vim-data": {
       "evra": "2:9.1.083-9.el10_2.22.noarch"
@@ -1391,6 +1391,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-10-30T00:00:00Z"
+    "generated": "2026-11-02T00:00:00Z"
   }
 }
