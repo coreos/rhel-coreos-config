@@ -61,9 +61,9 @@ spec:
   - name: clone-depth
     value: 50
   - name: hermetic
-    value: false
-  #- name: prefetch-input
-  #  value: '[{"type": "rpm", "path": "."}]'
+    value: true
+  - name: prefetch-input
+    value: '[{"type": "rpm", "path": "."}]'
   - name: additional-secret
     value: container-image-build
   - name: build-source-image
