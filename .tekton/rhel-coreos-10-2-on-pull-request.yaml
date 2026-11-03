@@ -88,7 +88,7 @@ spec:
   pipelineRef:
     params:
     - name: bundle
-      value: quay.io/bootc-devel/tekton-catalog/pipeline-buildah-build-bootc-multi-platform-oci-ta@sha256:c084e2dec3c69d8f7d50871d998db80dde4542f696ac7ff5084ad4d5c54774f9
+      value: quay.io/bootc-devel/tekton-catalog/pipeline-buildah-build-bootc-multi-platform-oci-ta@sha256:768863639cff36027e356e1ef2ea1a15086cffdee3d6bc16cb8048e5c337d28b
     - name: name
       value: buildah-build-bootc-multi-platform-oci-ta
     - name: kind
