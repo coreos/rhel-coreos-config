@@ -40,6 +40,12 @@ cosa_init() {
     local -r variant="${1}"
     echo "Using variant: ${variant}"
 
+    # Disable lockfiles temporary until we fix
+    # https://redhat.atlassian.net/browse/COS-5262
+    if test -d /src/config/lockfiles; then
+        rm -rf /src/config/lockfiles
+    fi
+
     if test -d builds; then
         echo "Already in an initialized cosa dir"
         # Pull repos from an in-cluster service of the Openshift CI
