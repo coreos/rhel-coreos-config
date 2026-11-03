@@ -137,7 +137,7 @@
         "lgtm"
       ],
       "matchPackageNames": [
-        "/registry.stage.redhat.io/rhel10/rhel-bootc.*/"
+        "/registry.redhat.io/rhel10/rhel-bootc.*/"
       ],
       "matchFileNames": [
         "build-args-rhel-10.*\\.conf"
@@ -163,7 +163,7 @@
         "lgtm"
       ],
       "matchPackageNames": [
-        "/registry.stage.redhat.io/rhel9/rhel-bootc.*/"
+        "/registry.redhat.io/rhel9/rhel-bootc.*/"
       ],
       "matchFileNames": [
         "build-args-rhel-9.*\\.conf"
