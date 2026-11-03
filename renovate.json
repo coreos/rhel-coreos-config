@@ -10,7 +10,7 @@
   "dependencyDashboard": true,
   "automerge": true,
   "automergeType": "branch",
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "enabledManagers": [
     "custom.regex",
     "rpm-lockfile",
@@ -46,7 +46,7 @@
         "recreateWhen": "always",
         "rebaseWhen": "behind-base-branch",
         "automergeType": "pr",
-        "platformAutomerge": true,
+        "platformAutomerge": false,
         "automerge": true,
         "addLabels": [
           "lgtm"
@@ -54,7 +54,7 @@
       }
     ],
     "schedule": [
-      "* * * * *"
+      "* * * * 0,6"
     ]
   },
   "customManagers": [
