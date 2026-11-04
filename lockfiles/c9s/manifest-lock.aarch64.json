@@ -1,22 +1,22 @@
 {
   "packages": {
     "NetworkManager": {
-      "evra": "1:1.54.4-3.el9.aarch64"
+      "evra": "1:1.54.4-4.el9.aarch64"
     },
     "NetworkManager-cloud-setup": {
-      "evra": "1:1.54.4-3.el9.aarch64"
+      "evra": "1:1.54.4-4.el9.aarch64"
     },
     "NetworkManager-libnm": {
-      "evra": "1:1.54.4-3.el9.aarch64"
+      "evra": "1:1.54.4-4.el9.aarch64"
     },
     "NetworkManager-ovs": {
-      "evra": "1:1.54.4-3.el9.aarch64"
+      "evra": "1:1.54.4-4.el9.aarch64"
     },
     "NetworkManager-team": {
-      "evra": "1:1.54.4-3.el9.aarch64"
+      "evra": "1:1.54.4-4.el9.aarch64"
     },
     "NetworkManager-tui": {
-      "evra": "1:1.54.4-3.el9.aarch64"
+      "evra": "1:1.54.4-4.el9.aarch64"
     },
     "WALinuxAgent-udev": {
       "evra": "2.14.0.1-4.el9.noarch"
@@ -70,13 +70,13 @@
       "evra": "1:2.11-5.el9.noarch"
     },
     "bind-libs": {
-      "evra": "32:9.16.50-11.el9.aarch64"
+      "evra": "32:9.16.50-13.el9.aarch64"
     },
     "bind-license": {
-      "evra": "32:9.16.50-11.el9.noarch"
+      "evra": "32:9.16.50-13.el9.noarch"
     },
     "bind-utils": {
-      "evra": "32:9.16.50-11.el9.aarch64"
+      "evra": "32:9.16.50-13.el9.aarch64"
     },
     "binutils": {
       "evra": "2.35.2-72.el9.aarch64"
@@ -88,7 +88,7 @@
       "evra": "1.17.1-1.el9.aarch64"
     },
     "bootupd": {
-      "evra": "0.2.35-1.el9.aarch64"
+      "evra": "0.2.35-2.el9.aarch64"
     },
     "bsdtar": {
       "evra": "3.5.3-11.el9.aarch64"
@@ -130,7 +130,7 @@
       "evra": "3.6-1.el9.aarch64"
     },
     "chrony": {
-      "evra": "4.8-1.el9.aarch64"
+      "evra": "4.9-1.el9.aarch64"
     },
     "cifs-utils": {
       "evra": "7.9-1.el9.aarch64"
@@ -241,16 +241,16 @@
       "evra": "1:1.12.20-10.el9.aarch64"
     },
     "device-mapper": {
-      "evra": "9:1.02.207-6.el9.aarch64"
+      "evra": "9:1.02.207-6.el9.1.aarch64"
     },
     "device-mapper-event": {
-      "evra": "9:1.02.207-6.el9.aarch64"
+      "evra": "9:1.02.207-6.el9.1.aarch64"
     },
     "device-mapper-event-libs": {
-      "evra": "9:1.02.207-6.el9.aarch64"
+      "evra": "9:1.02.207-6.el9.1.aarch64"
     },
     "device-mapper-libs": {
-      "evra": "9:1.02.207-6.el9.aarch64"
+      "evra": "9:1.02.207-6.el9.1.aarch64"
     },
     "device-mapper-multipath": {
       "evra": "0.8.7-48.el9.aarch64"
@@ -400,16 +400,16 @@
       "evra": "2.68.4-29.el9.aarch64"
     },
     "glibc": {
-      "evra": "2.34-289.el9.aarch64"
+      "evra": "2.34-290.el9.aarch64"
     },
     "glibc-common": {
-      "evra": "2.34-289.el9.aarch64"
+      "evra": "2.34-290.el9.aarch64"
     },
     "glibc-gconv-extra": {
-      "evra": "2.34-289.el9.aarch64"
+      "evra": "2.34-290.el9.aarch64"
     },
     "glibc-minimal-langpack": {
-      "evra": "2.34-289.el9.aarch64"
+      "evra": "2.34-290.el9.aarch64"
     },
     "glusterfs": {
       "evra": "6.0-57.4.el9.aarch64"
@@ -445,16 +445,16 @@
       "evra": "1.22.4-10.el9.aarch64"
     },
     "grub2-common": {
-      "evra": "1:2.06-134.el9.noarch"
+      "evra": "1:2.06-135.el9.noarch"
     },
     "grub2-efi-aa64": {
-      "evra": "1:2.06-134.el9.aarch64"
+      "evra": "1:2.06-135.el9.aarch64"
     },
     "grub2-tools": {
-      "evra": "1:2.06-134.el9.aarch64"
+      "evra": "1:2.06-135.el9.aarch64"
     },
     "grub2-tools-minimal": {
-      "evra": "1:2.06-134.el9.aarch64"
+      "evra": "1:2.06-135.el9.aarch64"
     },
     "gssproxy": {
       "evra": "0.8.4-7.el9.aarch64"
@@ -541,19 +541,19 @@
       "evra": "2.4.0-12.el9.noarch"
     },
     "kernel": {
-      "evra": "5.14.0-759.el9.aarch64"
+      "evra": "5.14.0-761.el9.aarch64"
     },
     "kernel-core": {
-      "evra": "5.14.0-759.el9.aarch64"
+      "evra": "5.14.0-761.el9.aarch64"
     },
     "kernel-modules": {
-      "evra": "5.14.0-759.el9.aarch64"
+      "evra": "5.14.0-761.el9.aarch64"
     },
     "kernel-modules-core": {
-      "evra": "5.14.0-759.el9.aarch64"
+      "evra": "5.14.0-761.el9.aarch64"
     },
     "kernel-modules-extra": {
-      "evra": "5.14.0-759.el9.aarch64"
+      "evra": "5.14.0-761.el9.aarch64"
     },
     "kexec-tools": {
       "evra": "2.0.29-18.el9.aarch64"
@@ -591,6 +591,9 @@
     "libassuan": {
       "evra": "2.5.5-3.el9.aarch64"
     },
+    "libatasmart": {
+      "evra": "0.19-22.el9.aarch64"
+    },
     "libatomic": {
       "evra": "11.5.0-16.el9.aarch64"
     },
@@ -603,11 +606,38 @@
     "libblkid": {
       "evra": "2.37.4-27.el9.aarch64"
     },
+    "libblockdev": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-crypto": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-fs": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-loop": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-mdraid": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-part": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-swap": {
+      "evra": "2.28-17.el9.aarch64"
+    },
+    "libblockdev-utils": {
+      "evra": "2.28-17.el9.aarch64"
+    },
     "libbpf": {
       "evra": "2:1.5.0-3.el9.aarch64"
     },
     "libbrotli": {
       "evra": "1.0.9-10.el9.aarch64"
+    },
+    "libbytesize": {
+      "evra": "2.5-3.el9.aarch64"
     },
     "libcap": {
       "evra": "2.48-10.el9.aarch64"
@@ -683,6 +713,9 @@
     },
     "libgpg-error": {
       "evra": "1.42-5.el9.aarch64"
+    },
+    "libgudev": {
+      "evra": "237-1.el9.aarch64"
     },
     "libibverbs": {
       "evra": "61.0-3.el9.aarch64"
@@ -864,6 +897,9 @@
     "libtool-ltdl": {
       "evra": "2.4.6-46.el9.aarch64"
     },
+    "libudisks2": {
+      "evra": "2.9.4-15.el9.aarch64"
+    },
     "libunistring": {
       "evra": "0.9.10-15.el9.aarch64"
     },
@@ -934,10 +970,10 @@
       "evra": "10-1.el9.aarch64"
     },
     "lvm2": {
-      "evra": "9:2.03.33-6.el9.aarch64"
+      "evra": "9:2.03.33-6.el9.1.aarch64"
     },
     "lvm2-libs": {
-      "evra": "9:2.03.33-6.el9.aarch64"
+      "evra": "9:2.03.33-6.el9.1.aarch64"
     },
     "lz4-libs": {
       "evra": "1.9.3-5.el9.aarch64"
@@ -996,8 +1032,26 @@
     "npth": {
       "evra": "1.6-8.el9.aarch64"
     },
+    "nspr": {
+      "evra": "4.39.0-5.el9.aarch64"
+    },
+    "nss": {
+      "evra": "3.124.0-5.el9.aarch64"
+    },
     "nss-altfiles": {
       "evra": "2.18.1-20.el9.aarch64"
+    },
+    "nss-softokn": {
+      "evra": "3.124.0-5.el9.aarch64"
+    },
+    "nss-softokn-freebl": {
+      "evra": "3.124.0-5.el9.aarch64"
+    },
+    "nss-sysinit": {
+      "evra": "3.124.0-5.el9.aarch64"
+    },
+    "nss-util": {
+      "evra": "3.124.0-5.el9.aarch64"
     },
     "numactl": {
       "evra": "2.0.19-3.el9.aarch64"
@@ -1052,6 +1106,9 @@
     },
     "pam": {
       "evra": "1.5.1-30.el9.aarch64"
+    },
+    "parted": {
+      "evra": "3.5-4.el9.aarch64"
     },
     "passt": {
       "evra": "0^20260728.gf8df3f1-1.el9.aarch64"
@@ -1387,7 +1444,7 @@
       "evra": "2.25.1-10.el9.noarch"
     },
     "python3-rpm": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "python3-setools": {
       "evra": "4.4.4-1.el9.aarch64"
@@ -1429,13 +1486,13 @@
       "evra": "1.2.6-8.el9.aarch64"
     },
     "rpm": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "rpm-build-libs": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "rpm-libs": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "rpm-ostree": {
       "evra": "2026.1-5.el9.aarch64"
@@ -1444,16 +1501,16 @@
       "evra": "2026.1-5.el9.aarch64"
     },
     "rpm-plugin-selinux": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "rpm-plugin-systemd-inhibit": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "rpm-sign-libs": {
-      "evra": "4.16.1.3-41.el9.aarch64"
+      "evra": "4.16.1.3-42.el9.aarch64"
     },
     "rsync": {
-      "evra": "3.2.5-9.el9.aarch64"
+      "evra": "3.2.7-1.el9.aarch64"
     },
     "runc": {
       "evra": "4:1.4.2-2.el9.aarch64"
@@ -1474,10 +1531,10 @@
       "evra": "4.8-10.el9.aarch64"
     },
     "selinux-policy": {
-      "evra": "38.1.86-1.el9.noarch"
+      "evra": "38.1.87-1.el9.noarch"
     },
     "selinux-policy-targeted": {
-      "evra": "38.1.86-1.el9.noarch"
+      "evra": "38.1.87-1.el9.noarch"
     },
     "setup": {
       "evra": "2.13.7-10.el9.noarch"
@@ -1609,7 +1666,10 @@
       "evra": "3.2.3-1.el9.aarch64"
     },
     "tzdata": {
-      "evra": "2026e-1.el9.noarch"
+      "evra": "2026f-1.el9.noarch"
+    },
+    "udisks2": {
+      "evra": "2.9.4-15.el9.aarch64"
     },
     "usermode": {
       "evra": "1.114-7.el9.aarch64"
@@ -1628,6 +1688,9 @@
     },
     "virt-what": {
       "evra": "1.27-2.el9.aarch64"
+    },
+    "volume_key-libs": {
+      "evra": "0.3.12-17.el9.aarch64"
     },
     "which": {
       "evra": "2.21-30.el9.aarch64"
@@ -1652,6 +1715,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-03T00:00:00Z"
+    "generated": "2026-11-04T00:00:00Z"
   }
 }
