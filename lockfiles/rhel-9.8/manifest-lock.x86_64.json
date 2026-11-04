@@ -163,10 +163,10 @@
       "evra": "5:5.8-1.el9.x86_64"
     },
     "coreos-installer": {
-      "evra": "0.27.0-1.el9_8.x86_64"
+      "evra": "0.26.0-1.el9_8.x86_64"
     },
     "coreos-installer-bootinfra": {
-      "evra": "0.27.0-1.el9_8.x86_64"
+      "evra": "0.26.0-1.el9_8.x86_64"
     },
     "coreutils": {
       "evra": "8.32-41.el9_8.1.x86_64"
@@ -585,6 +585,9 @@
     "libassuan": {
       "evra": "2.5.5-3.el9.x86_64"
     },
+    "libatasmart": {
+      "evra": "0.19-22.el9.x86_64"
+    },
     "libattr": {
       "evra": "2.6.0-1.el9_8.x86_64"
     },
@@ -594,11 +597,38 @@
     "libblkid": {
       "evra": "2.37.4-25.el9.x86_64"
     },
+    "libblockdev": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-crypto": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-fs": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-loop": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-mdraid": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-part": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-swap": {
+      "evra": "2.28-16.el9.x86_64"
+    },
+    "libblockdev-utils": {
+      "evra": "2.28-16.el9.x86_64"
+    },
     "libbpf": {
       "evra": "2:1.5.0-3.el9.x86_64"
     },
     "libbrotli": {
       "evra": "1.0.9-10.el9_8.1.x86_64"
+    },
+    "libbytesize": {
+      "evra": "2.5-3.el9.x86_64"
     },
     "libcap": {
       "evra": "2.48-10.el9_8.1.x86_64"
@@ -674,6 +704,9 @@
     },
     "libgpg-error": {
       "evra": "1.42-5.el9.x86_64"
+    },
+    "libgudev": {
+      "evra": "237-1.el9.x86_64"
     },
     "libibverbs": {
       "evra": "61.0-2.el9.x86_64"
@@ -864,6 +897,9 @@
     "libtool-ltdl": {
       "evra": "2.4.6-46.el9.x86_64"
     },
+    "libudisks2": {
+      "evra": "2.9.4-12.el9_7.x86_64"
+    },
     "libunistring": {
       "evra": "0.9.10-15.el9.x86_64"
     },
@@ -1002,8 +1038,26 @@
     "npth": {
       "evra": "1.6-8.el9.x86_64"
     },
+    "nspr": {
+      "evra": "4.39.0-5.el9_6.x86_64"
+    },
+    "nss": {
+      "evra": "3.124.0-5.el9_6.x86_64"
+    },
     "nss-altfiles": {
       "evra": "2.18.1-20.el9.x86_64"
+    },
+    "nss-softokn": {
+      "evra": "3.124.0-5.el9_6.x86_64"
+    },
+    "nss-softokn-freebl": {
+      "evra": "3.124.0-5.el9_6.x86_64"
+    },
+    "nss-sysinit": {
+      "evra": "3.124.0-5.el9_6.x86_64"
+    },
+    "nss-util": {
+      "evra": "3.124.0-5.el9_6.x86_64"
     },
     "numactl": {
       "evra": "2.0.19-3.el9.x86_64"
@@ -1067,6 +1121,9 @@
     },
     "pam": {
       "evra": "1.5.1-28.el9_8.1.x86_64"
+    },
+    "parted": {
+      "evra": "3.5-3.el9.x86_64"
     },
     "passt": {
       "evra": "0^20251210.gd04c480-7.el9_8.x86_64"
@@ -1629,6 +1686,9 @@
     "tzdata": {
       "evra": "2026e-1.el9_8.noarch"
     },
+    "udisks2": {
+      "evra": "2.9.4-12.el9_7.x86_64"
+    },
     "usermode": {
       "evra": "1.114-7.el9.x86_64"
     },
@@ -1646,6 +1706,9 @@
     },
     "virt-what": {
       "evra": "1.27-2.el9.x86_64"
+    },
+    "volume_key-libs": {
+      "evra": "0.3.12-17.el9.x86_64"
     },
     "which": {
       "evra": "2.21-30.el9_6.x86_64"
@@ -1679,6 +1742,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-02T00:00:00Z"
+    "generated": "2026-11-04T00:00:00Z"
   }
 }
