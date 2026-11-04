@@ -534,6 +534,9 @@
     "libassuan": {
       "evra": "2.5.6-6.el10.ppc64le"
     },
+    "libatasmart": {
+      "evra": "0.19-30.el10.ppc64le"
+    },
     "libatomic": {
       "evra": "14.3.1-4.4.el10.ppc64le"
     },
@@ -546,8 +549,41 @@
     "libblkid": {
       "evra": "2.40.2-18.el10_2.20.ppc64le"
     },
+    "libblockdev": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-crypto": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-fs": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-loop": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-mdraid": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-nvme": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-part": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-smart": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-swap": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
+    "libblockdev-utils": {
+      "evra": "3.4.0-2.el10.ppc64le"
+    },
     "libbpf": {
       "evra": "2:1.7.0-1.el10.ppc64le"
+    },
+    "libbytesize": {
+      "evra": "2.10-5.el10.ppc64le"
     },
     "libcap": {
       "evra": "2.69-7.el10_2.1.ppc64le"
@@ -617,6 +653,9 @@
     },
     "libgpg-error": {
       "evra": "1.50-2.el10.ppc64le"
+    },
+    "libgudev": {
+      "evra": "238-7.el10.ppc64le"
     },
     "libibverbs": {
       "evra": "1:61.0-2.el10_2.ppc64le"
@@ -786,6 +825,9 @@
     "libtirpc": {
       "evra": "1.3.5-1.el10.ppc64le"
     },
+    "libudisks2": {
+      "evra": "2.11.0-2.el10_2.1.ppc64le"
+    },
     "libunistring": {
       "evra": "1.1-10.el10.ppc64le"
     },
@@ -912,8 +954,26 @@
     "npth": {
       "evra": "1.6-21.el10.ppc64le"
     },
+    "nspr": {
+      "evra": "4.39.0-5.el10_0.ppc64le"
+    },
+    "nss": {
+      "evra": "3.124.0-5.el10_0.ppc64le"
+    },
     "nss-altfiles": {
       "evra": "2.23.0-6.el10.ppc64le"
+    },
+    "nss-softokn": {
+      "evra": "3.124.0-5.el10_0.ppc64le"
+    },
+    "nss-softokn-freebl": {
+      "evra": "3.124.0-5.el10_0.ppc64le"
+    },
+    "nss-sysinit": {
+      "evra": "3.124.0-5.el10_0.ppc64le"
+    },
+    "nss-util": {
+      "evra": "3.124.0-5.el10_0.ppc64le"
     },
     "numactl": {
       "evra": "2.0.19-3.el10.ppc64le"
@@ -1224,6 +1284,9 @@
     "selinux-policy-targeted": {
       "evra": "42.1.18-4.el10_2.4.noarch"
     },
+    "sequoia-sq": {
+      "evra": "1.4.0.1-4.el10_2.ppc64le"
+    },
     "servicelog": {
       "evra": "1.1.16-8.el10.ppc64le"
     },
@@ -1350,6 +1413,9 @@
     "tzdata": {
       "evra": "2026e-1.el10_2.noarch"
     },
+    "udisks2": {
+      "evra": "2.11.0-2.el10_2.1.ppc64le"
+    },
     "userspace-rcu": {
       "evra": "0.14.0-7.el10.ppc64le"
     },
@@ -1367,6 +1433,9 @@
     },
     "virt-what": {
       "evra": "1.27-3.el10.ppc64le"
+    },
+    "volume_key-libs": {
+      "evra": "0.3.12-26.el10.ppc64le"
     },
     "which": {
       "evra": "2.21-44.el10_0.ppc64le"
@@ -1391,6 +1460,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-02T00:00:00Z"
+    "generated": "2026-11-04T00:00:00Z"
   }
 }
