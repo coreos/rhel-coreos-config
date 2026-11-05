@@ -1,15 +1,13 @@
-ARG BASE
+ARG FROM
 ARG KBC_IMG="quay.io/trusted-execution-clusters/trustee-attester:fedora-b13fd8a"
 ARG CLEVIS_PIN_IMG="quay.io/trusted-execution-clusters/clevis-pin-trustee"
 
 FROM ${KBC_IMG} as kbc
 FROM ${CLEVIS_PIN_IMG} as clevis
-FROM ${BASE}
+FROM ${FROM}
 
 
-# TODO: implement COCL in versionary
-#ARG VERSION
-ARG VERSION=10.2.20261105-0201
+ARG VERSION
 ARG NAME=overridden
 ARG STREAM=overridden
 ARG DESCRIPTION=overridden
