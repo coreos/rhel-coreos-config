@@ -1,0 +1,66 @@
+ARG BASE
+ARG KBC_IMG="quay.io/trusted-execution-clusters/trustee-attester:fedora-b13fd8a"
+ARG CLEVIS_PIN_IMG="quay.io/trusted-execution-clusters/clevis-pin-trustee"
+
+FROM ${KBC_IMG} as kbc
+FROM ${CLEVIS_PIN_IMG} as clevis
+FROM ${BASE}
+
+ARG VERSION
+ARG NAME=overridden
+ARG STREAM=overridden
+ARG DESCRIPTION=overridden
+ARG MAINTAINER=overridden
+ARG URL=overridden
+ARG DISTRIBUTION_SCOPE=overridden
+ARG COMPONENT=overridden
+ARG CPE_NAME=overridden
+
+COPY ./usr /usr
+COPY c10s.repo  /etc/yum.repos.d/
+
+# The binaries below are not yet packaged in CentOS Stream repo nor the CBS ones (owned by SIGs)
+# so let's pull them from those images for now>
+COPY --from=kbc /usr/local/bin/trustee-attester /usr/bin/trustee-attester
+COPY --from=clevis /usr/bin/clevis-encrypt-trustee /usr/bin/clevis-encrypt-trustee
+COPY --from=clevis /usr/bin/clevis-decrypt-trustee /usr/bin/clevis-decrypt-trustee
+
+RUN <<EOF
+set -xeuo pipefail
+
+if [ -n "$VERSION" ]; then
+    OLD_VERSION=$(grep "^OSTREE_VERSION=" /usr/lib/os-release | cut -d"'" -f2)
+    [ -n "$OLD_VERSION" ] || { echo "Error: Could not extract version from os-release"; exit 1; }
+    sed -i "s|$OLD_VERSION|$VERSION|g" /usr/lib/os-release
+fi
+
+cat /usr/lib/os-release
+echo $VERSION
+
+dnf install --assumeyes --disablerepo=* --enablerepo=c10s-* clevis-pin-trustee
+
+KERNEL_VERSION="$(basename $(ls -d /lib/modules/*))"
+echo "Using kernel: $KERNEL_VERSION"
+
+raw_args="$(lsinitrd /lib/modules/${KERNEL_VERSION}/initramfs.img | grep '^Arguments: ' | sed 's/^Arguments: //')"
+stock_arguments=$(echo "$raw_args" | sed "s/'//g")
+echo "Dracut arguments: $stock_arguments"
+
+mkdir -p /tmp/dracut /var/roothome /var/tmp
+dracut --kver "$KERNEL_VERSION" $stock_arguments
+mv -v /boot/initramfs*.img "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+
+bootc container lint
+EOF
+
+LABEL containers.bootc=1 \
+      ostree.bootable=1 \
+      org.opencontainers.image.version=$VERSION \
+      com.coreos.osname=$NAME \
+      name=$NAME \
+      com.coreos.stream=$STREAM \
+      org.opencontainers.image.title=$DESCRIPTION \
+      org.opencontainers.image.description=$DESCRIPTION \
+      io.k8s.description=$DESCRIPTION \
+      com.redhat.component=$COMPONENT \
+      cpe=$CPE_NAME
