@@ -2,3 +2,6 @@
 	path = fedora-coreos-config
 	url = https://github.com/coreos/fedora-coreos-config
 	branch = testing-devel
+[submodule "tec-coreos-config"]
+	path = off-layering/cocl/tec-coreos-config
+	url = https://github.com/madhu-pillai/fedora-coreos-tec-config
