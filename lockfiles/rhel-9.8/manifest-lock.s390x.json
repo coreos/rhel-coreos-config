@@ -478,19 +478,19 @@
       "evra": "2.4.0-12.el9_8.noarch"
     },
     "kernel": {
-      "evra": "5.14.0-687.65.1.el9_8.s390x"
+      "evra": "5.14.0-687.66.1.el9_8.s390x"
     },
     "kernel-core": {
-      "evra": "5.14.0-687.65.1.el9_8.s390x"
+      "evra": "5.14.0-687.66.1.el9_8.s390x"
     },
     "kernel-modules": {
-      "evra": "5.14.0-687.65.1.el9_8.s390x"
+      "evra": "5.14.0-687.66.1.el9_8.s390x"
     },
     "kernel-modules-core": {
-      "evra": "5.14.0-687.65.1.el9_8.s390x"
+      "evra": "5.14.0-687.66.1.el9_8.s390x"
     },
     "kernel-modules-extra": {
-      "evra": "5.14.0-687.65.1.el9_8.s390x"
+      "evra": "5.14.0-687.66.1.el9_8.s390x"
     },
     "kexec-tools": {
       "evra": "2.0.29-17.el9.s390x"
@@ -1597,7 +1597,7 @@
       "evra": "3.2.3-1.el9.s390x"
     },
     "tzdata": {
-      "evra": "2026e-1.el9_8.noarch"
+      "evra": "2026f-1.el9_8.noarch"
     },
     "udisks2": {
       "evra": "2.9.4-12.el9_7.s390x"
@@ -1652,6 +1652,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-04T00:00:00Z"
+    "generated": "2026-11-05T00:00:00Z"
   }
 }
