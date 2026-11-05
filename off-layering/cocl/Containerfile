@@ -1,0 +1,57 @@
+ARG FROM
+FROM ${FROM}
+
+ARG VERSION
+ARG NAME=overridden
+ARG STREAM=overridden
+ARG DESCRIPTION=overridden
+ARG MAINTAINER=overridden
+ARG URL=overridden
+ARG DISTRIBUTION_SCOPE=overridden
+ARG COMPONENT=overridden
+ARG CPE_NAME=overridden
+
+COPY ./usr /usr
+# TODO: replace this by RHEL repos once the binaries are packaged in brew
+COPY c10s.repo /etc/yum.repos.d/
+
+RUN <<EOF
+set -xeuo pipefail
+
+if [ -n "$VERSION" ]; then
+    OLD_VERSION=$(grep "^OSTREE_VERSION=" /usr/lib/os-release | cut -d"'" -f2)
+    [ -n "$OLD_VERSION" ] || { echo "Error: Could not extract version from os-release"; exit 1; }
+    sed -i "s|$OLD_VERSION|$VERSION|g" /usr/lib/os-release
+fi
+cat /usr/lib/os-release
+
+# We pull the RPMs from CentOS Stream repos until we have them built in brew
+dnf install --assumeyes --disablerepo=* --enablerepo=c10s-* \
+    clevis-pin-trustee \
+    trustee-guest-components && \
+dnf clean all && \
+rm -rf /var/lib/dnf /var/cache/* /var/log/dnf*.log /etc/yum.repos.d/c10s.repo
+
+KERNEL_VERSION="$(basename $(ls -d /lib/modules/*))"
+echo "Using kernel: $KERNEL_VERSION"
+
+raw_args="$(lsinitrd /lib/modules/${KERNEL_VERSION}/initramfs.img | grep '^Arguments: ' | sed 's/^Arguments: //')"
+stock_arguments=$(echo "$raw_args" | sed "s/'//g")
+echo "Dracut arguments: $stock_arguments"
+
+env DRACUT_NO_XATTR=1 dracut --kver "$KERNEL_VERSION" $stock_arguments /lib/modules/${KERNEL_VERSION}/initramfs.img
+
+bootc container lint
+EOF
+
+LABEL containers.bootc=1 \
+      ostree.bootable=1 \
+      org.opencontainers.image.version=$VERSION \
+      com.coreos.osname=$NAME \
+      name=$NAME \
+      com.coreos.stream=$STREAM \
+      org.opencontainers.image.title=$DESCRIPTION \
+      org.opencontainers.image.description=$DESCRIPTION \
+      io.k8s.description=$DESCRIPTION \
+      com.redhat.component=$COMPONENT \
+      cpe=$CPE_NAME
