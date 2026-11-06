@@ -352,16 +352,16 @@
       "evra": "2.68.4-19.el9_8.10.s390x"
     },
     "glibc": {
-      "evra": "2.34-283.el9_8.s390x"
+      "evra": "2.34-284.el9_8.4.s390x"
     },
     "glibc-common": {
-      "evra": "2.34-283.el9_8.s390x"
+      "evra": "2.34-284.el9_8.4.s390x"
     },
     "glibc-gconv-extra": {
-      "evra": "2.34-283.el9_8.s390x"
+      "evra": "2.34-284.el9_8.4.s390x"
     },
     "glibc-minimal-langpack": {
-      "evra": "2.34-283.el9_8.s390x"
+      "evra": "2.34-284.el9_8.4.s390x"
     },
     "glusterfs": {
       "evra": "6.0-57.4.el9.s390x"
@@ -1652,6 +1652,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-05T00:00:00Z"
+    "generated": "2026-11-06T00:00:00Z"
   }
 }
