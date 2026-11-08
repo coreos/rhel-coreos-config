@@ -163,10 +163,10 @@
       "evra": "5:5.8-1.el9.aarch64"
     },
     "coreos-installer": {
-      "evra": "0.26.0-1.el9_8.aarch64"
+      "evra": "0.27.0-1.el9_8.aarch64"
     },
     "coreos-installer-bootinfra": {
-      "evra": "0.26.0-1.el9_8.aarch64"
+      "evra": "0.27.0-1.el9_8.aarch64"
     },
     "coreutils": {
       "evra": "8.32-41.el9_8.1.aarch64"
@@ -1709,6 +1709,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-06T00:00:00Z"
+    "generated": "2026-11-08T00:00:00Z"
   }
 }

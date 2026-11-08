@@ -157,10 +157,10 @@
       "evra": "5:5.8-1.el9.s390x"
     },
     "coreos-installer": {
-      "evra": "0.26.0-1.el9_8.s390x"
+      "evra": "0.27.0-1.el9_8.s390x"
     },
     "coreos-installer-bootinfra": {
-      "evra": "0.26.0-1.el9_8.s390x"
+      "evra": "0.27.0-1.el9_8.s390x"
     },
     "coreutils": {
       "evra": "8.32-41.el9_8.1.s390x"
@@ -1652,6 +1652,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-06T00:00:00Z"
+    "generated": "2026-11-08T00:00:00Z"
   }
 }
