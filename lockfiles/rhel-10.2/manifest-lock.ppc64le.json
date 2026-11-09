@@ -199,7 +199,7 @@
       "evra": "2.8.1-2.el10.ppc64le"
     },
     "curl": {
-      "evra": "8.12.1-4.el10_2.7.ppc64le"
+      "evra": "8.12.1-4.el10_2.8.ppc64le"
     },
     "cyrus-sasl-gssapi": {
       "evra": "2.1.28-30.el10_2.ppc64le"
@@ -610,7 +610,7 @@
       "evra": "1.7.3-10.el10.ppc64le"
     },
     "libcurl": {
-      "evra": "8.12.1-4.el10_2.7.ppc64le"
+      "evra": "8.12.1-4.el10_2.8.ppc64le"
     },
     "libdhash": {
       "evra": "0.5.0-58.el10.ppc64le"
@@ -1475,6 +1475,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-08T00:00:00Z"
+    "generated": "2026-11-09T00:00:00Z"
   }
 }
