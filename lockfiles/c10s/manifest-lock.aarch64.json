@@ -67,13 +67,13 @@
       "evra": "1:2.11-16.el10.noarch"
     },
     "bind-libs": {
-      "evra": "32:9.18.33-29.el10.aarch64"
+      "evra": "32:9.18.33-31.el10.aarch64"
     },
     "bind-license": {
-      "evra": "32:9.18.33-29.el10.noarch"
+      "evra": "32:9.18.33-31.el10.noarch"
     },
     "bind-utils": {
-      "evra": "32:9.18.33-29.el10.aarch64"
+      "evra": "32:9.18.33-31.el10.aarch64"
     },
     "bootc": {
       "evra": "1.17.1-1.el10.aarch64"
@@ -511,19 +511,19 @@
       "evra": "1.0.61-2.el10.aarch64"
     },
     "kernel": {
-      "evra": "6.12.0-280.el10.aarch64"
+      "evra": "6.12.0-281.el10.aarch64"
     },
     "kernel-core": {
-      "evra": "6.12.0-280.el10.aarch64"
+      "evra": "6.12.0-281.el10.aarch64"
     },
     "kernel-modules": {
-      "evra": "6.12.0-280.el10.aarch64"
+      "evra": "6.12.0-281.el10.aarch64"
     },
     "kernel-modules-core": {
-      "evra": "6.12.0-280.el10.aarch64"
+      "evra": "6.12.0-281.el10.aarch64"
     },
     "kernel-modules-extra": {
-      "evra": "6.12.0-280.el10.aarch64"
+      "evra": "6.12.0-281.el10.aarch64"
     },
     "kexec-tools": {
       "evra": "2.0.32-3.el10.aarch64"
@@ -535,10 +535,10 @@
       "evra": "1.6.3-5.el10.aarch64"
     },
     "kmod": {
-      "evra": "31-13.el10.aarch64"
+      "evra": "31-14.el10.aarch64"
     },
     "kmod-libs": {
-      "evra": "31-13.el10.aarch64"
+      "evra": "31-14.el10.aarch64"
     },
     "kpartx": {
       "evra": "0.9.9-20.el10.aarch64"
@@ -610,7 +610,7 @@
       "evra": "2:1.7.0-2.el10.aarch64"
     },
     "libbrotli": {
-      "evra": "1.1.0-8.el10.aarch64"
+      "evra": "1.1.0-9.el10.aarch64"
     },
     "libbytesize": {
       "evra": "2.10-5.el10.aarch64"
@@ -754,7 +754,7 @@
       "evra": "1.0.2-3.el10.aarch64"
     },
     "libnfsidmap": {
-      "evra": "1:2.8.3-9.el10.aarch64"
+      "evra": "1:2.8.3-10.el10.aarch64"
     },
     "libnftnl": {
       "evra": "1.3.0-3.el10.aarch64"
@@ -853,7 +853,7 @@
       "evra": "0.17.1-100.el10.aarch64"
     },
     "libtirpc": {
-      "evra": "1.3.5-1.el10.aarch64"
+      "evra": "1.3.5-2.el10.aarch64"
     },
     "libudisks2": {
       "evra": "2.11.1-2.el10.aarch64"
@@ -940,7 +940,7 @@
       "evra": "1.7.8-2.el10.aarch64"
     },
     "mdadm": {
-      "evra": "4.6-1.el10.aarch64"
+      "evra": "4.6-2.el10.aarch64"
     },
     "mokutil": {
       "evra": "2:0.7.2-8.el10.aarch64"
@@ -976,7 +976,7 @@
       "evra": "0.52.24-5.el10.aarch64"
     },
     "nfs-utils": {
-      "evra": "1:2.8.3-9.el10.aarch64"
+      "evra": "1:2.8.3-10.el10.aarch64"
     },
     "nftables": {
       "evra": "1:1.1.5-6.el10.aarch64"
@@ -1096,7 +1096,7 @@
       "evra": "2.1.0-3.el10.aarch64"
     },
     "podman": {
-      "evra": "7:6.1.0-2.el10.aarch64"
+      "evra": "7:6.1.0-3.el10.aarch64"
     },
     "podman-sequoia": {
       "evra": "0.4.0~pqc.3-1.el10.aarch64"
@@ -1177,7 +1177,7 @@
       "evra": "3.7-6.el10.noarch"
     },
     "python3-iniparse": {
-      "evra": "0.5-10.el10.noarch"
+      "evra": "0.5.3-1.el10.noarch"
     },
     "python3-inotify": {
       "evra": "0.9.6-36.el10.noarch"
@@ -1258,7 +1258,7 @@
       "evra": "8.2-11.el10.aarch64"
     },
     "rpcbind": {
-      "evra": "1.2.9-1.el10.aarch64"
+      "evra": "1.2.9-2.el10.aarch64"
     },
     "rpm": {
       "evra": "4.19.1.1-28.el10.aarch64"
@@ -1339,7 +1339,7 @@
       "evra": "16.1-1.el10.aarch64"
     },
     "skopeo": {
-      "evra": "3:1.24.0-2.el10.aarch64"
+      "evra": "3:1.24.0-3.el10.aarch64"
     },
     "slang": {
       "evra": "2.3.3-8.el10.aarch64"
@@ -1490,6 +1490,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-08T00:00:00Z"
+    "generated": "2026-11-10T00:00:00Z"
   }
 }
