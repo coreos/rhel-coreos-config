@@ -496,19 +496,19 @@
       "evra": "1.0.58-15.el10.aarch64"
     },
     "kernel": {
-      "evra": "6.12.0-211.74.1.el10_2.aarch64"
+      "evra": "6.12.0-211.75.1.el10_2.aarch64"
     },
     "kernel-core": {
-      "evra": "6.12.0-211.74.1.el10_2.aarch64"
+      "evra": "6.12.0-211.75.1.el10_2.aarch64"
     },
     "kernel-modules": {
-      "evra": "6.12.0-211.74.1.el10_2.aarch64"
+      "evra": "6.12.0-211.75.1.el10_2.aarch64"
     },
     "kernel-modules-core": {
-      "evra": "6.12.0-211.74.1.el10_2.aarch64"
+      "evra": "6.12.0-211.75.1.el10_2.aarch64"
     },
     "kernel-modules-extra": {
-      "evra": "6.12.0-211.74.1.el10_2.aarch64"
+      "evra": "6.12.0-211.75.1.el10_2.aarch64"
     },
     "kexec-tools": {
       "evra": "2.0.32-3.el10.aarch64"
@@ -1478,6 +1478,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-09T00:00:00Z"
+    "generated": "2026-11-10T00:00:00Z"
   }
 }
