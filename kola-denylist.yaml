@@ -48,3 +48,6 @@
     - rhel-10.2
     - rhel-10.2-ocp4nv
   snooze: 2026-12-04
+
+- pattern: "*rootfs-free-space"
+  tracker: https://github.com/coreos/rhel-coreos-config/issues/399
