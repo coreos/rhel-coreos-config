@@ -17,6 +17,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: >-
       event == "pull_request" && target_branch == "main" && (
         ".tekton/rhel-coreos-10-2-ocp4nv-on-pull-request.yaml".pathChanged() ||
+        "fedora-coreos-config/versionary".pathChanged() ||
         "off-layering/nvidia/**".pathChanged()
       )
   creationTimestamp: null
