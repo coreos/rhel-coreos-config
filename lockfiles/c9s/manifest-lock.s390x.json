@@ -496,19 +496,19 @@
       "evra": "2.4.0-12.el9.noarch"
     },
     "kernel": {
-      "evra": "5.14.0-761.el9.s390x"
+      "evra": "5.14.0-763.el9.s390x"
     },
     "kernel-core": {
-      "evra": "5.14.0-761.el9.s390x"
+      "evra": "5.14.0-763.el9.s390x"
     },
     "kernel-modules": {
-      "evra": "5.14.0-761.el9.s390x"
+      "evra": "5.14.0-763.el9.s390x"
     },
     "kernel-modules-core": {
-      "evra": "5.14.0-761.el9.s390x"
+      "evra": "5.14.0-763.el9.s390x"
     },
     "kernel-modules-extra": {
-      "evra": "5.14.0-761.el9.s390x"
+      "evra": "5.14.0-763.el9.s390x"
     },
     "kexec-tools": {
       "evra": "2.0.29-18.el9.s390x"
@@ -586,7 +586,7 @@
       "evra": "2:1.5.0-3.el9.s390x"
     },
     "libbrotli": {
-      "evra": "1.0.9-10.el9.s390x"
+      "evra": "1.0.9-11.el9.s390x"
     },
     "libbytesize": {
       "evra": "2.5-3.el9.s390x"
@@ -934,7 +934,7 @@
       "evra": "2.10-7.el9.s390x"
     },
     "mdadm": {
-      "evra": "4.4-5.el9.1.s390x"
+      "evra": "4.4-6.el9.s390x"
     },
     "mpfr": {
       "evra": "4.1.0-10.el9.s390x"
@@ -1342,7 +1342,7 @@
       "evra": "2.10-8.el9.noarch"
     },
     "python3-iniparse": {
-      "evra": "0.4-45.el9.noarch"
+      "evra": "0.5.3-1.el9.noarch"
     },
     "python3-inotify": {
       "evra": "0.9.6-25.el9.noarch"
@@ -1498,7 +1498,7 @@
       "evra": "2.1-5.el9.s390x"
     },
     "skopeo": {
-      "evra": "3:1.22.2-4.el9.s390x"
+      "evra": "3:1.22.2-5.el9.s390x"
     },
     "slang": {
       "evra": "2.3.2-11.el9.s390x"
@@ -1658,6 +1658,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-07T00:00:00Z"
+    "generated": "2026-11-10T00:00:00Z"
   }
 }
