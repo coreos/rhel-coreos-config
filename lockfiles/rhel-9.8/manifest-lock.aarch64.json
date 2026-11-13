@@ -556,7 +556,7 @@
       "evra": "0.8.7-45.el9.aarch64"
     },
     "krb5-libs": {
-      "evra": "1.21.1-10.el9_8.1.aarch64"
+      "evra": "1.21.1-10.el9_8.3.aarch64"
     },
     "less": {
       "evra": "590-6.el9.aarch64"
@@ -1687,7 +1687,7 @@
       "evra": "2.21-30.el9_6.aarch64"
     },
     "xfsprogs": {
-      "evra": "6.4.0-7.el9.aarch64"
+      "evra": "6.4.0-8.el9_8.aarch64"
     },
     "xz": {
       "evra": "5.2.5-8.el9_8.1.aarch64"
@@ -1706,6 +1706,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-12T00:00:00Z"
+    "generated": "2026-11-13T00:00:00Z"
   }
 }

@@ -544,7 +544,7 @@
       "evra": "0.8.7-45.el9.ppc64le"
     },
     "krb5-libs": {
-      "evra": "1.21.1-10.el9_8.1.ppc64le"
+      "evra": "1.21.1-10.el9_8.3.ppc64le"
     },
     "less": {
       "evra": "590-6.el9.ppc64le"
@@ -1684,7 +1684,7 @@
       "evra": "2.21-30.el9_6.ppc64le"
     },
     "xfsprogs": {
-      "evra": "6.4.0-7.el9.ppc64le"
+      "evra": "6.4.0-8.el9_8.ppc64le"
     },
     "xz": {
       "evra": "5.2.5-8.el9_8.1.ppc64le"
@@ -1703,6 +1703,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-12T00:00:00Z"
+    "generated": "2026-11-13T00:00:00Z"
   }
 }
