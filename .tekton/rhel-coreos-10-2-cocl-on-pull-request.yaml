@@ -30,9 +30,9 @@ spec:
   - name: output-image
     value: quay.io/redhat-user-workloads/coreos-tenant/rhel-coreos-10-2-cocl:on-pr-{{revision}}
   - name: dockerfile
-    value: Containerfile
+    value: ./off-layering/cocl/Containerfile
   - name: path-context
-    value: ./off-layering/cocl
+    value: ./
   - name: privileged-nested
     value: true
   - name: build-args-file
