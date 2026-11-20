@@ -11,9 +11,9 @@ ARG DISTRIBUTION_SCOPE=overridden
 ARG COMPONENT=overridden
 ARG CPE_NAME=overridden
 
-COPY ./usr /usr
+COPY off-layering/cocl/usr /usr
 # TODO: replace this by RHEL repos once the binaries are packaged in brew
-COPY c10s.repo /etc/yum.repos.d/
+COPY off-layering/cocl/c10s.repo /etc/yum.repos.d/
 
 RUN <<EOF
 set -xeuo pipefail
