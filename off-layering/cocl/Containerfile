@@ -1,4 +1,6 @@
 ARG FROM
+FROM registry.redhat.io/openshift5/ose-cli-rhel9:v5.0 as ose-cli
+
 FROM ${FROM}
 
 ARG VERSION
@@ -14,6 +16,8 @@ ARG CPE_NAME=overridden
 COPY off-layering/cocl/usr /usr
 # TODO: replace this by RHEL repos once the binaries are packaged in brew
 COPY off-layering/cocl/c10s.repo /etc/yum.repos.d/
+
+COPY --from=ose-cli /usr/bin/oc /usr/bin/oc
 
 RUN <<EOF
 set -xeuo pipefail
