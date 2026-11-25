@@ -1021,25 +1021,25 @@
       "evra": "1.6-8.el9.ppc64le"
     },
     "nspr": {
-      "evra": "4.39.0-5.el9.ppc64le"
+      "evra": "4.39.0-7.el9.ppc64le"
     },
     "nss": {
-      "evra": "3.124.0-5.el9.ppc64le"
+      "evra": "3.124.0-7.el9.ppc64le"
     },
     "nss-altfiles": {
       "evra": "2.18.1-20.el9.ppc64le"
     },
     "nss-softokn": {
-      "evra": "3.124.0-5.el9.ppc64le"
+      "evra": "3.124.0-7.el9.ppc64le"
     },
     "nss-softokn-freebl": {
-      "evra": "3.124.0-5.el9.ppc64le"
+      "evra": "3.124.0-7.el9.ppc64le"
     },
     "nss-sysinit": {
-      "evra": "3.124.0-5.el9.ppc64le"
+      "evra": "3.124.0-7.el9.ppc64le"
     },
     "nss-util": {
-      "evra": "3.124.0-5.el9.ppc64le"
+      "evra": "3.124.0-7.el9.ppc64le"
     },
     "numactl": {
       "evra": "2.0.19-3.el9.ppc64le"
@@ -1712,6 +1712,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-22T00:00:00Z"
+    "generated": "2026-11-25T00:00:00Z"
   }
 }

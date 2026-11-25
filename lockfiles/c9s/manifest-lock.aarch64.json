@@ -1033,25 +1033,25 @@
       "evra": "1.6-8.el9.aarch64"
     },
     "nspr": {
-      "evra": "4.39.0-5.el9.aarch64"
+      "evra": "4.39.0-7.el9.aarch64"
     },
     "nss": {
-      "evra": "3.124.0-5.el9.aarch64"
+      "evra": "3.124.0-7.el9.aarch64"
     },
     "nss-altfiles": {
       "evra": "2.18.1-20.el9.aarch64"
     },
     "nss-softokn": {
-      "evra": "3.124.0-5.el9.aarch64"
+      "evra": "3.124.0-7.el9.aarch64"
     },
     "nss-softokn-freebl": {
-      "evra": "3.124.0-5.el9.aarch64"
+      "evra": "3.124.0-7.el9.aarch64"
     },
     "nss-sysinit": {
-      "evra": "3.124.0-5.el9.aarch64"
+      "evra": "3.124.0-7.el9.aarch64"
     },
     "nss-util": {
-      "evra": "3.124.0-5.el9.aarch64"
+      "evra": "3.124.0-7.el9.aarch64"
     },
     "numactl": {
       "evra": "2.0.19-3.el9.aarch64"
@@ -1715,6 +1715,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-22T00:00:00Z"
+    "generated": "2026-11-25T00:00:00Z"
   }
 }

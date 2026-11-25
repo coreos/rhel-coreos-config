@@ -979,25 +979,25 @@
       "evra": "1.6-8.el9.s390x"
     },
     "nspr": {
-      "evra": "4.39.0-5.el9.s390x"
+      "evra": "4.39.0-7.el9.s390x"
     },
     "nss": {
-      "evra": "3.124.0-5.el9.s390x"
+      "evra": "3.124.0-7.el9.s390x"
     },
     "nss-altfiles": {
       "evra": "2.18.1-20.el9.s390x"
     },
     "nss-softokn": {
-      "evra": "3.124.0-5.el9.s390x"
+      "evra": "3.124.0-7.el9.s390x"
     },
     "nss-softokn-freebl": {
-      "evra": "3.124.0-5.el9.s390x"
+      "evra": "3.124.0-7.el9.s390x"
     },
     "nss-sysinit": {
-      "evra": "3.124.0-5.el9.s390x"
+      "evra": "3.124.0-7.el9.s390x"
     },
     "nss-util": {
-      "evra": "3.124.0-5.el9.s390x"
+      "evra": "3.124.0-7.el9.s390x"
     },
     "nvme-cli": {
       "evra": "2.16-2.el9.s390x"
@@ -1658,6 +1658,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-22T00:00:00Z"
+    "generated": "2026-11-25T00:00:00Z"
   }
 }
