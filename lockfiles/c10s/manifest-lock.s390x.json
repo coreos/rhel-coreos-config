@@ -946,25 +946,25 @@
       "evra": "1.6-21.el10.s390x"
     },
     "nspr": {
-      "evra": "4.39.0-5.el10.s390x"
+      "evra": "4.39.0-7.el10.s390x"
     },
     "nss": {
-      "evra": "3.124.0-5.el10.s390x"
+      "evra": "3.124.0-7.el10.s390x"
     },
     "nss-altfiles": {
       "evra": "2.23.0-6.el10.s390x"
     },
     "nss-softokn": {
-      "evra": "3.124.0-5.el10.s390x"
+      "evra": "3.124.0-7.el10.s390x"
     },
     "nss-softokn-freebl": {
-      "evra": "3.124.0-5.el10.s390x"
+      "evra": "3.124.0-7.el10.s390x"
     },
     "nss-sysinit": {
-      "evra": "3.124.0-5.el10.s390x"
+      "evra": "3.124.0-7.el10.s390x"
     },
     "nss-util": {
-      "evra": "3.124.0-5.el10.s390x"
+      "evra": "3.124.0-7.el10.s390x"
     },
     "nvidia-gpu-firmware": {
       "evra": "20260812-27.el10.noarch"
@@ -1616,6 +1616,6 @@
     }
   },
   "metadata": {
-    "generated": "2026-11-22T00:00:00Z"
+    "generated": "2026-11-25T00:00:00Z"
   }
 }
