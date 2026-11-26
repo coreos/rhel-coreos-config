@@ -96,3 +96,4 @@ spec:
     resolver: bundles
   taskRunTemplate:
     serviceAccountName: build-pipeline-rhel-coreos-10-2
+
