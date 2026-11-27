@@ -19,7 +19,6 @@
   arches:
     - ppc64le
   streams:
-    - rhel-9.8
     - rhel-10.2
 
 - pattern: "*fips*"
